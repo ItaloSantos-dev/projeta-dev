@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import santzin.projeta.dev.model.enums.UserProfessionalLevel;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_user")
@@ -39,5 +40,8 @@ public class UserModel {
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
+
+    @OneToMany(mappedBy = "user")
+    private List<ProjectUserModel> projects;
 }
 

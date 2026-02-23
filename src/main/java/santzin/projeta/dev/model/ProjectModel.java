@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import santzin.projeta.dev.model.enums.ProjectInputType;
+import santzin.projeta.dev.model.enums.ProjectStatus;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_project")
@@ -30,15 +33,21 @@ public class ProjectModel {
     private String stack;
 
     @Column(name = "status", nullable = false)
-    private String status;
+    private ProjectStatus status;
 
     @Column(name = "input_type", nullable = false)
-    private String inputType;
+    private ProjectInputType inputType;
 
     @Column(name = "repository_link")
     private String repositoryLink;
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
+
+    @OneToMany(mappedBy = "project")
+    private List<ProjectUserModel> users;
+
+    @OneToMany(mappedBy = "project")
+    private List<ProjectPositionModel> positions;
 }
 
