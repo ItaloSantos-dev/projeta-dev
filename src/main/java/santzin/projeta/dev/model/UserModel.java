@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import santzin.projeta.dev.model.enums.UserProfessionalLevel;
 
 import java.time.LocalDate;
 
@@ -31,7 +32,7 @@ public class UserModel {
     private String telephoneNumber;
 
     @Column(name = "experience_level", nullable = false )
-    private String professionalLevel;
+    private UserProfessionalLevel professionalLevel;
 
     @Column(name = "principal_stack")
     private String principalStack;
