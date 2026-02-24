@@ -20,7 +20,7 @@ public class ProjectModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "title", length = 50, nullable = false)
     private String title;
 
     @Column(name = "img_url")
@@ -43,6 +43,10 @@ public class ProjectModel {
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_creator_id")
+    private UserModel creator;
 
     @OneToMany(mappedBy = "project")
     private List<ProjectUserModel> users;

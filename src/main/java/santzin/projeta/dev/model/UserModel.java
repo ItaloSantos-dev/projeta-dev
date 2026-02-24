@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import santzin.projeta.dev.model.enums.UserProfessionalLevel;
+import santzin.projeta.dev.model.enums.UserExperienceLevel;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,13 +33,17 @@ public class UserModel {
     private String telephoneNumber;
 
     @Column(name = "experience_level", nullable = false )
-    private UserProfessionalLevel professionalLevel;
+    private UserExperienceLevel experienceLevel;
 
     @Column(name = "principal_stack")
     private String principalStack;
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
+
+    @OneToMany(mappedBy = "creator")
+    private List<ProjectModel> myProjects;
+
 
     @OneToMany(mappedBy = "user")
     private List<ProjectUserModel> projects;
