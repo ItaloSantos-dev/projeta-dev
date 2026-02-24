@@ -1,10 +1,10 @@
 package santzin.projeta.dev.infra.external;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import santzin.projeta.dev.DTOs.ContentResponseDTO;
 
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public class NewsLetterAPI {
 
     private final String urlBase = "https://www.tabnews.com.br/api/v1";
 
-    public String getContents(int page, int perPage, String strategy){
+    public ResponseEntity<ContentResponseDTO[]> getContents(int page, int perPage, String strategy){
 
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
@@ -23,7 +23,8 @@ public class NewsLetterAPI {
 
         String urlFinal = urlBase+"/contents?page={page}&per_page={perPage}&strategy={strategy}";
 
-        return restTemplate.getForObject(urlFinal, String.class, params);
-
+        return restTemplate.getForEntity(urlFinal, ContentResponseDTO[].class, params);
     }
+
+
 }
