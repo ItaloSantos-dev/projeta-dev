@@ -1,5 +1,5 @@
 CREATE TABLE tb_project(
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     title  VARCHAR(50)  NOT NULL,
     img_url TEXT,
     description TEXT NOT NULL,

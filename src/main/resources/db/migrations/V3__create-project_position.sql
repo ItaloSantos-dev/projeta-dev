@@ -1,5 +1,5 @@
 CREATE TABLE tb_project_position(
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     name varchar(50) NOT NULL,
     project_id BIGINT NOT NULL,
 

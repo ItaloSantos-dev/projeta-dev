@@ -1,5 +1,5 @@
 CREATE TABLE tb_project_user (
-    id BIGINT PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     project_id BIGINT NOT NULL,
     user_id BIGINT NOT NULL,
     position_id BIGINT NOT NULL,
