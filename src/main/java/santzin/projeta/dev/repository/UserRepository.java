@@ -8,4 +8,5 @@ import santzin.projeta.dev.model.UserModel;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
     UserDetails findByEmail(String email);
+    Boolean existsByEmail(String email);
 }
