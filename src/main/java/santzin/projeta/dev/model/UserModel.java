@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import santzin.projeta.dev.model.enums.UserExperienceLevel;
+import santzin.projeta.dev.model.enums.UserRole;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,6 +29,9 @@ public class UserModel {
 
     @Column(name = "password",nullable = false)
     private String password;
+
+    @Column(name = "role", length = 20,nullable = false)
+    private UserRole role;
 
     @Column(name = "telephone_number", length = 12, nullable = false, unique = true)
     private String telephoneNumber;
