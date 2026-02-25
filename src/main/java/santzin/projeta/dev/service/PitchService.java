@@ -24,14 +24,10 @@ public class PitchService {
         ResponseEntity<ContentResponseDTO[]> response = this.newsLetterAPI.getContents(1, 50, "relevant");
         if(response.getStatusCode()!= HttpStatus.OK) throw new RuntimeException("Deu ruin");
 
-        List<ContentResponseSimplifiedDTO> contentsFilted = Arrays.stream(response.getBody())
+        return Arrays.stream(response.getBody())
                 .filter(c -> c.title().toLowerCase().contains("pitch"))
                 .map( c -> contentMapper.responseToResponseSimplified(c))
                 .toList();
-
-
-
-        return contentsFilted;
     }
 
 
