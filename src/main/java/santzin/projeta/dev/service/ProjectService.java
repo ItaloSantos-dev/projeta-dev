@@ -7,6 +7,7 @@ import santzin.projeta.dev.DTOs.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.UpdateProjectRequestDTO;
 import santzin.projeta.dev.mapper.ProjectMapper;
 import santzin.projeta.dev.model.ProjectModel;
+import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.repository.ProjectRepository;
 
 import java.util.List;
@@ -27,25 +28,33 @@ public class ProjectService {
                 .toList();
     }
 
-    public ProjectResponseDTO createProject(CreateProjectRequestDTO requestDTO){
-        ProjectModel projectModel = this.projectMapper.requestCreateToModel(requestDTO);
+    public ProjectResponseDTO createProject(CreateProjectRequestDTO requestDTO, UserModel user){
+        ProjectModel projectModel = this.projectMapper.requestCreateToModel(requestDTO, user);
         ProjectResponseDTO response = this.projectMapper.modelToResponse(this.projectRepository.save(projectModel));
         return response;
     }
 
     public ProjectResponseDTO getById(Long id){
-        return this.projectMapper.modelToResponse(this.projectRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Deu ruin Pegar")));
+         return this.projectMapper.modelToResponse(this.projectRepository.findById(id)
+                 .orElseThrow(()->new RuntimeException("Deu ruin Pegar")));
     }
 
-    public void deleteById(Long id){
-        if (! projectRepository.existsById(id)) throw new RuntimeException("Deu ruin apagar");
+    public void deleteById(Long id, UserModel user){
+        ProjectModel project = this.projectRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Deu ruin apagar"));
+
+        if(!project.getCreator().getId().equals(user.getId()))
+            throw  new RuntimeException("Deu ruin, tu né dono não");
+
         this.projectRepository.deleteById(id);
     }
 
-    public ProjectResponseDTO UpdateById(Long id, UpdateProjectRequestDTO requestDTO){
+    public ProjectResponseDTO UpdateById(Long id, UpdateProjectRequestDTO requestDTO, UserModel user){
 
         ProjectModel project = this.projectRepository.findById(id).orElseThrow(()->new RuntimeException("Deu ruin editar"));
+
+        if(!project.getCreator().getId().equals(user.getId()))
+            throw  new RuntimeException("Deu ruin, tu né dono não");
 
         this.projectMapper.updateModel(project,requestDTO);
 

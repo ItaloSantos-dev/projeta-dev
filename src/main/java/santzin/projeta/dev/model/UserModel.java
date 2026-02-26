@@ -4,9 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import santzin.projeta.dev.model.enums.UserExperienceLevel;
+import santzin.projeta.dev.model.enums.UserRole;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -15,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 
-public class UserModel {
+public class UserModel implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +33,9 @@ public class UserModel {
 
     @Column(name = "password",nullable = false)
     private String password;
+
+    @Column(name = "role", length = 20,nullable = false)
+    private UserRole role;
 
     @Column(name = "telephone_number", length = 12, nullable = false, unique = true)
     private String telephoneNumber;
@@ -47,5 +55,38 @@ public class UserModel {
 
     @OneToMany(mappedBy = "user")
     private List<ProjectUserModel> projects;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role==UserRole.ADMIN)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
 
