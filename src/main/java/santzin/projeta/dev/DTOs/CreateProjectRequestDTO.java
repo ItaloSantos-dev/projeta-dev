@@ -11,7 +11,6 @@ public record CreateProjectRequestDTO(
         String description,
         String stack,
         ProjectInputType inputType,
-        String repositoryLink,
-        Long creator_id
+        String repositoryLink
 ) {
 }
