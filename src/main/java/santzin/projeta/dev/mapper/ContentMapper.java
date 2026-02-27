@@ -1,8 +1,8 @@
 package santzin.projeta.dev.mapper;
 
 import org.springframework.stereotype.Component;
-import santzin.projeta.dev.DTOs.ContentResponseDTO;
-import santzin.projeta.dev.DTOs.ContentResponseSimplifiedDTO;
+import santzin.projeta.dev.DTOs.content.ContentResponseDTO;
+import santzin.projeta.dev.DTOs.content.ContentResponseSimplifiedDTO;
 
 @Component
 public class ContentMapper {

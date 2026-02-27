@@ -47,7 +47,7 @@ public class TokenService {
                     .getSubject();
         }
         catch (JWTVerificationException e){
-            throw new RuntimeException("Deu ruin autenticar token");
+            return "";
         }
     }
 

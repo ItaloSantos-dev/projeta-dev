@@ -3,8 +3,8 @@ package santzin.projeta.dev.mapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import santzin.projeta.dev.DTOs.RegisterRequestDTO;
-import santzin.projeta.dev.DTOs.UserResponseDTO;
+import santzin.projeta.dev.DTOs.auth.RegisterRequestDTO;
+import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.UserRole;
 

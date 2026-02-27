@@ -3,7 +3,7 @@ package santzin.projeta.dev.infra.external;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import santzin.projeta.dev.DTOs.ContentResponseDTO;
+import santzin.projeta.dev.DTOs.content.ContentResponseDTO;
 
 import java.util.HashMap;
 import java.util.Map;

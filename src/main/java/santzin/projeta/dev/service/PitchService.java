@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import santzin.projeta.dev.DTOs.ContentResponseSimplifiedDTO;
-import santzin.projeta.dev.DTOs.ContentResponseDTO;
+import santzin.projeta.dev.DTOs.content.ContentResponseSimplifiedDTO;
+import santzin.projeta.dev.DTOs.content.ContentResponseDTO;
 import santzin.projeta.dev.infra.external.NewsLetterAPI;
 import santzin.projeta.dev.mapper.ContentMapper;
 

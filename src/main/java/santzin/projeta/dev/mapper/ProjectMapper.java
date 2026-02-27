@@ -2,11 +2,11 @@ package santzin.projeta.dev.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import santzin.projeta.dev.DTOs.CreateProjectRequestDTO;
-import santzin.projeta.dev.DTOs.ProjectResponseDTO;
-import santzin.projeta.dev.DTOs.UpdateProjectRequestDTO;
+import santzin.projeta.dev.DTOs.project.CreateProjectRequestDTO;
+import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
+import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
+import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.ProjectModel;
-import santzin.projeta.dev.model.ProjectUserModel;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.ProjectStatus;
 import santzin.projeta.dev.repository.UserRepository;
@@ -33,10 +33,24 @@ public class ProjectMapper {
         project.setCreatedAt(LocalDate.now());
 
 
+
         return project;
     }
 
     public ProjectResponseDTO modelToResponse(ProjectModel project) {
+        List<UserResponseDTO> users = project.getUsers().stream()
+                .map( u -> new UserResponseDTO(
+                        u.getUser().getName(),
+                        u.getUser().getEmail(),
+                        u.getUser().getExperienceLevel(),
+                        u.getUser().getTelephoneNumber(),
+                        u.getUser().getPrincipalStack()
+                ))
+                .toList();
+
+        List<String> positions = project.getPositions().stream()
+                .map(p -> p.getName())
+                .toList();
 
         return new ProjectResponseDTO(
                 project.getId(),
@@ -48,8 +62,8 @@ public class ProjectMapper {
                 project.getInputType(),
                 project.getRepositoryLink(),
                 project.getCreatedAt(),
-                project.getUsers(),
-                project.getPositions()
+                users,
+                positions
         );
     }
 
