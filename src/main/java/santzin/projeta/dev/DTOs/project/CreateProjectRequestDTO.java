@@ -1,9 +1,6 @@
-package santzin.projeta.dev.DTOs;
+package santzin.projeta.dev.DTOs.project;
 
 import santzin.projeta.dev.model.enums.ProjectInputType;
-import santzin.projeta.dev.model.enums.ProjectStatus;
-
-import java.time.LocalDate;
 
 public record CreateProjectRequestDTO(
         String title,
@@ -11,6 +8,7 @@ public record CreateProjectRequestDTO(
         String description,
         String stack,
         ProjectInputType inputType,
-        String repositoryLink
+        String repositoryLink,
+        String principalPosition
 ) {
 }

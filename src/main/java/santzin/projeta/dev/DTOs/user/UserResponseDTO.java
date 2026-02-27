@@ -1,13 +1,12 @@
-package santzin.projeta.dev.DTOs;
+package santzin.projeta.dev.DTOs.user;
 
 import santzin.projeta.dev.model.enums.UserExperienceLevel;
 
-public record RegisterRequestDTO(
+public record UserResponseDTO (
         String name,
         String email,
-        String password,
-        String telephoneNumber,
         UserExperienceLevel experienceLevel,
+        String telephoneNumber,
         String principalStack
-) {
+){
 }

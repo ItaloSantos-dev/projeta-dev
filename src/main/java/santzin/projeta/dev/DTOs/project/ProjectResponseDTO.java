@@ -1,8 +1,7 @@
-package santzin.projeta.dev.DTOs;
+package santzin.projeta.dev.DTOs.project;
 
 
-import santzin.projeta.dev.model.ProjectPositionModel;
-import santzin.projeta.dev.model.ProjectUserModel;
+import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.enums.ProjectInputType;
 import santzin.projeta.dev.model.enums.ProjectStatus;
 
@@ -19,7 +18,7 @@ public record ProjectResponseDTO(
         ProjectInputType inputType,
         String repositoryLink,
         LocalDate createdAt,
-        List<ProjectUserModel> users,
-        List<ProjectPositionModel> positions
+        List<UserResponseDTO> users,
+        List<String> positions
 ) {
 }

@@ -1,4 +1,4 @@
-package santzin.projeta.dev.DTOs;
+package santzin.projeta.dev.DTOs.content;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;

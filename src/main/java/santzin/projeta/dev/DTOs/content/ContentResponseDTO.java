@@ -1,4 +1,4 @@
-package santzin.projeta.dev.DTOs;
+package santzin.projeta.dev.DTOs.content;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

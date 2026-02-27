@@ -1,4 +1,4 @@
-package santzin.projeta.dev.DTOs;
+package santzin.projeta.dev.DTOs.project;
 
 import santzin.projeta.dev.model.enums.ProjectInputType;
 import santzin.projeta.dev.model.enums.ProjectStatus;
