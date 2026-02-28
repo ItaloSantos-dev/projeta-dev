@@ -14,8 +14,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.test.context.ActiveProfiles;
 import santzin.projeta.dev.DTOs.auth.LoginRequestDTO;
+import santzin.projeta.dev.DTOs.auth.RegisterRequestDTO;
+import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.mapper.UserMapper;
 import santzin.projeta.dev.model.UserModel;
+import santzin.projeta.dev.model.enums.UserExperienceLevel;
+import santzin.projeta.dev.model.enums.UserRole;
 import santzin.projeta.dev.repository.UserRepository;
 
 import static org.assertj.core.api.Assertions.anyOf;
@@ -66,13 +70,12 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("Informações enviadas incorretamente resultaram em falha no login.")
+    @DisplayName("Submit wrong informations and throw exception")
     void loginCase2() {
-        LoginRequestDTO request = new LoginRequestDTO("italo@gmail.com", "1131");
+        LoginRequestDTO request = new LoginRequestDTO("italo@gmail.com", "1515");
 
         Authentication authMock = Mockito.mock(Authentication.class);
 
-        UserModel userMock = Mockito.mock(UserModel.class);
 
         Mockito.when(authenticationManager.authenticate(Mockito.any())).thenReturn(authMock);
 
@@ -82,12 +85,43 @@ class AuthServiceTest {
     }
 
     @Test
-    @DisplayName("Enviou infos certa e deu bom")
+    @DisplayName("submit correctly information and return the successful")
     void registerCase1() {
+        RegisterRequestDTO request = new RegisterRequestDTO("italo", "italo@gmail", "1515", "99981587631", UserExperienceLevel.JUNIOR, "Java, Spring");
+
+        UserResponseDTO result = new UserResponseDTO("italo", "italo@gmail", UserExperienceLevel.JUNIOR, "99981587631", "Java, Spring");
+
+        UserModel userModel = new UserModel();
+        userModel.setId(1L);
+        userModel.setName("italo");
+        userModel.setEmail("italo@gmail");
+        userModel.setPassword("1515");
+        userModel.setRole(UserRole.USER);
+        userModel.setTelephoneNumber("99981587631");
+        userModel.setExperienceLevel(UserExperienceLevel.JUNIOR);
+        userModel.setPrincipalStack("Java, Spring");
+
+        Mockito.when(this.userRepository.existsByEmail(Mockito.any())).thenReturn(false);
+
+        Mockito.when(this.userMapper.requestRegisterToModel(Mockito.any())).thenReturn(userModel);
+
+        Mockito.when(this.userRepository.save(Mockito.any()))
+                .thenReturn(userModel);
+
+        Mockito.when(this.userMapper.modelToResponse(Mockito.any()))
+                .thenReturn(result);
+
+        assertEquals(this.authService.register(request), result);
+
     }
 
     @Test
-    @DisplayName("Enviou email ja cadastrado e deu ruin")
+    @DisplayName("Submit wrong informations and throw exception")
     void registerCase2() {
+        RegisterRequestDTO request = new RegisterRequestDTO("italo", "italo@gmail", "1515", "99981587631", UserExperienceLevel.JUNIOR, "Java, Spring");
+
+        Mockito.when(this.userRepository.existsByEmail(Mockito.any())).thenReturn(true);
+
+        assertThrows(RuntimeException.class, ()-> this.authService.register(request));
     }
 }
