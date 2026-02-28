@@ -10,7 +10,7 @@ import santzin.projeta.dev.service.ProjectPositionService;
 
 @RestController
 @RequestMapping("positions")
-public class PorjectPositionController {
+public class ProjectPositionController {
     @Autowired
     private ProjectPositionService projectPositionService;
 
