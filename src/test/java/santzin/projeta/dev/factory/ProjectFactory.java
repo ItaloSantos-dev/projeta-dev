@@ -2,8 +2,10 @@ package santzin.projeta.dev.factory;
 
 import santzin.projeta.dev.DTOs.project.CreateProjectRequestDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
+import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.enums.ProjectInputType;
+import santzin.projeta.dev.model.enums.ProjectStatus;
 
 import java.util.List;
 
@@ -48,6 +50,18 @@ public class ProjectFactory {
                     List.of(),
                     List.of("Backend Developer")
             );
+        }
+
+        public static UpdateProjectRequestDTO updateProjectRequestDTO() {
+            return new UpdateProjectRequestDTO(
+                    "Sistema de Gestão de Projetos",
+                    "https://meusite.com/imagens/projeto.png",
+                    "Sistema para gerenciar projetos e usuários com permissões",
+                    ProjectStatus.CLOSED,
+                    "Java, Spring Boot, PostgreSQL",
+                    ProjectInputType.PAID,
+                    "https://github.com/italo/projeto-gestao"
+                    );
         }
     }
 }
