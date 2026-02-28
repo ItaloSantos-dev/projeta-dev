@@ -59,12 +59,12 @@ class ProjectServiceTest {
 
         UserModel user = UserFactory.UserFactoryBuilder.userModel();
 
-        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel(request);
+        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel();
 
         ProjectPositionModel position = ProjectPositionFactory.ProjectPositionFactoryBuilder.projectPositionModel(project);
 
 
-        ProjectUserModel projectUserModel = ProjectUserlFactory.ProjectUserFactoryBuilder.projectUserModel(project, user, position);
+        ProjectUserModel projectUserModel = ProjectUserlFactory.ProjectUserFactoryBuilder.projectUserModel();
 
         ProjectResponseDTO projectResponseDTO = ProjectFactory.ProjectFactoryBuilder.projectResponseDTO(project);
 
@@ -105,7 +105,7 @@ class ProjectServiceTest {
     void deleteByIdCase1() {
         UserModel user = UserFactory.UserFactoryBuilder.userModel();
 
-        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel(ProjectFactory.ProjectFactoryBuilder.projectRequestDTO());
+        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel();
 
         project.setCreator(user);
 
@@ -121,7 +121,7 @@ class ProjectServiceTest {
     void deleteByIdCase2() {
         UserModel user = UserFactory.UserFactoryBuilder.userModel();
 
-        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel(ProjectFactory.ProjectFactoryBuilder.projectRequestDTO());
+        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel();
 
         UserModel user2 = UserFactory.UserFactoryBuilder.userModel();
         user2.setId(2L);
@@ -140,7 +140,7 @@ class ProjectServiceTest {
 
         UserModel user = UserFactory.UserFactoryBuilder.userModel();
 
-        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel(ProjectFactory.ProjectFactoryBuilder.projectRequestDTO());
+        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel();
         project.setCreator(user);
 
         Mockito.when(this.projectRepository.findById(Mockito.any()))
@@ -162,7 +162,7 @@ class ProjectServiceTest {
 
         UserModel user = UserFactory.UserFactoryBuilder.userModel();
 
-        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel(ProjectFactory.ProjectFactoryBuilder.projectRequestDTO());
+        ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel();
         project.setCreator(user);
 
         UserModel user2 = UserFactory.UserFactoryBuilder.userModel();

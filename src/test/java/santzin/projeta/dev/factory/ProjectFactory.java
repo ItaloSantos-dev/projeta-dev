@@ -23,7 +23,8 @@ public class ProjectFactory {
             );
         }
 
-        public static ProjectModel projectModel(CreateProjectRequestDTO request){
+        public static ProjectModel projectModel( ){
+            CreateProjectRequestDTO request = ProjectFactoryBuilder.projectRequestDTO();
             ProjectModel project = new ProjectModel();
             project.setId(1L);
             project.setTitle(request.title());
@@ -31,6 +32,7 @@ public class ProjectFactory {
             project.setDescription(request.description());
             project.setStack(request.stack());
             project.setInputType(request.inputType());
+            project.setStatus(ProjectStatus.OPEND);
             project.setRepositoryLink(request.repositoryLink());
 
             return project;

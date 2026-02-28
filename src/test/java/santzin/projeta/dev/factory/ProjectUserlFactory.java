@@ -7,7 +7,11 @@ import santzin.projeta.dev.model.UserModel;
 
 public class ProjectUserlFactory {
     public static class ProjectUserFactoryBuilder {
-        public static ProjectUserModel projectUserModel(ProjectModel project, UserModel user, ProjectPositionModel position) {
+        public static ProjectUserModel projectUserModel( ) {
+            ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel();
+            UserModel user = UserFactory.UserFactoryBuilder.userModel();
+            ProjectPositionModel position = ProjectPositionFactory.ProjectPositionFactoryBuilder.projectPositionModel(project);
+
             ProjectUserModel projectUserModel = new ProjectUserModel();
             projectUserModel.setId(1L);
             projectUserModel.setProject(project);
