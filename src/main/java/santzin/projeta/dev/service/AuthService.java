@@ -14,6 +14,7 @@ import santzin.projeta.dev.repository.UserRepository;
 
 @Service
 public class AuthService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -28,7 +29,7 @@ public class AuthService {
 
     public String login(LoginRequestDTO requestDTO){
         Authentication usernamePassword = new UsernamePasswordAuthenticationToken(requestDTO.email(), requestDTO.password());
-        Authentication auth =  authenticationManager.authenticate(usernamePassword);
+        Authentication auth =  this.authenticationManager.authenticate(usernamePassword);
         if (!auth.isAuthenticated())
             throw new RuntimeException("Deu ruin logar");
         return tokenService.generateToken((UserModel) auth.getPrincipal());
