@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface ProjectRepository extends JpaRepository<ProjectModel, Long> {
     List<ProjectModel> findByCreatorId(Long userId);
+
+    Boolean existsByTitleAndCreatorId(String name, Long creatorId);
 }

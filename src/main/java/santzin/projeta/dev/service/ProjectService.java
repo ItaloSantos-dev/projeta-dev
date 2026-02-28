@@ -69,6 +69,9 @@ public class ProjectService {
 
     @Transactional
     public ProjectResponseDTO createProject(CreateProjectRequestDTO requestDTO, UserModel user){
+        if (this.projectRepository.existsByTitleAndCreatorId(requestDTO.title(), user.getId()))
+            throw new RuntimeException("Deu ruin, tu já tem um projeto com esse nome");
+
         //Salva o projeto
         ProjectModel newProjectModel = this.projectRepository
                 .save(this.projectMapper.requestCreateToModel(requestDTO, user));
