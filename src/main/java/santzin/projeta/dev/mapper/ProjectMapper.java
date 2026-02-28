@@ -12,6 +12,7 @@ import santzin.projeta.dev.model.enums.ProjectStatus;
 import santzin.projeta.dev.repository.UserRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -38,19 +39,26 @@ public class ProjectMapper {
     }
 
     public ProjectResponseDTO modelToResponse(ProjectModel project) {
-        List<UserResponseDTO> users = project.getUsers().stream()
-                .map( u -> new UserResponseDTO(
-                        u.getUser().getName(),
-                        u.getUser().getEmail(),
-                        u.getUser().getExperienceLevel(),
-                        u.getUser().getTelephoneNumber(),
-                        u.getUser().getPrincipalStack()
-                ))
-                .toList();
+        List<UserResponseDTO> users = new ArrayList<>();
 
-        List<String> positions = project.getPositions().stream()
-                .map(p -> p.getName())
-                .toList();
+        if(project.getUsers()!=null){
+            users = project.getUsers().stream()
+                    .map(u -> new UserResponseDTO(
+                            u.getUser().getName(),
+                            u.getUser().getEmail(),
+                            u.getUser().getExperienceLevel(),
+                            u.getUser().getTelephoneNumber(),
+                            u.getUser().getPrincipalStack()
+                    ))
+                    .toList();
+        }
+
+        List<String> positions = new ArrayList<>();
+        if (project.getPositions()!=null){
+            positions = project.getPositions().stream()
+                    .map(p -> p.getName())
+                    .toList();
+        }
 
         return new ProjectResponseDTO(
                 project.getId(),
