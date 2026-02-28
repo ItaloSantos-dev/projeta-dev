@@ -16,6 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import santzin.projeta.dev.DTOs.auth.LoginRequestDTO;
 import santzin.projeta.dev.DTOs.auth.RegisterRequestDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
+import santzin.projeta.dev.factory.UserFactory;
 import santzin.projeta.dev.mapper.UserMapper;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.UserExperienceLevel;
@@ -87,19 +88,11 @@ class AuthServiceTest {
     @Test
     @DisplayName("submit correctly information and return the successful")
     void registerCase1() {
-        RegisterRequestDTO request = new RegisterRequestDTO("italo", "italo@gmail", "1515", "99981587631", UserExperienceLevel.JUNIOR, "Java, Spring");
+        RegisterRequestDTO request = UserFactory.UserFactoryBuilder.registerRequestDTO();
 
-        UserResponseDTO result = new UserResponseDTO("italo", "italo@gmail", UserExperienceLevel.JUNIOR, "99981587631", "Java, Spring");
+        UserResponseDTO result = UserFactory.UserFactoryBuilder.userResponseDTO();
 
-        UserModel userModel = new UserModel();
-        userModel.setId(1L);
-        userModel.setName("italo");
-        userModel.setEmail("italo@gmail");
-        userModel.setPassword("1515");
-        userModel.setRole(UserRole.USER);
-        userModel.setTelephoneNumber("99981587631");
-        userModel.setExperienceLevel(UserExperienceLevel.JUNIOR);
-        userModel.setPrincipalStack("Java, Spring");
+        UserModel userModel = UserFactory.UserFactoryBuilder.userModel();
 
         Mockito.when(this.userRepository.existsByEmail(Mockito.any())).thenReturn(false);
 
@@ -118,7 +111,7 @@ class AuthServiceTest {
     @Test
     @DisplayName("Submit wrong informations and throw exception")
     void registerCase2() {
-        RegisterRequestDTO request = new RegisterRequestDTO("italo", "italo@gmail", "1515", "99981587631", UserExperienceLevel.JUNIOR, "Java, Spring");
+        RegisterRequestDTO request = UserFactory.UserFactoryBuilder.registerRequestDTO();
 
         Mockito.when(this.userRepository.existsByEmail(Mockito.any())).thenReturn(true);
 
