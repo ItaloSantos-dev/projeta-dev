@@ -27,14 +27,14 @@ public class ProjectUserController {
     }
 
     @PostMapping
-    public ResponseEntity<ProjectUserResponseDTO> createProjectUser(@RequestBody CreateProjectUserDTO createProjectUserDTO){
+    public ResponseEntity<ProjectUserResponseDTO> createProjectUser(@RequestBody CreateProjectUserDTO createProjectUserDTO, @AuthenticationPrincipal UserModel user){
         System.out.println(createProjectUserDTO);
-        return ResponseEntity.ok(this.projectUserService.createProjectUser(createProjectUserDTO));
+        return ResponseEntity.ok(this.projectUserService.createProjectUser(createProjectUserDTO, user));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteByProjectIdAndUserId(@PathVariable Long id, @AuthenticationPrincipal  UserModel user){
-        this.projectUserService.deleteByUserIdAnProjectId(id, user);
+        this.projectUserService.deleteProjectUserById(id, user);
         return ResponseEntity.noContent().build();
     }
 

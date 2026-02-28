@@ -39,31 +39,42 @@ public class ProjectUserService {
         return this.projectUserMapper.modelToResponse(projectUser);
     }
 
-    public ProjectUserResponseDTO createProjectUser(CreateProjectUserDTO createProjectUserDTO){
+    public ProjectUserResponseDTO createProjectUser(CreateProjectUserDTO createProjectUserDTO, UserModel user ){
+
+
         ProjectModel project = this.projectRepository.findById(createProjectUserDTO.projectId())
                 .orElseThrow(()-> new RuntimeException("Não achou project"));
+
+        if (! (user.getId().equals(project.getCreator().getId()) ||
+            user.getId().equals(createProjectUserDTO.userId())) )
+            throw new RuntimeException("Tu n pode add tu mesmo ou tu n é o criador do projeto");
 
         if (project.getStatus()!= ProjectStatus.OPEND)
             throw new RuntimeException("O projesto esta " +project.getStatus() );
 
-        UserModel user = this.userRepository.findById(createProjectUserDTO.userId())
+        UserModel userOfRelation = this.userRepository.findById(createProjectUserDTO.userId())
                 .orElseThrow(()-> new RuntimeException("Não achou user"));
 
         ProjectPositionModel position = this.projectPositionRepository.findById(createProjectUserDTO.positionId())
                 .orElseThrow(()-> new RuntimeException("Não achou position"));
 
-        ProjectUserModel projectUserModel = this.projectUserMapper.createToModel(project, user, position);
+        if (!project.getId().equals(position.getProject().getId()))
+            throw  new RuntimeException("Essa position não é desse projeto");
+
+        ProjectUserModel projectUserModel = this.projectUserMapper.createToModel(project, userOfRelation, position);
 
         return this.projectUserMapper.modelToResponse(this.projectUserRepository.save(projectUserModel));
+
 
     }
 
     @Transactional
-    public void deleteByUserIdAnProjectId(Long projectUserId, UserModel user){
+    public void deleteProjectUserById(Long projectUserId, UserModel user){
         ProjectUserModel projectUser = this.projectUserRepository.findById(projectUserId)
                 .orElseThrow(()-> new RuntimeException("Relação nao existe"));
 
-        if(!projectUser.getProject().getCreator().getId().equals(user.getId()))
+        if(!(projectUser.getProject().getCreator().getId().equals(user.getId()) ||
+        projectUser.getUser().getId().equals(user.getId())))
             throw  new RuntimeException("Essr projeto ne teu n p tu apagar user");
 
         this.projectUserRepository.deleteById(projectUserId);
@@ -73,11 +84,12 @@ public class ProjectUserService {
         ProjectUserModel projectUserModel = this.projectUserRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("Relação nao existe"));
 
-        ProjectPositionModel position = this.projectPositionRepository.findById(id)
+        ProjectPositionModel position = this.projectPositionRepository.findById(positionId)
                 .orElseThrow(() -> new RuntimeException("Essa posição n existe"));
 
         if (!projectUserModel.getProject().getCreator().getId().equals(user.getId()))
-            throw  new RuntimeException("Essr projeto ne teu n p tu apagar user");
+            throw  new RuntimeException("Essr projeto ne teu n p tu editar user");
+
         if (!projectUserModel.getProject().getId().equals(position.getProject().getId()))
             throw  new RuntimeException("Essa position não é desse projeto");
 
