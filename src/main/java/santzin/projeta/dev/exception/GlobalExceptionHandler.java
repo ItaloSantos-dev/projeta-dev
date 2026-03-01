@@ -45,4 +45,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
 
+    @ExceptionHandler(ItemWithValueAlreadyExistsException.class)
+    public ResponseEntity<ResponseExceptionDTO> handleItemWithValueAlreadyExistsException(ItemWithValueAlreadyExistsException ex){
+        ResponseExceptionDTO response = new ResponseExceptionDTO(
+                HttpStatus.CONFLICT,
+                ex.getMessage()
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
 }

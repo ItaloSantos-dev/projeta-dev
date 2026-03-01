@@ -8,6 +8,7 @@ import santzin.projeta.dev.DTOs.project.MyProjectsResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
 import santzin.projeta.dev.exception.ItemNotFoundException;
+import santzin.projeta.dev.exception.ItemWithValueAlreadyExistsException;
 import santzin.projeta.dev.exception.NotPermitException;
 import santzin.projeta.dev.mapper.ProjectMapper;
 import santzin.projeta.dev.model.ProjectModel;
@@ -72,7 +73,7 @@ public class ProjectService {
     @Transactional
     public ProjectResponseDTO createProject(CreateProjectRequestDTO requestDTO, UserModel user){
         if (this.projectRepository.existsByTitleAndCreatorId(requestDTO.title(), user.getId()))
-            throw new RuntimeException("Deu ruin, tu já tem um projeto com esse nome");
+            throw new ItemWithValueAlreadyExistsException("projeto", " título", requestDTO.title() );
 
         //Salva o projeto
         ProjectModel newProjectModel = this.projectRepository

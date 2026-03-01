@@ -47,7 +47,7 @@ public class ProjectUserService {
 
         if (! (user.getId().equals(project.getCreator().getId()) ||
             user.getId().equals(createProjectUserDTO.userId())) )
-            throw new RuntimeException("Tu n pode add tu mesmo ou tu n é o criador do projeto");
+            throw new NotPermitException();
 
         if (project.getStatus()!= ProjectStatus.OPEND)
             throw new RuntimeException("O projesto esta " +project.getStatus() );
@@ -59,7 +59,7 @@ public class ProjectUserService {
                 .orElseThrow(()->new ItemNotFoundException(createProjectUserDTO.positionId(), "posição"));
 
         if (!project.getId().equals(position.getProject().getId()))
-            throw  new RuntimeException("Essa position não é desse projeto");
+            throw new NotPermitException("A posição de id " + position.getId() + " não pertence ao projeto de id" + position.getProject().getId());
 
         ProjectUserModel projectUserModel = this.projectUserMapper.createToModel(project, userOfRelation, position);
 
@@ -91,7 +91,7 @@ public class ProjectUserService {
             throw new NotPermitException();
 
         if (!projectUserModel.getProject().getId().equals(position.getProject().getId()))
-            throw new NotPermitException("A permissão de id " + position.getId() + " não pertence ao projeto de id" + position.getProject().getId());
+            throw new NotPermitException("A posição de id " + position.getId() + " não pertence ao projeto de id" + position.getProject().getId());
 
         projectUserModel.setPosition(position);
 
