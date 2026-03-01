@@ -34,7 +34,7 @@ public class ProjectPositionService {
 
     public ProjectPositionResponseDTO getById(Long id){
         ProjectPositionModel position = this.projectPositionRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Deu ruin achar essa posição"));
+                .orElseThrow(()-> new ItemNotFoundException(id, "posição"));
         return this.projectPositionMapper.modelToResponse(position);
     }
 
@@ -43,7 +43,7 @@ public class ProjectPositionService {
             CreateProjectPositionRequestDTO createProjectPositionRequestDTO, UserModel user
     ){
         ProjectModel projectModel = this.projectRepository.findById(createProjectPositionRequestDTO.projectId())
-                .orElseThrow(()-> new RuntimeException("Deu ruin achar projeto pra ligar com position"));
+                .orElseThrow(()-> new ItemNotFoundException(createProjectPositionRequestDTO.projectId(), "projeto"));
 
         if (!projectModel.getCreator().getId().equals(user.getId())) throw new RuntimeException("Esse projeto ne teu n");
 
@@ -54,7 +54,7 @@ public class ProjectPositionService {
 
     public void deleteById(Long id, UserModel user){
         ProjectPositionModel position = this.projectPositionRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Deu ruin apagar"));
+                .orElseThrow(()-> new ItemNotFoundException(id, "posição"));
 
         if(!position.getProject().getCreator().getId().equals(user.getId()))
             throw  new RuntimeException("Deu ruin, tu né dono não");
@@ -64,7 +64,7 @@ public class ProjectPositionService {
 
     public ProjectPositionResponseDTO updateById(Long id, String newName, UserModel user){
         ProjectPositionModel position = this.projectPositionRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Deu ruin apagar"));
+                .orElseThrow(()-> new ItemNotFoundException(id, "posição"));;
 
         if(!position.getProject().getCreator().getId().equals(user.getId()))
             throw  new RuntimeException("Deu ruin, tu né dono não");

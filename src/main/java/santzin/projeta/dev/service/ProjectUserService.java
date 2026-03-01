@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import santzin.projeta.dev.DTOs.project_user.CreateProjectUserDTO;
 import santzin.projeta.dev.DTOs.project_user.ProjectUserResponseDTO;
+import santzin.projeta.dev.exception.ItemNotFoundException;
 import santzin.projeta.dev.mapper.ProjectUserMapper;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.ProjectPositionModel;
@@ -35,15 +36,13 @@ public class ProjectUserService {
 
     public ProjectUserResponseDTO getProjectUserById(Long id){
         ProjectUserModel projectUser = this.projectUserRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Não achou project/user"));
+                .orElseThrow(()->new ItemNotFoundException(id, "user"));
         return this.projectUserMapper.modelToResponse(projectUser);
     }
 
     public ProjectUserResponseDTO createProjectUser(CreateProjectUserDTO createProjectUserDTO, UserModel user ){
-
-
         ProjectModel project = this.projectRepository.findById(createProjectUserDTO.projectId())
-                .orElseThrow(()-> new RuntimeException("Não achou project"));
+                .orElseThrow(()->new ItemNotFoundException(createProjectUserDTO.projectId(), "projeto"));
 
         if (! (user.getId().equals(project.getCreator().getId()) ||
             user.getId().equals(createProjectUserDTO.userId())) )
@@ -53,10 +52,10 @@ public class ProjectUserService {
             throw new RuntimeException("O projesto esta " +project.getStatus() );
 
         UserModel userOfRelation = this.userRepository.findById(createProjectUserDTO.userId())
-                .orElseThrow(()-> new RuntimeException("Não achou user"));
+                .orElseThrow(()->new ItemNotFoundException(createProjectUserDTO.userId(), "user"));
 
         ProjectPositionModel position = this.projectPositionRepository.findById(createProjectUserDTO.positionId())
-                .orElseThrow(()-> new RuntimeException("Não achou position"));
+                .orElseThrow(()->new ItemNotFoundException(createProjectUserDTO.positionId(), "posição"));
 
         if (!project.getId().equals(position.getProject().getId()))
             throw  new RuntimeException("Essa position não é desse projeto");
@@ -71,7 +70,7 @@ public class ProjectUserService {
     @Transactional
     public void deleteProjectUserById(Long projectUserId, UserModel user){
         ProjectUserModel projectUser = this.projectUserRepository.findById(projectUserId)
-                .orElseThrow(()-> new RuntimeException("Relação nao existe"));
+                .orElseThrow(()->new ItemNotFoundException(projectUserId, "relação entre projeto e user"));
 
         if(!(projectUser.getProject().getCreator().getId().equals(user.getId()) ||
         projectUser.getUser().getId().equals(user.getId())))
@@ -82,10 +81,10 @@ public class ProjectUserService {
 
     public ProjectUserResponseDTO updateById(Long id, Long positionId, UserModel user){
         ProjectUserModel projectUserModel = this.projectUserRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Relação nao existe"));
+                .orElseThrow(()->new ItemNotFoundException(id, "relação entre projeto e user"));
 
         ProjectPositionModel position = this.projectPositionRepository.findById(positionId)
-                .orElseThrow(() -> new RuntimeException("Essa posição n existe"));
+                .orElseThrow(()->new ItemNotFoundException(positionId, "posição"));
 
         if (!projectUserModel.getProject().getCreator().getId().equals(user.getId()))
             throw  new RuntimeException("Essr projeto ne teu n p tu editar user");

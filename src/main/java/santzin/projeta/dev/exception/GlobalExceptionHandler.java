@@ -26,4 +26,13 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
+
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<ResponseExceptionDTO> handlerItemNotFoundException(ItemNotFoundException ex){
+        ResponseExceptionDTO response = new ResponseExceptionDTO(
+                HttpStatus.NOT_FOUND,
+                ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
 }

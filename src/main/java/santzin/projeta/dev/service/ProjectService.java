@@ -7,6 +7,7 @@ import santzin.projeta.dev.DTOs.project.CreateProjectRequestDTO;
 import santzin.projeta.dev.DTOs.project.MyProjectsResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
+import santzin.projeta.dev.exception.ItemNotFoundException;
 import santzin.projeta.dev.mapper.ProjectMapper;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.ProjectPositionModel;
@@ -95,13 +96,13 @@ public class ProjectService {
 
     public ProjectResponseDTO getById(Long id){
          return this.projectMapper.modelToResponse(this.projectRepository.findById(id)
-                 .orElseThrow(()->new RuntimeException("Deu ruin Pegar")));
+                 .orElseThrow(()->new ItemNotFoundException(id, "projeto")));
     }
 
     @Transactional
     public void deleteById(Long id, UserModel user){
         ProjectModel project = this.projectRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Deu ruin apagar"));
+                .orElseThrow(()->new ItemNotFoundException(id, "projeto"));
 
         if(!project.getCreator().getId().equals(user.getId()))
             throw  new RuntimeException("Deu ruin, tu né dono não");
@@ -112,7 +113,8 @@ public class ProjectService {
 
     public ProjectResponseDTO UpdateById(Long id, UpdateProjectRequestDTO requestDTO, UserModel user){
 
-        ProjectModel project = this.projectRepository.findById(id).orElseThrow(()->new RuntimeException("Deu ruin editar"));
+        ProjectModel project = this.projectRepository.findById(id)
+                .orElseThrow(()->new ItemNotFoundException(id, "projeto"));
 
         if(!project.getCreator().getId().equals(user.getId()))
             throw  new RuntimeException("Deu ruin, tu né dono não");
