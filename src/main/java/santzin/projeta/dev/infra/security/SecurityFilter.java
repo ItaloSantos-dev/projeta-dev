@@ -11,11 +11,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import santzin.projeta.dev.exception.FailedLoginException;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.repository.UserRepository;
 import santzin.projeta.dev.service.TokenService;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -33,7 +35,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             String email = this.tokenService.authenticateToken(token);
 
             UserModel user = (UserModel) this.userRepository.findByEmail(email)
-                    .orElseThrow(()-> new RuntimeException("Usuario nao encontrado"));
+                    .orElseThrow(()-> new FailedLoginException("Token inválido"));
 
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 

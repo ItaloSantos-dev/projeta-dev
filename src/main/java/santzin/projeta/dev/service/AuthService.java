@@ -30,8 +30,7 @@ public class AuthService {
     public String login(LoginRequestDTO requestDTO){
         Authentication usernamePassword = new UsernamePasswordAuthenticationToken(requestDTO.email(), requestDTO.password());
         Authentication auth =  this.authenticationManager.authenticate(usernamePassword);
-        if (!auth.isAuthenticated())
-            throw new RuntimeException("Deu ruin logar");
+
         return tokenService.generateToken((UserModel) auth.getPrincipal());
     }
 
