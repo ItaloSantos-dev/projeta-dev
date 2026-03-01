@@ -32,7 +32,8 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (token!=null){
             String email = this.tokenService.authenticateToken(token);
 
-            UserModel user = (UserModel) this.userRepository.findByEmail(email);
+            UserModel user = (UserModel) this.userRepository.findByEmail(email)
+                    .orElseThrow(()-> new RuntimeException("Usuario nao encontrado"));
 
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 

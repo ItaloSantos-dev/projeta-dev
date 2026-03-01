@@ -5,8 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import santzin.projeta.dev.model.UserModel;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Long> {
-    UserDetails findByEmail(String email);
+    Optional<UserDetails> findByEmail(String email);
     Boolean existsByEmail(String email);
 }
