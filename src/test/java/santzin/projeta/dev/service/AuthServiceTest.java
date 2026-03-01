@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ActiveProfiles;
 import santzin.projeta.dev.DTOs.auth.LoginRequestDTO;
 import santzin.projeta.dev.DTOs.auth.RegisterRequestDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
+import santzin.projeta.dev.exception.FailedLoginException;
+import santzin.projeta.dev.exception.FailedRegisterException;
 import santzin.projeta.dev.factory.UserFactory;
 import santzin.projeta.dev.mapper.UserMapper;
 import santzin.projeta.dev.model.UserModel;
@@ -49,7 +52,7 @@ class AuthServiceTest {
 
 
     @Test
-    @DisplayName("Submit correct information and log in successfully.")
+    @DisplayName("Submit correct information and login successfully.")
     void loginCase1() {
         LoginRequestDTO request = new LoginRequestDTO("italo@gmail.com", "1131");
 
@@ -59,7 +62,6 @@ class AuthServiceTest {
 
         Mockito.when(authenticationManager.authenticate(Mockito.any())).thenReturn(authMock);
 
-        Mockito.when(authMock.isAuthenticated()).thenReturn(true);
 
         Mockito.when(authMock.getPrincipal()).thenReturn(userMock);
 
@@ -77,12 +79,10 @@ class AuthServiceTest {
 
         Authentication authMock = Mockito.mock(Authentication.class);
 
+        Mockito.when(authenticationManager.authenticate(Mockito.any())).thenThrow(new UsernameNotFoundException("Usuario nao encontrado"));
 
-        Mockito.when(authenticationManager.authenticate(Mockito.any())).thenReturn(authMock);
 
-        Mockito.when(authMock.isAuthenticated()).thenReturn(false);
-
-        assertThrows(RuntimeException.class, ()-> authService.login(request));
+        assertThrows(UsernameNotFoundException.class, ()-> authService.login(request));
     }
 
     @Test
@@ -115,6 +115,6 @@ class AuthServiceTest {
 
         Mockito.when(this.userRepository.existsByEmail(Mockito.any())).thenReturn(true);
 
-        assertThrows(RuntimeException.class, ()-> this.authService.register(request));
+        assertThrows(FailedRegisterException.class, ()-> this.authService.register(request));
     }
 }

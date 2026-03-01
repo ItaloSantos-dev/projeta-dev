@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import santzin.projeta.dev.DTOs.project_user.CreateProjectUserDTO;
+import santzin.projeta.dev.exception.NotPermitException;
 import santzin.projeta.dev.factory.ProjectFactory;
 import santzin.projeta.dev.factory.ProjectPositionFactory;
 import santzin.projeta.dev.factory.ProjectUserlFactory;
@@ -115,6 +116,7 @@ class ProjectUserServiceTest {
 
         UserModel userCreator = UserFactory.UserFactoryBuilder.userModel();
         userCreator.setId(3L);
+        projectUserModel.getProject().setCreator(userCreator);
 
         CreateProjectUserDTO createProjectUserDTO = new CreateProjectUserDTO(
                 projectUserModel.getProject().getId(),
@@ -126,7 +128,7 @@ class ProjectUserServiceTest {
                 .thenReturn(Optional.of(projectUserModel.getProject()));
 
 
-        assertThrows(RuntimeException.class, () -> this.projectUserService.createProjectUser(createProjectUserDTO, user2));
+        assertThrows(NotPermitException.class, () -> this.projectUserService.createProjectUser(createProjectUserDTO, user2));
 
     }
 
@@ -254,7 +256,7 @@ class ProjectUserServiceTest {
         Mockito.when(this.projectPositionRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(newPosition));
 
-        assertThrows(RuntimeException.class, ()->this.projectUserService.updateById(projectUserModel.getId(), 2L, projectUserModel.getUser()));
+        assertThrows(NotPermitException.class, ()->this.projectUserService.updateById(projectUserModel.getId(), 2L, projectUserModel.getUser()));
 
     }
 }

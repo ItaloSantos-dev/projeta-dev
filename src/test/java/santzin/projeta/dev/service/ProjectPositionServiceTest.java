@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import santzin.projeta.dev.DTOs.project_position.CreateProjectPositionRequestDTO;
+import santzin.projeta.dev.exception.NotPermitException;
 import santzin.projeta.dev.factory.ProjectFactory;
 import santzin.projeta.dev.factory.ProjectPositionFactory;
 import santzin.projeta.dev.factory.UserFactory;
@@ -71,7 +72,7 @@ class ProjectPositionServiceTest {
         Mockito.when(this.projectRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(project));
 
-        assertThrows(RuntimeException.class, ()-> this.projectPositionService.createProjectPosition(request, anotherUser));
+        assertThrows(NotPermitException.class, ()-> this.projectPositionService.createProjectPosition(request, anotherUser));
     }
 
     @Test
@@ -92,7 +93,7 @@ class ProjectPositionServiceTest {
     }
 
     @Test
-    @DisplayName("Another user try create position in project that is not you, should throw")
+    @DisplayName("Another user try delete position in project that is not you, should throw")
     void deleteByIdCase2() {
         ProjectModel project = ProjectFactory.ProjectFactoryBuilder.projectModel();
         UserModel user = UserFactory.UserFactoryBuilder.userModel();
@@ -106,7 +107,7 @@ class ProjectPositionServiceTest {
         Mockito.when(this.projectPositionRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(position));
 
-        assertThrows(RuntimeException.class, ()-> this.projectPositionService.deleteById(project.getId(), anotherUser));
+        assertThrows(NotPermitException.class, ()-> this.projectPositionService.deleteById(project.getId(), anotherUser));
     }
 
     @Test
@@ -148,7 +149,7 @@ class ProjectPositionServiceTest {
         Mockito.when(this.projectPositionRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(position));
 
-        assertThrows(RuntimeException.class, () -> this.projectPositionService.updateById(position.getId(), newName, user2));
+        assertThrows(NotPermitException.class, () -> this.projectPositionService.updateById(position.getId(), newName, user2));
 
 
     }

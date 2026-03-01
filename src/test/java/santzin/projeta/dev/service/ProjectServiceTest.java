@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.User;
 import santzin.projeta.dev.DTOs.project.CreateProjectRequestDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
+import santzin.projeta.dev.exception.ItemWithValueAlreadyExistsException;
+import santzin.projeta.dev.exception.NotPermitException;
 import santzin.projeta.dev.factory.ProjectFactory;
 import santzin.projeta.dev.factory.ProjectPositionFactory;
 import santzin.projeta.dev.factory.ProjectUserlFactory;
@@ -97,7 +99,7 @@ class ProjectServiceTest {
     void createProjectCase2(){
         Mockito.when(this.projectRepository.existsByTitleAndCreatorId(Mockito.any(), Mockito.any())).thenReturn(true);
 
-        assertThrows(RuntimeException.class, ()-> this.projectService.createProject(ProjectFactory.ProjectFactoryBuilder.projectRequestDTO(), UserFactory.UserFactoryBuilder.userModel()));
+        assertThrows(ItemWithValueAlreadyExistsException.class, ()-> this.projectService.createProject(ProjectFactory.ProjectFactoryBuilder.projectRequestDTO(), UserFactory.UserFactoryBuilder.userModel()));
     }
 
     @Test
@@ -117,7 +119,7 @@ class ProjectServiceTest {
     }
 
     @Test
-    @DisplayName("User try delete a project that he is not the creator and throw RuntimeException")
+    @DisplayName("User try delete a project that he is not the creator and throw NotPermitException")
     void deleteByIdCase2() {
         UserModel user = UserFactory.UserFactoryBuilder.userModel();
 
@@ -130,7 +132,7 @@ class ProjectServiceTest {
 
         Mockito.when(this.projectRepository.findById(Mockito.any())).thenReturn(Optional.of(project));
 
-        assertThrows(RuntimeException.class, ()-> this.projectService.deleteById(project.getId(), user2));
+        assertThrows(NotPermitException.class, ()-> this.projectService.deleteById(project.getId(), user2));
 
     }
     @Test
@@ -156,7 +158,7 @@ class ProjectServiceTest {
     }
 
     @Test
-    @DisplayName("User try update a project that he is not the creator and throw RuntimeException")
+    @DisplayName("User try update a project that he is not the creator and throw NotPermitException")
     void updateByIdCase2() {
         UpdateProjectRequestDTO request = ProjectFactory.ProjectFactoryBuilder.updateProjectRequestDTO();
 
@@ -173,7 +175,7 @@ class ProjectServiceTest {
 
 
 
-        assertThrows(RuntimeException.class, () -> this.projectService.UpdateById(project.getId(), request, user2));
+        assertThrows(NotPermitException.class, () -> this.projectService.UpdateById(project.getId(), request, user2));
 
     }
 }
