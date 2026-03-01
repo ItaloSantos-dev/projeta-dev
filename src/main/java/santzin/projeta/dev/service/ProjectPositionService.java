@@ -3,7 +3,9 @@ package santzin.projeta.dev.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import santzin.projeta.dev.DTOs.project_position.CreateProjectPositionRequestDTO;
 import santzin.projeta.dev.DTOs.project_position.ProjectPositionResponseDTO;
+import santzin.projeta.dev.exception.ItemNotFoundException;
 import santzin.projeta.dev.mapper.ProjectPositionMapper;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.ProjectPositionModel;
@@ -38,14 +40,14 @@ public class ProjectPositionService {
 
     @Transactional
     public ProjectPositionResponseDTO createProjectPosition(
-            String name, Long projectId, UserModel user
+            CreateProjectPositionRequestDTO createProjectPositionRequestDTO, UserModel user
     ){
-        ProjectModel projectModel = this.projectRepository.findById(projectId)
+        ProjectModel projectModel = this.projectRepository.findById(createProjectPositionRequestDTO.projectId())
                 .orElseThrow(()-> new RuntimeException("Deu ruin achar projeto pra ligar com position"));
 
         if (!projectModel.getCreator().getId().equals(user.getId())) throw new RuntimeException("Esse projeto ne teu n");
 
-        ProjectPositionModel newPosition = this.projectPositionMapper.requestToModel(name, projectModel);
+        ProjectPositionModel newPosition = this.projectPositionMapper.requestToModel(createProjectPositionRequestDTO.name(), projectModel);
 
         return this.projectPositionMapper.modelToResponse(this.projectPositionRepository.save(newPosition));
     }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import santzin.projeta.dev.DTOs.project_position.CreateProjectPositionRequestDTO;
 import santzin.projeta.dev.DTOs.project_position.ProjectPositionResponseDTO;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.service.ProjectPositionService;
@@ -19,12 +20,12 @@ public class ProjectPositionController {
         return ResponseEntity.ok(this.projectPositionService.getById(id));
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("")
     public ResponseEntity<ProjectPositionResponseDTO> createPositionOfProject(
-            @RequestBody String name, @AuthenticationPrincipal UserModel user,
-            @PathVariable Long id
-    ){
-        return ResponseEntity.ok(this.projectPositionService.createProjectPosition(name, id, user));
+            @AuthenticationPrincipal UserModel user,
+            @RequestBody CreateProjectPositionRequestDTO createProjectPositionRequestDTO
+            ){
+        return ResponseEntity.ok(this.projectPositionService.createProjectPosition(createProjectPositionRequestDTO, user));
     }
 
     @PutMapping("/{id}")

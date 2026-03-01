@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import santzin.projeta.dev.DTOs.project_position.CreateProjectPositionRequestDTO;
 import santzin.projeta.dev.factory.ProjectFactory;
 import santzin.projeta.dev.factory.ProjectPositionFactory;
 import santzin.projeta.dev.factory.UserFactory;
@@ -48,7 +49,9 @@ class ProjectPositionServiceTest {
         Mockito.when(this.projectRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(project));
 
-        this.projectPositionService.createProjectPosition(name, project.getId(), user);
+        CreateProjectPositionRequestDTO request = new CreateProjectPositionRequestDTO(name, project.getId());
+
+        this.projectPositionService.createProjectPosition(request, user);
 
         Mockito.verify(this.projectPositionRepository, Mockito.times(1)).save(Mockito.any());
     }
@@ -63,11 +66,12 @@ class ProjectPositionServiceTest {
 
         UserModel anotherUser = UserFactory.UserFactoryBuilder.userModel();
         anotherUser.setId(2L);
+        CreateProjectPositionRequestDTO request = new CreateProjectPositionRequestDTO(name, project.getId());
 
         Mockito.when(this.projectRepository.findById(Mockito.any()))
                 .thenReturn(Optional.of(project));
 
-        assertThrows(RuntimeException.class, ()-> this.projectPositionService.createProjectPosition(name, project.getId(), anotherUser));
+        assertThrows(RuntimeException.class, ()-> this.projectPositionService.createProjectPosition(request, anotherUser));
     }
 
     @Test
