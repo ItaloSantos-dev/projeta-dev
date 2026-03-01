@@ -8,6 +8,7 @@ import santzin.projeta.dev.DTOs.project.MyProjectsResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
 import santzin.projeta.dev.exception.ItemNotFoundException;
+import santzin.projeta.dev.exception.NotPermitException;
 import santzin.projeta.dev.mapper.ProjectMapper;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.ProjectPositionModel;
@@ -105,7 +106,7 @@ public class ProjectService {
                 .orElseThrow(()->new ItemNotFoundException(id, "projeto"));
 
         if(!project.getCreator().getId().equals(user.getId()))
-            throw  new RuntimeException("Deu ruin, tu né dono não");
+            throw new NotPermitException();
 
 
         this.projectRepository.deleteById(id);
@@ -117,7 +118,7 @@ public class ProjectService {
                 .orElseThrow(()->new ItemNotFoundException(id, "projeto"));
 
         if(!project.getCreator().getId().equals(user.getId()))
-            throw  new RuntimeException("Deu ruin, tu né dono não");
+            throw new NotPermitException();
 
         this.projectMapper.updateModel(project,requestDTO);
 

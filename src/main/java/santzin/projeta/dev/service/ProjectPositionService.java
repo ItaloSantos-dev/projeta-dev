@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import santzin.projeta.dev.DTOs.project_position.CreateProjectPositionRequestDTO;
 import santzin.projeta.dev.DTOs.project_position.ProjectPositionResponseDTO;
 import santzin.projeta.dev.exception.ItemNotFoundException;
+import santzin.projeta.dev.exception.NotPermitException;
 import santzin.projeta.dev.mapper.ProjectPositionMapper;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.ProjectPositionModel;
@@ -45,7 +46,8 @@ public class ProjectPositionService {
         ProjectModel projectModel = this.projectRepository.findById(createProjectPositionRequestDTO.projectId())
                 .orElseThrow(()-> new ItemNotFoundException(createProjectPositionRequestDTO.projectId(), "projeto"));
 
-        if (!projectModel.getCreator().getId().equals(user.getId())) throw new RuntimeException("Esse projeto ne teu n");
+        if (!projectModel.getCreator().getId().equals(user.getId()))
+            throw new NotPermitException();
 
         ProjectPositionModel newPosition = this.projectPositionMapper.requestToModel(createProjectPositionRequestDTO.name(), projectModel);
 
@@ -57,7 +59,7 @@ public class ProjectPositionService {
                 .orElseThrow(()-> new ItemNotFoundException(id, "posição"));
 
         if(!position.getProject().getCreator().getId().equals(user.getId()))
-            throw  new RuntimeException("Deu ruin, tu né dono não");
+            throw new NotPermitException();
 
         this.projectPositionRepository.deleteById(id);
     }
@@ -67,7 +69,7 @@ public class ProjectPositionService {
                 .orElseThrow(()-> new ItemNotFoundException(id, "posição"));;
 
         if(!position.getProject().getCreator().getId().equals(user.getId()))
-            throw  new RuntimeException("Deu ruin, tu né dono não");
+            throw new NotPermitException();
 
         position.setName(newName);
         return this.projectPositionMapper.modelToResponse(this.projectPositionRepository.save(position));

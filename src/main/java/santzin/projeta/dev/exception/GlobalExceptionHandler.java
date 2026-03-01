@@ -35,4 +35,14 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
+
+    @ExceptionHandler(NotPermitException.class)
+    public ResponseEntity<ResponseExceptionDTO> handleNotPermitException(NotPermitException ex){
+        ResponseExceptionDTO response = new ResponseExceptionDTO(
+                HttpStatus.FORBIDDEN,
+                ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+    }
+
 }

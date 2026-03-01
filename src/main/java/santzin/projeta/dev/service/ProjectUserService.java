@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import santzin.projeta.dev.DTOs.project_user.CreateProjectUserDTO;
 import santzin.projeta.dev.DTOs.project_user.ProjectUserResponseDTO;
 import santzin.projeta.dev.exception.ItemNotFoundException;
+import santzin.projeta.dev.exception.NotPermitException;
 import santzin.projeta.dev.mapper.ProjectUserMapper;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.ProjectPositionModel;
@@ -74,7 +75,7 @@ public class ProjectUserService {
 
         if(!(projectUser.getProject().getCreator().getId().equals(user.getId()) ||
         projectUser.getUser().getId().equals(user.getId())))
-            throw  new RuntimeException("Essr projeto ne teu n p tu apagar user");
+            throw new NotPermitException();
 
         this.projectUserRepository.deleteById(projectUserId);
     }
@@ -87,10 +88,10 @@ public class ProjectUserService {
                 .orElseThrow(()->new ItemNotFoundException(positionId, "posição"));
 
         if (!projectUserModel.getProject().getCreator().getId().equals(user.getId()))
-            throw  new RuntimeException("Essr projeto ne teu n p tu editar user");
+            throw new NotPermitException();
 
         if (!projectUserModel.getProject().getId().equals(position.getProject().getId()))
-            throw  new RuntimeException("Essa position não é desse projeto");
+            throw new NotPermitException("A permissão de id " + position.getId() + " não pertence ao projeto de id" + position.getProject().getId());
 
         projectUserModel.setPosition(position);
 
