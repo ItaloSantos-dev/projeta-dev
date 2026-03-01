@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import santzin.projeta.dev.DTOs.auth.LoginRequestDTO;
 import santzin.projeta.dev.DTOs.auth.RegisterRequestDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
+import santzin.projeta.dev.exception.FailedRegisterException;
 import santzin.projeta.dev.mapper.UserMapper;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.repository.UserRepository;
@@ -35,7 +36,8 @@ public class AuthService {
     }
 
     public UserResponseDTO register(RegisterRequestDTO requestDTO){
-        if(this.userRepository.existsByEmail(requestDTO.email())) throw new RuntimeException("Esta email ja esta cadatrado");
+        if(this.userRepository.existsByEmail(requestDTO.email()))
+            throw new FailedRegisterException("Este email já está cadastrado");
         UserModel newUser = userMapper.requestRegisterToModel(requestDTO);
         return this.userMapper.modelToResponse(this.userRepository.save(newUser));
 

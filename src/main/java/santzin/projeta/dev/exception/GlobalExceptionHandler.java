@@ -17,4 +17,13 @@ public class GlobalExceptionHandler {
         );
         return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
+
+    @ExceptionHandler(FailedRegisterException.class)
+    public ResponseEntity<ResponseExceptionDTO> handleFailedRegisterException(FailedRegisterException ex){
+        ResponseExceptionDTO response = new ResponseExceptionDTO(
+                HttpStatus.CONFLICT,
+                ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
 }
