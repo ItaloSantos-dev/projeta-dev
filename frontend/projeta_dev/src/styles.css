@@ -1,1 +1,39 @@
 @import "tailwindcss";
+body {
+  background: linear-gradient(
+    to bottom right,
+    #111827,
+    #1f2937,
+    #1e3a8a
+  );
+}
+
+/* Configuração para navegadores baseados em Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;               /* Largura da barra vertical */
+  height: 10px;              /* Altura da barra horizontal */
+}
+
+/* O "trilho" da barra (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* O "polegar" da barra (a parte que move) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6e8efb, #a777e3); /* Gradiente moderno */
+  border-radius: 10px;
+  border: 2px solid #f1f1f1; /* Cria um respiro em volta do thumb */
+}
+
+/* Efeito ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: #5a75d4; 
+}
+
+/* Suporte para Firefox (Propriedades padrão) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6e8efb #f1f1f1;
+}
