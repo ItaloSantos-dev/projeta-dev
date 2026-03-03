@@ -6,7 +6,7 @@
             <p class="text-gray-400">Junte-se a nós e comece a construir projetos reais.</p>
         </div>
 
-        <form  class="space-y-5">
+        <form formGroupName="formRegister" class="space-y-5">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Nome</label>
                 <div class="relative">
@@ -44,7 +44,7 @@
                 <label for="telephoneNumber" class="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                        <i class="bi bi-shield-check"></i>
+                        <i class="bi bi-telephone"></i>
                     </span>
                     <input formControlName="telephoneNumber" type="password" id="telephoneNumber" placeholder=""
                         class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
@@ -52,15 +52,48 @@
             </div>
 
             <div>
-                <label for="principalStack" class="block text-sm font-medium text-gray-300 mb-2">Sua stack principal</label>
+                <label for="principalStack" class="block text-sm font-medium text-gray-300 mb-2">Sua stack principal (separe-as por vírgula 'ex, ex, ex')</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                        <i class="bi bi-shield-check"></i>
+                        <i class="bi bi-terminal"></i>
                     </span>
                     <input formControlName="principalStack" type="password" id="principalStack" placeholder=""
                         class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                 </div>
             </div>
+
+            <div class="">
+                <label for="experienceLevel" class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 ml-1">
+                    Nível de Experiência
+                </label>
+                
+                <div class="relative group">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400 group-focus-within:text-blue-400 transition-colors duration-300">
+                        <i class="bi bi-briefcase-fill"></i>
+                    </span>
+
+                    <select id="experienceLevel" 
+                            name="experienceLevel" 
+                            formControlName="experienceLevel"
+                            class="block w-full bg-gray-900/50 border border-gray-700 text-gray-200 text-sm rounded-xl py-3 pl-10 pr-10 
+                                appearance-none cursor-pointer
+                                focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 
+                                transition-all duration-300 hover:bg-gray-800">
+                        
+                        <option value="" disabled selected>Selecione seu nível</option>
+                        <option value="TRAINEE" class="bg-gray-900">🌱 Estagiário / Trainee</option>
+                        <option value="JUNIOR" class="bg-gray-900">⭐ Junior</option>
+                        <option value="PLENO" class="bg-gray-900">🚀 Pleno</option>
+                        <option value="SENIOR" class="bg-gray-900">👑 Sênior</option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                        <i class="bi bi-chevron-down text-xs"></i>
+                    </div>
+                </div>
+            </div>
+
+            
 
             <button type="submit" 
                 class="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-xl shadow-lg transition transform hover:scale-[1.02] active:scale-95">
