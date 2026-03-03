@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public record ContentResponseSimplifiedDTO(
         UUID id, String ownerUsername, String slug, String title, OffsetDateTime publishedAt, Integer tabcoinsCredit,
-        Integer tabcoinsDebit
+        Integer tabcoinsDebit, String body
 ){
 }

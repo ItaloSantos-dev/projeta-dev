@@ -14,7 +14,8 @@ public class ContentMapper {
                 responseDTO.title(),
                 responseDTO.publishedAt(),
                 responseDTO.tabcoinsCredit(),
-                responseDTO.tabcoinsDebit()
+                responseDTO.tabcoinsDebit(),
+                responseDTO.body()
         );
     }
 }
