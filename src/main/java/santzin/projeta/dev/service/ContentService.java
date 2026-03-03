@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import santzin.projeta.dev.DTOs.content.ContentRequestDTO;
 import santzin.projeta.dev.DTOs.content.ContentResponseSimplifiedDTO;
 import santzin.projeta.dev.DTOs.content.ContentResponseDTO;
 import santzin.projeta.dev.infra.external.NewsLetterAPI;
@@ -31,9 +32,13 @@ public class ContentService {
                 .toList();
     }
 
-//    public ContentResponseDTO getContentById(UUID id){
-//
-//    }
+    public ContentResponseSimplifiedDTO getContent(ContentRequestDTO contentRequestDTO){
+        ResponseEntity<ContentResponseDTO> response = this.newsLetterAPI.getContent(contentRequestDTO.slug(), contentRequestDTO.ownerName());
+
+        if (response.getStatusCode()!=HttpStatus.OK) throw new RuntimeException("Deu ruin");
+
+        return this.contentMapper.responseToResponseSimplified(response.getBody());
+    }
 
 
 }

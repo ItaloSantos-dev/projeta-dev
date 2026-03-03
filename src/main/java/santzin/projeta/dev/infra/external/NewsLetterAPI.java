@@ -4,9 +4,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import santzin.projeta.dev.DTOs.content.ContentResponseDTO;
+import santzin.projeta.dev.DTOs.content.ContentResponseSimplifiedDTO;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class NewsLetterAPI {
@@ -24,6 +26,11 @@ public class NewsLetterAPI {
         String urlFinal = urlBase+"/contents?page={page}&per_page={perPage}&strategy={strategy}";
 
         return restTemplate.getForEntity(urlFinal, ContentResponseDTO[].class, params);
+    }
+
+    public ResponseEntity<ContentResponseDTO> getContent(String slug, String ownerName){
+        String urlFinal = urlBase + "/contents/"+ownerName+"/"+slug;
+        return  this.restTemplate.getForEntity(urlFinal, ContentResponseDTO.class);
     }
 
 
