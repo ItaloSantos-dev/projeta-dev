@@ -11,6 +11,7 @@ import santzin.projeta.dev.mapper.ContentMapper;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ContentService {
@@ -20,7 +21,7 @@ public class ContentService {
     @Autowired
     private ContentMapper contentMapper;
 
-    public List<ContentResponseSimplifiedDTO> getMostPopularPitchs(){
+    public List<ContentResponseSimplifiedDTO> getMostPopularContents(){
         ResponseEntity<ContentResponseDTO[]> response = this.newsLetterAPI.getContents(1, 50, "relevant");
         if(response.getStatusCode()!= HttpStatus.OK) throw new RuntimeException("Deu ruin");
 
@@ -29,6 +30,10 @@ public class ContentService {
                 .map( c -> contentMapper.responseToResponseSimplified(c))
                 .toList();
     }
+
+//    public ContentResponseDTO getContentById(UUID id){
+//
+//    }
 
 
 }

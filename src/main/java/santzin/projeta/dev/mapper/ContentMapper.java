@@ -12,7 +12,9 @@ public class ContentMapper {
                 responseDTO.ownerUsername(),
                 responseDTO.slug(),
                 responseDTO.title(),
-                responseDTO.publishedAt()
+                responseDTO.publishedAt(),
+                responseDTO.tabcoinsCredit(),
+                responseDTO.tabcoinsDebit()
         );
     }
 }
