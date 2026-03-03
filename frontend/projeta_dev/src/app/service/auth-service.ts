@@ -23,4 +23,14 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+  islogged():boolean{
+    const token = localStorage.getItem('token');
+    
+    return token!=null?true:false; 
+  }
+
+  getToken():string|null{
+    return this.islogged()? localStorage.getItem('token'):null;
+  }
+
 }
