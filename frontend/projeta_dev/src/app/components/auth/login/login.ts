@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { AuthService } from '../../../service/auth-service';
 import { LoginDTO } from '../../../../types/DTO/login-dto';
 
@@ -13,6 +13,7 @@ import { LoginDTO } from '../../../../types/DTO/login-dto';
 export class Login {
 
   authService = inject(AuthService);
+  router = inject(Router)
 
   formLogin = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -30,6 +31,7 @@ export class Login {
     this.authService.backApi.login(this.createLoginDTO()).subscribe({
       next:(dado) => {
         this.authService.saveToken(dado);
+        this.router.navigate(['/dashboard']);
       },
       error:(erro)=>{
         console.log("Erro: " +erro.message);
