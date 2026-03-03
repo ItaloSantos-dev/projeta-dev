@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { ContentService } from '../../service/content/content-service';
+import { Content } from '../../../types/DTO/content';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,5 +9,19 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  private contentService = inject(ContentService);
 
+   mostPopularContents = signal(<Content[]> ([]) );
+
+  ngOnInit(){
+    this.contentService.getMostPopularContents().subscribe({
+      next:(dados) => {
+        this.mostPopularContents.set(dados);
+      },
+      error:(erro) => {
+        console.log(erro.error.message);
+        
+      }
+    })
+  }
 }

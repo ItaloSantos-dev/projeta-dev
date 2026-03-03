@@ -4,6 +4,7 @@ import { LoginDTO } from "../../types/DTO/login-dto";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { RegisterDTO } from "../../types/DTO/register-dto";
+import { Content } from "../../types/DTO/content";
 
 @Injectable({
     providedIn:'root',
@@ -21,5 +22,8 @@ export class BackApi {
         return this.httpClient.post<any>(this.urlBase + "auth/register", data);
     }
 
+    getMostPopularContents():Observable<Content[]>{
+        return this.httpClient.get<Content[]>(this.urlBase+"contents/most-popular");
+    }
 }
 
