@@ -1,6 +1,6 @@
 <div class="flex flex-col lg:flex-row my-10 justify-center gap-8 font-sans px-4">
     
-    <div class="max-w-4xl w-full">
+    <div class="max-w-[80vw] w-full">
         <a [routerLink]="['/dashboard']" class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6 group text-sm font-bold uppercase tracking-widest">
             <i class="bi bi-arrow-left transition-transform group-hover:-translate-x-1"></i>
             Voltar para a listagem
@@ -9,14 +9,9 @@
         <article class="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-[2.5rem] overflow-hidden shadow-2xl">
             
             <div class="p-8 md:p-12 border-b border-slate-800/50 bg-linear-to-b from-blue-500/5 to-transparent">
-                <div class="flex flex-wrap items-center gap-3 mb-6">
-                    <span class="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em]">
-                        Título: XXXX
-                    </span>
-                </div>
 
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-8">
-                    Título: XXXX
+                    Título: {{content().title}}
                 </h1>
 
                 <div class="flex flex-wrap items-center justify-between gap-6">
@@ -26,39 +21,104 @@
                         </div>
                         <div>
                             <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Autor</p>
-                            <p class="text-white font-bold">Autor: XXXX</p>
+                            <p class="text-white font-bold">Autor: {{content().ownerUsername}}</p>
                         </div>
                         <div class="h-8  bg-slate-800 hidden md:block"></div>
                         <div class="hidden md:block">
                             <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Publicado em</p>
-                            <p class="text-slate-300 font-medium">Data XXXX</p>
+                            <p class="text-slate-300 font-medium">{{content().publishedAt}}</p>
                         </div>
                     </div>
 
                     <div class="flex items-center gap-3 bg-slate-950/50 p-2 rounded-2xl border border-slate-800">
                         <div class="flex items-center gap-2 text-emerald-400 bg-emerald-400/10 px-4 py-2 rounded-xl text-sm font-bold border border-emerald-400/20">
                             <i class="bi bi-arrow-up-short text-xl"></i>
-                            Like: 
+                            Like: {{content().tabcoinsCredit}}
                         </div>
                         <div class="flex items-center gap-2 text-rose-400 bg-rose-400/10 px-4 py-2 rounded-xl text-sm font-bold border border-rose-400/20">
                             <i class="bi bi-arrow-down-short text-xl"></i>
-                            Deslike: 
+                            Deslike: {{content().tabcoinsDebit}}
                         </div>
                     </div>
 
         
                 </div>
             </div>
+            
+            <div class="p-6 md:p-12">
+                <div class=" prose prose-invert max-w-none prose-lg
 
-            <div class="p-8 md:p-12">
-                <div class="prose prose-invert prose-blue max-w-none">
-                    <p class="text-slate-300 leading-relaxed text-lg whitespace-pre-wrap">
-                        Body aqui
-                    </p>
+                    prose-p:text-slate-300
+                    prose-p:leading-relaxed
+                    prose-p:tracking-wide
+
+                    prose-headings:text-white
+                    prose-headings:font-extrabold
+                    prose-headings:tracking-tight
+                    prose-h1:text-4xl
+                    prose-h1:mb-6
+                    prose-h2:text-3xl
+                    prose-h2:mt-10
+                    prose-h2:mb-4
+                    prose-h3:text-2xl
+                    prose-h3:mt-8
+                    prose-h3:mb-3
+
+                    prose-a:text-sky-400
+                    prose-a:font-semibold
+                    prose-a:no-underline
+                    hover:prose-a:underline
+                    prose-a:transition-colors
+
+                    prose-strong:text-white
+                    prose-strong:font-semibold
+                    prose-em:text-slate-200
+
+                    prose-code:text-sky-300
+                    prose-code:bg-slate-800
+                    prose-code:px-1.5
+                    prose-code:py-0.5
+                    prose-code:rounded-md
+                    prose-code:before:content-none
+                    prose-code:after:content-none
+
+                    prose-pre:bg-slate-950
+                    prose-pre:border
+                    prose-pre:border-slate-800
+                    prose-pre:rounded-2xl
+                    prose-pre:shadow-xl
+                    prose-pre:shadow-black/30
+
+                    prose-blockquote:border-l-4
+                    prose-blockquote:border-sky-500
+                    prose-blockquote:bg-slate-900/40
+                    prose-blockquote:py-3
+                    prose-blockquote:px-4
+                    prose-blockquote:rounded-r-xl
+                    prose-blockquote:text-slate-300
+
+                    prose-li:text-slate-300
+                    prose-ul:marker:text-sky-400
+                    prose-ol:marker:text-sky-400
+
+                    prose-img:rounded-2xl
+                    prose-img:shadow-2xl
+                    prose-img:shadow-black/40
+
+                    prose-table:border-collapse
+                    prose-th:text-white
+                    prose-th:border
+                    prose-th:border-slate-700
+                    prose-th:bg-slate-800
+                    prose-td:border
+                    prose-td:border-slate-800
+                    prose-td:text-slate-300
+                ">
+                    <markdown [data]="content().body"></markdown>
+
                 </div>
             </div>
+
         </article>
     </div>
-
-
 </div>
