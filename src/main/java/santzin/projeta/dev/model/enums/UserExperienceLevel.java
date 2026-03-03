@@ -1,7 +1,7 @@
 package santzin.projeta.dev.model.enums;
 
 public enum UserExperienceLevel {
-    TRAINEE("TRAINEE"), JUNIOR("JUNIOR"), PLENO("PELO"), SENIOR("SENIOR");
+    TRAINEE("TRAINEE"), JUNIOR("JUNIOR"), PLENO("PLENO"), SENIOR("SENIOR");
 
     private String experienceLevel;
 
