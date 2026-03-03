@@ -6,7 +6,7 @@
             <p class="text-gray-400">Junte-se a nós e comece a construir projetos reais.</p>
         </div>
 
-        <form formGroupName="formRegister" class="space-y-5">
+        <form [formGroup]="formRegister" class="space-y-5">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Nome</label>
                 <div class="relative">
@@ -46,7 +46,7 @@
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
                         <i class="bi bi-telephone"></i>
                     </span>
-                    <input formControlName="telephoneNumber" type="password" id="telephoneNumber" placeholder=""
+                    <input formControlName="telephoneNumber" type="text" id="telephoneNumber" placeholder=""
                         class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                 </div>
             </div>
@@ -57,7 +57,7 @@
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
                         <i class="bi bi-terminal"></i>
                     </span>
-                    <input formControlName="principalStack" type="password" id="principalStack" placeholder=""
+                    <input formControlName="principalStack" type="text" id="principalStack" placeholder=""
                         class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                 </div>
             </div>
@@ -95,7 +95,7 @@
 
             
 
-            <button type="submit" 
+            <button (click)="ngSubmit()"
                 class="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-xl shadow-lg transition transform hover:scale-[1.02] active:scale-95">
                 Criar Conta Grátis
             </button>

@@ -3,6 +3,7 @@ import { inject, Inject, Injectable } from "@angular/core";
 import { LoginDTO } from "../../types/DTO/login-dto";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { RegisterDTO } from "../../types/DTO/register-dto";
 
 @Injectable({
     providedIn:'root',
@@ -15,6 +16,9 @@ export class BackApi {
 
     login(data:LoginDTO):Observable<string> {
         return this.httpClient.post(this.urlBase + "auth/login", data, {responseType:'text'});
+    }
+    register(data:RegisterDTO):Observable<any>{
+        return this.httpClient.post<any>(this.urlBase + "auth/register", data);
     }
 
 }
