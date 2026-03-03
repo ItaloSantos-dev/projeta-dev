@@ -13,7 +13,9 @@ export class BackApi {
 
     private httpClient = inject(HttpClient);
 
-    
+    login(data:LoginDTO):Observable<string> {
+        return this.httpClient.post(this.urlBase + "auth/login", data, {responseType:'text'});
+    }
 
 }
 

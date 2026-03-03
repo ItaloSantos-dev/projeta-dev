@@ -12,27 +12,27 @@ import { LoginDTO } from '../../../../types/DTO/login-dto';
 })
 export class Login {
 
-  authService = inject(AuthService)
+  authService = inject(AuthService);
 
   formLogin = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)])
+    password: new FormControl('', [Validators.required])
   });
 
-  private createLoginDTO(){
-    const data:LoginDTO = {
-      email: this.formLogin.get('email')?.value,
-      
+  private createLoginDTO():LoginDTO{
+    return {
+      email: this.formLogin.get('email')?.value as string,
+      password: this.formLogin.get('password')?.value as string
     }
   }
 
   ngSubmit(){
-    this.authService.backApi.login().subscribe({
+    this.authService.backApi.login(this.createLoginDTO()).subscribe({
       next:(dado) => {
-        console.log("Passou. TOKEN: " + dado);
+        this.authService.saveToken(dado);
       },
       error:(erro)=>{
-        console.log("Erro");
+        console.log("Erro: " +erro.message);
         
       }
     })
