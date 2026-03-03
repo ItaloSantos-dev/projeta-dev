@@ -17,11 +17,10 @@ export function TokenInterceptor(
 
     const token = authService.getToken();
 
-    if (token==null)
-        router.navigate(['/login']);
+    if (token!=null){
+        const newRequest = req.clone({setHeaders:{"Authorization": "Bearer " + token}});
+        return next(newRequest);
+    }
 
-    
-    const newRequest = req.clone({setHeaders:{"Authorization": "Bearer " + token}});
-
-    return next(newRequest);
+    return next(req);
 }
