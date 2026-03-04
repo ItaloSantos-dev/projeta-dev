@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import santzin.projeta.dev.DTOs.content.ContentRequestDTO;
 import santzin.projeta.dev.DTOs.content.ContentResponseDTO;
 import santzin.projeta.dev.DTOs.content.ContentResponseSimplifiedDTO;
+import santzin.projeta.dev.model.enums.StrategyFindContents;
 import santzin.projeta.dev.service.ContentService;
 
 import java.util.List;
@@ -18,8 +19,12 @@ public class ContentController {
     private ContentService contentService;
 
     @GetMapping("/most-popular")
-    private ResponseEntity<List<ContentResponseSimplifiedDTO>> getMostPopularContents(){
-        return ResponseEntity.ok(this.contentService.getMostPopularContents());
+    private ResponseEntity<List<ContentResponseSimplifiedDTO>> getMostPopularContents(
+            @RequestParam Integer page,
+            @RequestParam StrategyFindContents strategy,
+            @RequestParam(required = false) UUID lastContentId
+    ){
+        return ResponseEntity.ok(this.contentService.getMostPopularContents(page, lastContentId, strategy));
     }
 
     @PostMapping()

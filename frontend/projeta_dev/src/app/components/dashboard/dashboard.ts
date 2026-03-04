@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ContentService } from '../../service/content/content-service';
 import { Content } from '../../../types/DTO/content';
-import { RouterLink } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,10 +12,23 @@ import { RouterLink } from "@angular/router";
 export class Dashboard {
   private contentService = inject(ContentService);
 
-   mostPopularContents = signal(<Content[]> ([]) );
+  private route = inject(ActivatedRoute);
+
+  mostPopularContents = signal(<Content[]> ([]) );
+
+  page:number = 1;
 
   ngOnInit(){
-    this.contentService.getMostPopularContents().subscribe({
+    this.route.paramMap.subscribe( params => {
+      this.page = Number(params.get('page'));
+      this.loadPage()
+    })
+  }
+
+  loadPage(){
+    console.log("Recarregando");
+    
+    this.contentService.getMostPopularContents(this.page, "RELEVANT").subscribe({
       next:(dados) => {
         this.mostPopularContents.set(dados);
       },

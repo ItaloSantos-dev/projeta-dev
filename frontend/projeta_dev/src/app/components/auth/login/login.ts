@@ -31,7 +31,7 @@ export class Login {
     this.authService.backApi.login(this.createLoginDTO()).subscribe({
       next:(dado) => {
         this.authService.saveToken(dado);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard/1']);
       },
       error:(erro)=>{
         console.log("Erro: " +erro.message);
