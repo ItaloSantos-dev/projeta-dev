@@ -4,10 +4,19 @@ import { BackApi } from '../api/back-api';
 import { Observable } from 'rxjs';
 import { RegisterDTO } from '../../types/DTO/register-dto';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+
+interface JwtPayload {
+  sub: string;
+  email: string;
+  exp: number;
+}
 
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class AuthService {
   
   backApi = inject(BackApi)
@@ -21,13 +30,35 @@ export class AuthService {
     return this.backApi.register(data);
   }
 
+  tokenIsExpirated(){
+    const token = localStorage.getItem('token') as string;
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
+
+    const tokenDecoded = jwtDecode<JwtPayload>(token);
+    const now = Date.now()/1000;
+    return tokenDecoded.exp<now;
+  
+  }
+
   saveToken(token:string){
     localStorage.setItem('token', token);
   }
 
   islogged():boolean{
     const token = localStorage.getItem('token');
-    return token!=null?true:false; 
+    if (!token){
+      localStorage.clear();
+      return false;
+    }
+
+    if (this.tokenIsExpirated()) {
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    }
+
+    return true;
   }
 
   getToken():string|null{
