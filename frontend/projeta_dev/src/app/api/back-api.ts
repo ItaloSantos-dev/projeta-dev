@@ -4,7 +4,7 @@ import { LoginDTO } from "../../types/DTO/login-dto";
 import { Observable } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { RegisterDTO } from "../../types/DTO/register-dto";
-import { Content } from "../../types/DTO/content";
+import { Content } from "../../types/entity/content";
 import { ContentRequestDTO } from "../../types/DTO/content-request-dto";
 
 @Injectable({

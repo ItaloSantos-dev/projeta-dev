@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ContentService } from '../../service/content/content-service';
-import { Content } from '../../../types/DTO/content';
+import { Content } from '../../../types/entity/content';
 import { ActivatedRoute, RouterLink } from "@angular/router";
 
 @Component({

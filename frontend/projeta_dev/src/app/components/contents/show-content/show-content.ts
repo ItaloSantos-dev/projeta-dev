@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { ContentService } from '../../../service/content/content-service';
-import { Content } from '../../../../types/DTO/content';
+import { Content } from '../../../../types/entity/content';
 import { ContentRequestDTO } from '../../../../types/DTO/content-request-dto';
 import { MarkdownModule } from 'ngx-markdown';
 
