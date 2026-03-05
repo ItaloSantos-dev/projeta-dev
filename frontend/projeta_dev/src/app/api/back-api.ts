@@ -6,6 +6,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { RegisterDTO } from "../../types/DTO/register-dto";
 import { Content } from "../../types/entity/content";
 import { ContentRequestDTO } from "../../types/DTO/content-request-dto";
+import { CreateProjectDTO } from "../../types/DTO/create-project-dto";
 
 @Injectable({
     providedIn:'root',
@@ -33,6 +34,10 @@ export class BackApi {
     getContent(data:ContentRequestDTO):Observable<Content>{ 
         console.log(data);
         return this.httpClient.post<Content>(this.urlBase + "contents", data);
+    }
+
+    createProject(data:CreateProjectDTO):Observable<any>{
+        return this.httpClient.post(this.urlBase+"projects", data);
     }
 }
 

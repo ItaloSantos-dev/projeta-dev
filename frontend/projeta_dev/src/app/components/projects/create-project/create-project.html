@@ -8,65 +8,94 @@
         </h2>
 
         <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl p-6 md:p-8 shadow-xl">
-            <form class="flex flex-col gap-6">
-                
+            <form [formGroup]="formCreateProject" class="flex flex-col gap-6">
+                @if(formCreateProject.get('title')?.invalid && formCreateProject.get('title')?.touched) {
+                    <div class="flex items-center w-full gap-2 bg-red-500/10 border border-red-500/30 rounded-xl p-3 animate-shake">
+                        <i class="bi bi-exclamation-circle-fill text-red-400 text-lg"></i>
+                        <span class="text-red-400 text-sm font-semibold">Título inválido</span>
+                    </div>
+                }
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-2">
+
                         <label for="title" class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Título do Projeto</label>
-                        <input type="text" id="title" placeholder="Ex: Sistema de Gestão" 
+                        <input formControlName="title" type="text" id="title" placeholder="Ex: Sistema de Gestão" 
                             class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                     </div>
 
                     <div class="flex flex-col gap-2">
                         <label for="repositoryLink" class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Link do Repositório</label>
-                        <input type="url" id="repositoryLink" placeholder="Ex: https://github.com/usuario/repo" 
+                        <input formControlName="repositoryLink" type="url" id="repositoryLink" placeholder="Ex: https://github.com/usuario/repo" 
                             class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-2">
                     <label for="imgUrl" class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">URL da Imagem de Capa</label>
-                    <input type="url" id="imgUrl" placeholder="Ex: https://meusite.com/imagem.png" 
+                    <input formControlName="imgUrl" type="url" id="imgUrl" placeholder="Ex: https://meusite.com/imagem.png" 
                         class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                 </div>
 
                 <div class="flex flex-col gap-2">
+
+                    @if(formCreateProject.get('description')?.invalid && formCreateProject.get('description')?.touched) {
+                        <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-xl p-3 animate-shake">
+                            <i class="bi bi-exclamation-circle-fill text-red-400 text-lg"></i>
+                            <span class="text-red-400 text-sm font-semibold">Descrição inválida</span>
+                        </div>
+                    }
                     <label for="description" class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Descrição</label>
-                    <textarea id="description" rows="4" placeholder="Descreva os objetivos e funcionalidades do seu projeto..." 
+                    <textarea formControlName="description" id="description" rows="4" placeholder="Descreva os objetivos e funcionalidades do seu projeto..." 
                         class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"></textarea>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="flex flex-col gap-2">
+                        @if(formCreateProject.get('stack')?.invalid && formCreateProject.get('stack')?.touched) {
+                            <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-xl p-3 animate-shake">
+                                <i class="bi bi-exclamation-circle-fill text-red-400 text-lg"></i>
+                                <span class="text-red-400 text-sm font-semibold">Stack inválida</span>
+                            </div>
+                        }
                         <label for="stack" class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Stack de Tecnologias</label>
-                        <input type="text" id="stack" placeholder="Ex: Angular, Spring Boot, PostgreSQL" 
+                        <input formControlName="stack" type="text" id="stack" placeholder="Ex: Angular, Spring Boot, PostgreSQL" 
                             class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                     </div>
 
                     <div class="flex flex-col gap-2">
+                        @if(formCreateProject.get('inputType')?.invalid && formCreateProject.get('inputType')?.touched) {
+                            <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-xl p-3 animate-shake">
+                                <i class="bi bi-exclamation-circle-fill text-red-400 text-lg"></i>
+                                <span class="text-red-400 text-sm font-semibold">Tipo de projeto inválido</span>
+                            </div>
+                        }
                         <label for="inputType" class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Tipo de Projeto</label>
-                        <select id="inputType" 
+                        <select formControlName="inputType" id="inputType" 
                             class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none cursor-pointer">
-                            <option value="" disabled selected>Selecione um tipo</option>
-                            <option value="WEB">Web</option>
-                            <option value="MOBILE">Mobile</option>
-                            <option value="DESKTOP">Desktop</option>
-                            <option value="API">API / Backend</option>
+                            <option value="" disabled selected>Selecione um tipo de entrada</option>
+                            <option value="FREE">Grátis</option>
+                            <option value="PAID">Pago</option>
                         </select>
                     </div>
 
                     <div class="flex flex-col gap-2">
+                        @if(formCreateProject.get('principalPosition')?.invalid && formCreateProject.get('principalPosition')?.touched) {
+                            <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-xl p-3 animate-shake">
+                                <i class="bi bi-exclamation-circle-fill text-red-400 text-lg"></i>
+                                <span class="text-red-400 text-sm font-semibold">Posição principal inválida</span>
+                            </div>
+                        }
                         <label for="principalPosition" class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400">Posição Principal</label>
-                        <input type="text" id="principalPosition" placeholder="Ex: Fullstack Developer" 
+                        <input formControlName="principalPosition" type="text" id="principalPosition" placeholder="Ex: Fullstack Developer" 
                             class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all">
                     </div>
                 </div>
 
                 <div class="flex items-center justify-end gap-4 mt-4 pt-6 border-t border-slate-800/50">
-                    <button type="button" routerLink="/dashboard" class="text-sm font-bold text-slate-400 hover:text-white px-6 py-2.5 transition-colors">
+                    <button type="button" routerLink="/dashboard/1" class="text-sm font-bold text-slate-400 hover:text-white px-6 py-2.5 transition-colors">
                         Cancelar
                     </button>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-blue-900/20 active:scale-95 flex items-center gap-2">
+                    <button (click)="ngSubmit()" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-blue-900/20 active:scale-95 flex items-center gap-2">
                         <i class="bi bi-check-lg text-lg"></i>
                         Salvar Projeto
                     </button>
