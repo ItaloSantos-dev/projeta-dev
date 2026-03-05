@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface Project {
   id: number; 
   title: string;
@@ -8,4 +10,6 @@ export interface Project {
   inputType: string;
   repositoryLink: string;
   createdAt: string; 
+  users:User[];
+  positions:string[];
 }
