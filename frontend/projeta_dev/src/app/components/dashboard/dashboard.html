@@ -33,7 +33,7 @@
                         <div class="flex flex-row md:flex-col items-center md:items-end justify-between gap-4">
                             <div class="text-left md:text-right">
                                 <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Publicado em</p>
-                                <p class="text-slate-300 text-sm font-medium">{{content.publishedAt}}</p>
+                                <p class="text-slate-300 text-sm font-medium">{{content.publishedAt.split('T')[0]}}</p>
                             </div>
                             
                             <a [routerLink]="['../../contents/show', content.ownerUsername, content.slug]" type="button" class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-2.5 px-6 rounded-xl transition-all shadow-lg shadow-blue-900/20 active:scale-95">
