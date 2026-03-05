@@ -11,6 +11,7 @@ import java.util.List;
 public record ProjectResponseDTO(
         Long id,
         String title,
+        String slug,
         String imgUrl,
         String description,
         String stack,

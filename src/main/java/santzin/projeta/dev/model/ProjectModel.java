@@ -23,6 +23,9 @@ public class ProjectModel {
     @Column(name = "title", length = 50, nullable = false)
     private String title;
 
+    @Column(name = "slug", length = 300, nullable = false)
+    private String slug;
+
     @Column(name = "img_url")
     private String imgUrl;
 

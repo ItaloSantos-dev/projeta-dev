@@ -11,6 +11,7 @@ import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.ProjectStatus;
 import santzin.projeta.dev.repository.UserRepository;
 
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,22 @@ public class ProjectMapper {
     @Autowired
     private UserRepository userRepository;
 
+    private String  titleToSlug(String  title){
+        String normalized = Normalizer.normalize(title, Normalizer.Form.NFD)
+                .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return normalized
+                .toLowerCase()
+                .trim()
+                .replaceAll("[^a-z0-9\\s-]", "")
+                .replaceAll("\\s+", "-");
+
+    }
+
     public ProjectModel requestCreateToModel(CreateProjectRequestDTO requestDTO, UserModel user) {
         ProjectModel project = new ProjectModel();
 
         project.setTitle(requestDTO.title());
+        project.setSlug(titleToSlug(requestDTO.title()));
         project.setImgUrl(requestDTO.imgUrl());
         project.setDescription(requestDTO.description());
         project.setStack(requestDTO.stack());
@@ -32,8 +45,6 @@ public class ProjectMapper {
         project.setInputType(requestDTO.inputType());
         project.setRepositoryLink(requestDTO.repositoryLink());
         project.setCreatedAt(LocalDate.now());
-
-
 
         return project;
     }
@@ -63,6 +74,7 @@ public class ProjectMapper {
         return new ProjectResponseDTO(
                 project.getId(),
                 project.getTitle(),
+                project.getSlug(),
                 project.getImgUrl(),
                 project.getDescription(),
                 project.getStack(),
@@ -78,6 +90,7 @@ public class ProjectMapper {
     public void updateModel(ProjectModel project, UpdateProjectRequestDTO requestDTO) {
 
         project.setTitle(requestDTO.title());
+        project.setSlug(titleToSlug(requestDTO.title()));
         project.setImgUrl(requestDTO.imgUrl());
         project.setDescription(requestDTO.description());
         project.setStack(requestDTO.stack());
