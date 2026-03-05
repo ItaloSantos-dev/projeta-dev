@@ -1,0 +1,120 @@
+<div class="flex flex-col lg:flex-row my-10 justify-center gap-5 font-sans">
+    
+    <div class="max-w-4xl w-full">
+
+        <h2 class="text-white text-2xl font-bold mb-6 flex items-center gap-2">
+            <span class="w-2 h-8 bg-blue-500 rounded-full"></span>
+            Projetos e Participações
+        </h2>
+ 
+        <div [ngClass]="{'max-h-100':myProjectsOpen, 'max-h-25':!myProjectsOpen}" class=" transition-all duration-500 overflow-hidden bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl mb-6 shadow-xl">
+
+            <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 md:p-8">
+                <span class="text-white text-xl font-bold flex items-center gap-3">
+                    <i class="bi bi-folder-fill text-blue-500 text-2xl"></i>
+                    Meus Projetos
+                    <span class="bg-blue-500/20 text-blue-400 text-xs py-1 px-3 rounded-full ml-2">2</span>
+                </span>
+                <span (click)="myProjectsOpen = !myProjectsOpen" class="transition-transform duration-300  bg-slate-800 p-2 rounded-xl text-blue-400">
+                    <i class="bi bi-chevron-down inline-block transform transition-transform duration-500 " [class.rotate-180]="myProjectsOpen"></i>
+                </span>
+            </summary>
+            
+            <div class="px-6 md:px-8 pb-8 pt-0 flex flex-col gap-4">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 hover:bg-slate-800/80 transition-all group/item">
+                    <div class="flex flex-col gap-2">
+                        <h3 class="text-white font-bold text-lg group-hover/item:text-blue-400 transition-colors">Sistema de Gestão ERP</h3>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                            Stack: <span class="text-blue-400">Angular, Spring Boot, PostgreSQL</span>
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 mt-4 md:mt-0 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-slate-700/50 pt-4 md:pt-0">
+                        <span class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Concluído
+                        </span>
+                        <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+                            <i class="bi bi-calendar3"></i>
+                            <span>15/01/2026</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 hover:bg-slate-800/80 transition-all group/item">
+                    <div class="flex flex-col gap-2">
+                        <h3 class="text-white font-bold text-lg group-hover/item:text-blue-400 transition-colors">App de Delivery</h3>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                            Stack: <span class="text-blue-400">Flutter, Firebase, Node.js</span>
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 mt-4 md:mt-0 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-slate-700/50 pt-4 md:pt-0">
+                        <span class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 text-amber-400 animate-pulse"></span> Em Desenvolvimento
+                        </span>
+                        <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+                            <i class="bi bi-calendar3"></i>
+                            <span>05/03/2026</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div [ngClass]="{'max-h-100':iamInProjectsOpen, 'max-h-25':!iamInProjectsOpen}" class="  transition-[max-height] duration-300  overflow-hidden bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl shadow-xl">
+            <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 md:p-8">
+                <span class="text-white text-xl font-bold flex items-center gap-3">
+                    <i class="bi bi-people-fill text-purple-500 text-2xl"></i>
+                    Participações
+                    <span class="bg-purple-500/20 text-purple-400 text-xs py-1 px-3 rounded-full ml-2">1</span>
+                </span>
+                <span (click)="iamInProjectsOpen = !iamInProjectsOpen" class=" transition-transform duration-500 bg-slate-800 p-2 rounded-xl text-purple-400">
+                    <i class="bi bi-chevron-down inline-block transform transition-transform duration-500 " [class.rotate-180]="iamInProjectsOpen"></i>
+                </span>
+            </summary>
+            
+            <div class="px-6 md:px-8 pb-8 pt-0 flex flex-col gap-4">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 hover:bg-slate-800/80 transition-all group/item">
+                    <div class="flex flex-col gap-2">
+                        <h3 class="text-white font-bold text-lg group-hover/item:text-purple-400 transition-colors">Plataforma E-learning Open Source</h3>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                            Stack: <span class="text-purple-400">React, Next.js, Tailwind</span>
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 mt-4 md:mt-0 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-slate-700/50 pt-4 md:pt-0">
+                        <span class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> Planejamento
+                        </span>
+                        <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+                            <i class="bi bi-calendar3"></i>
+                            <span>10/02/2026</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-4 bg-white/5 backdrop-blur-md p-5 shadow rounded-2xl right-50 fixed lg:flex h-fit">
+        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">Navegação</p>
+        
+        <a [routerLink]="['/dashboard/1']" class="group flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">
+            <span class="bg-slate-800 p-2 rounded-xl group-hover:bg-slate-700 transition-colors">
+                <i class="bi bi-arrow-left text-blue-400"></i>
+            </span>
+            <span class="font-semibold text-sm">Voltar ao Início</span>
+        </a>
+
+        <a [routerLink]="['/projects/create']" class="group flex items-center gap-4 bg-blue-600/10 border border-blue-500/30 text-blue-400 hover:bg-blue-600 hover:text-white p-4 rounded-2xl transition-all">
+            <span class="bg-blue-500/20 p-2 rounded-xl group-hover:bg-white/20 transition-colors">
+                <i class="bi bi-plus-lg"></i>
+            </span>
+            <span class="font-semibold text-sm">Novo Projeto</span>
+        </a>
+    </div>
+</div>

@@ -107,18 +107,18 @@
 
     <div class="flex flex-col gap-4 bg-white/5 backdrop-blur-md p-5 shadow rounded-2xl right-50 fixed ">
         <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">Ações</p>
-        <button [routerLink]="['/dashboard/1']" class="group flex items-center gap-4 bg-slate-900 border hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all shadow-xl shadow-blue-900/20">
+        <button [routerLink]="['/dashboard/1']" class="group cursor-pointer flex items-center gap-4 bg-slate-900 border hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all shadow-xl shadow-blue-900/20">
             <span class="bg-slate-800 p-2 rounded-xl group-hover:bg-slate-700 transition-colors">
                 <i class="bi bi-arrow-left text-blue-400"></i>
             </span>
             <span class="font-bold text-white text-sm">Voltar</span>
         </button>
 
-        <button class="group flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">
+        <a [routerLink]="['/projects/my-projects']" class="group cursor-pointer flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">
             <span class="bg-slate-800 p-2 rounded-xl group-hover:bg-slate-700 transition-colors">
                 <i class="bi bi-folder2-open text-blue-400"></i>
             </span>
             <span class="font-semibold text-sm">Meus projetos</span>
-        </button>
+        </a>
     </div>
 </div>
