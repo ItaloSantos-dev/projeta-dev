@@ -3,6 +3,7 @@ import { User } from "./user";
 export interface Project {
   id: number; 
   title: string;
+  slug:string;
   imgUrl: string;
   description: string;
   stack: string;
@@ -10,6 +11,6 @@ export interface Project {
   inputType: string;
   repositoryLink: string;
   createdAt: string; 
-  users:User[];
+  contirbutors:User[];
   positions:string[];
 }

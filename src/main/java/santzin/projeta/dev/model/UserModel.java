@@ -29,7 +29,7 @@ public class UserModel implements UserDetails {
     private String name;
 
     @Column(name = "username", length = 100, nullable = false)
-    private String username;
+    private String usernameProperty;
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;

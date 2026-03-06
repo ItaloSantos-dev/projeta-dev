@@ -29,12 +29,12 @@ public class UserService implements UserDetailsService {
     }
 
     public UserResponseDTO getUserByUsername(String username){
-        return this.userMapper.modelToResponse(this.userRepository.findByUsername(username)
+        return this.userMapper.modelToResponse(this.userRepository.findByUsernameProperty(username)
                 .orElseThrow(ItemNotFoundException::new));
     }
 
     public ProjectResponseDTO getProjectOfUserByUsernameAndSlug(String username, String slug){
-        if (!this.userRepository.existsByUsername(username))
+        if (!this.userRepository.existsByUsernameProperty(username))
             throw new ItemNotFoundException();
         return this.projectService.getProjectOfUserByUsernameAndSlug(username, slug);
     }

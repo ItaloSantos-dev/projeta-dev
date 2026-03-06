@@ -19,7 +19,7 @@ public record ProjectResponseDTO(
         ProjectInputType inputType,
         String repositoryLink,
         LocalDate createdAt,
-        List<UserResponseDTO> users,
+        List<String > contibutors,
         List<String> positions
 ) {
 }

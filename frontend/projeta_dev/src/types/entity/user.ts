@@ -1,9 +1,10 @@
 import { UserExperienceLevel } from "../enums/user-experience-level";
+import { Project } from "./project";
 
 export interface User {
   name: string;
-  email: string;
+  username: string;
   experienceLevel: UserExperienceLevel;
-  telephoneNumber: string;
   principalStack: string;
+  projects:Project[]
 }
