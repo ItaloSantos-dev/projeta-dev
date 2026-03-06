@@ -6,5 +6,5 @@ export interface User {
   username: string;
   experienceLevel: UserExperienceLevel;
   principalStack: string;
-  projects:Project[]
+  myProjects:Project[]
 }

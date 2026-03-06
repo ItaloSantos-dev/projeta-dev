@@ -17,7 +17,7 @@ export const routes: Routes = [
     {path:"register", component:Register},
     {path:"contents/:owner/:slug", component:ShowContent},
     {path:"projects/create", component:CreateProject},
-    {path:"username", component:ShowUser},
+    {path:":username", component:ShowUser},
     
     {path:"projects/my-projects", component:ShowMyProjects},
     {path:"projects/my-projects/:id", component:ShowProject}

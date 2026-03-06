@@ -1,0 +1,15 @@
+import { inject, Injectable } from '@angular/core';
+import { BackApi } from '../../api/back-api';
+import { Observable } from 'rxjs';
+import { User } from '../../../types/entity/user';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class UserService {
+  private backApi = inject(BackApi);
+
+  getUserByUsername(username:string):Observable<User>{
+    return this.backApi.getUserByUsername(username);
+  }
+}
