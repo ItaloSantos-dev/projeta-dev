@@ -9,12 +9,14 @@ import { ShowMyProjects } from './components/projects/show-my-projects/show-my-p
 import { ShowProject } from './components/projects/show-project/show-project';
 
 export const routes: Routes = [
-    {path:"", component:Home},
+    {path:"", component:Dashboard},
+    {path:"dashboard/:page", component:Dashboard},
+    {path:"home", component:Home},
     {path:"login", component:Login},
     {path:"register", component:Register},
-    {path:"dashboard/:page", component:Dashboard},
-    {path:"contents/show/:owner/:slug", component:ShowContent},
+    {path:"contents/:owner/:slug", component:ShowContent},
     {path:"projects/create", component:CreateProject},
+    
     {path:"projects/my-projects", component:ShowMyProjects},
     {path:"projects/my-projects/:id", component:ShowProject}
 ];
