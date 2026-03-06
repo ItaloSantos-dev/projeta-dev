@@ -14,10 +14,10 @@ public class UserMapper {
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserModel requestRegisterToModel(RegisterRequestDTO request) {
-
         UserModel user = new UserModel();
 
         user.setName(request.name());
+        user.setUsername(request.username());
         user.setEmail(request.email());
         user.setPassword(passwordEncoder.encode(request.password()));
         user.setTelephoneNumber(request.telephoneNumber());
