@@ -23,7 +23,6 @@
           <li><a routerLink="/about" class="text-gray-300 hover:text-white transition-all duration-200 font-medium">About</a></li>
           <li><a routerLink="/contact-us" class="text-gray-300 hover:text-white transition-all duration-200 font-medium">Contact-Us</a></li>
           @if (authService.islogged()) {
-
             <li>
               <a [routerLink]="[usernameLogged()]" class="text-gray-300 hover:text-white transition-all duration-200 font-medium">
               Profile

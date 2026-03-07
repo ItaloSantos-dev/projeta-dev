@@ -1,13 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ProjectService } from '../../../service/project/project-service';
 import { Project } from '../../../../types/entity/project';
 import { AuthService } from '../../../service/auth-service';
+import { TokenService } from '../../../service/token/token-service';
 
 @Component({
   selector: 'app-show-project',
-  imports: [NgClass, RouterLink],
+  imports: [ RouterLink],
   templateUrl: './show-project.html',
   styleUrl: './show-project.css',
 })
@@ -15,9 +16,11 @@ export class ShowProject {
   usersOpen = false;
   private route = inject(ActivatedRoute);
 
+  private router = inject(Router);
+
   private projectService = inject(ProjectService);
 
-  private authServie = inject(AuthService);
+  tokenService = inject(TokenService);
 
   project = signal(<Project>{});
 
@@ -30,7 +33,19 @@ export class ShowProject {
     ["FINALED", "gray"]
   ]);
 
-  usernameLogged = signal("");
+
+  userLoggedIsCreator():boolean{
+    const userOfToken = this.tokenService.getUsernameLogged();
+    if (userOfToken===null){
+      this.router.navigate(['/login']);
+      return false;
+    }
+    else{
+      return userOfToken===this.username;
+    }
+    
+  }
+
 
   constructor(){
     this.route.paramMap.subscribe(params => {
@@ -40,7 +55,6 @@ export class ShowProject {
   };
 
   ngOnInit(){
-    this.usernameLogged.set(this.authServie.getUsernameLogged() as string)
     this.projectService.getProjectOfUserByUsernameAndSlug(this.username, this.slug).subscribe({
       next:(dado) =>{
         this.project.set(dado);
