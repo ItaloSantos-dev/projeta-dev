@@ -7,13 +7,13 @@
                 <span class="w-2 h-8 bg-purple-500 rounded-full"></span>
                 {{user().name}} <span class="text-slate-500 text-sm font-normal">{{ '@' }}{{user().username}}</span> 
             </h2>
-
+            
             <a href="#" target="_blank" class="group flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white px-4 py-2 rounded-xl transition-all">
                 <i class="bi bi-linkedin"></i>
                 <span class="text-sm font-semibold">LinkedIn</span> <i class="bi bi-box-arrow-up-right text-xs ml-1 opacity-50 group-hover:opacity-100 transition-opacity"></i>
             </a>
         </div>
-
+        <!--Adicionar campo para imagem-->
         <div class="w-full h-48 md:h-64 rounded-3xl overflow-hidden border border-slate-800 shadow-xl relative group">
             <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent z-10"></div>
             <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=2070&auto=format&fit=crop" 
@@ -29,16 +29,29 @@
 
         <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl shadow-xl p-6 md:p-8">
             
-            <div class="flex flex-wrap items-center gap-4 mb-8 pb-6 border-b border-slate-800/50">
+            <div class="flex  flex-wrap items-center gap-4 mb-8 pb-6 border-b border-slate-800/50">
                 
                 <div class="flex items-center gap-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/50 shadow-inner">
                     <div class="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 text-xs">
                         <i class="bi bi-stars"></i>
                     </div>
+
                     <span class="text-xs font-medium text-slate-400 tracking-wide">
                         Nível <span class="text-white font-bold ml-1">{{user().experienceLevel}}</span> 
                     </span>
                 </div>
+
+                <a [routerLink]="'projects'" class="flex items-center hover: gap-2 bg-slate-800/80 px-3 hover:bg-slate-700 cursor-pointer transition-all py-1.5 rounded-lg border border-slate-700/50 shadow-inner">
+                    <div class="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 text-xs">
+                        <i class="bi bi-folder2-open"></i>
+                    </div>
+
+                    <span class="text-xs font-medium text-slate-400 tracking-wide">
+                        Projetos  
+                    </span>
+                </a>
+
+                
 
                 <div class="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-700/50 mt-2 md:mt-0 md:ml-auto">
                     Stack: <span class="text-purple-400">{{user().principalStack}}</span> 
@@ -50,7 +63,7 @@
                     <i class="bi bi-person-lines-fill text-purple-500"></i> Sobre o Profissional
                 </h3>
                 
-
+                <!--Adicionar campo de about no user-->
                 <p class="text-slate-400 text-sm leading-relaxed">
                     FEATURE
                     Desenvolvedor Full Stack apaixonado por criar arquiteturas escaláveis e interfaces intuitivas. Tenho mais de 6 anos de experiência desenvolvendo soluções para o setor financeiro e de e-commerce. Foco na entrega de código limpo, testes automatizados e cultura DevOps.
@@ -58,6 +71,7 @@
             </div>
 
             <div>
+                <!-- Depois fazer sistema de Adicionar habilidades, junto com escolha de icons do bootstrap com pre vizu -->
                 <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
                     <i class="bi bi-code-slash text-purple-500"></i> Habilidades em Destaque
                 </h3>
@@ -84,7 +98,7 @@
             <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 md:p-8">
                 <span class="text-white text-xl font-bold flex items-center gap-3">
                     <i class="bi bi-journal-code text-blue-500 text-2xl"></i>
-                    Projetos Recentes
+                    Projetos Fixados
                     <span class="bg-blue-500/20 text-blue-400 text-xs py-1 px-3 rounded-full ml-2">2</span> 
                 </span>
                 <button
@@ -94,7 +108,7 @@
                     <i class="bi bi-chevron-down inline-block transform transition-transform duration-500" [class.rotate-180]="projetosOpen"></i>
                 </button>
             </summary>
-            
+            <!-- Depois fazer sistema de fixar projetos -->
             @for (project of user().myProjects; track project.id) {
 
                 <a class="px-6 md:px-8 pb-8 pt-0 flex flex-col gap-4">

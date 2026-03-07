@@ -1,0 +1,87 @@
+<div class="flex flex-col lg:flex-row my-5 justify-center gap-6 font-sans ">
+    
+    <div class="max-w-4xl w-full">
+        <h2 class="text-white text-2xl font-bold mb-6 flex items-center gap-2">
+            <span class="w-2 h-8 bg-blue-500 rounded-full"></span>
+            Projetos
+        </h2>
+ 
+        <div class="transition-all duration-500  bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl mb-6 shadow-xl">
+            <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 md:p-8">
+                <span class="text-white text-xl font-bold flex items-center gap-3">
+                    <i class="bi bi-folder-fill text-blue-500 text-2xl"></i>
+                    Meus Projetos
+                    <span class="bg-blue-500/20 text-blue-400 text-xs py-1 px-3 rounded-full ml-2">{{projectsCount}}</span>
+                </span>
+            </summary>
+            
+            <div class="px-6 md:px-8 pb-8 pt-0 flex flex-col gap-4">
+                
+                    <div>
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 hover:bg-slate-800/80 transition-all group/item">
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-white font-bold text-lg  transition-colors">
+                                    <a class="cursor-pointer hover:underline hover:text-blue-400">
+                                        Título
+                                    </a>
+                                </h3>
+                                <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                                    Resumo: <span class="text-blue-400">Decription</span>
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 mt-4 md:mt-0 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-slate-700/50 pt-4 md:pt-0">
+                                <span class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> STATUS
+                                </span>
+                                <div class="flex items-center gap-2 text-xs font-medium text-slate-500">
+                                    <i class="bi bi-calendar3"></i>
+                                    <span>CRIADO</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-6 bg-slate-900/50 backdrop-blur-md border border-slate-800 p-6 shadow-xl rounded-3xl w-full lg:w-80 h-fit lg:sticky lg:top-10">
+        
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left border-b border-slate-700/50 pb-6">
+            <img 
+                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop"
+                alt="Foto de perfil" 
+                class="w-40 h-40 lg:w-full lg:h-auto lg:aspect-square object-cover rounded-full border-2 border-slate-700 shadow-lg mb-4"
+            >
+            
+            <div class="flex flex-col mb-4">
+                <h1 class="text-white text-2xl font-bold leading-tight">NOME</h1>
+                <span class="text-slate-400 text-xl font-light">USERNAME</span>
+            </div>
+            
+            <p class="text-slate-300 text-sm leading-relaxed">
+                SOBRE AQUI
+            </p>
+        </div>
+
+        <div class="flex flex-col gap-3">
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-1 mb-1">Ações</p>
+            
+            <a [routerLink]="['/dashboard/1']" class="group flex items-center gap-3 bg-slate-800/40 border border-slate-700/50 text-slate-300 hover:text-white hover:bg-slate-700 hover:border-slate-500 p-3 rounded-xl transition-all">
+                <span class="bg-slate-900 p-2 rounded-lg group-hover:bg-slate-800 transition-colors">
+                    <i class="bi bi-arrow-left text-blue-400"></i>
+                </span>
+                <span class="font-semibold text-sm">Voltar ao Início</span>
+            </a>
+
+            <a [routerLink]="['/projects/create']" class="group flex items-center gap-3 bg-blue-600/10 border border-blue-500/30 text-blue-400 hover:bg-blue-600 hover:text-white p-3 rounded-xl transition-all">
+                <span class="bg-blue-500/20 p-2 rounded-lg group-hover:bg-white/20 transition-colors">
+                    <i class="bi bi-plus-lg"></i>
+                </span>
+                <span class="font-semibold text-sm">Novo Projeto</span>
+            </a>
+        </div>
+        
+    </div>
+</div>
