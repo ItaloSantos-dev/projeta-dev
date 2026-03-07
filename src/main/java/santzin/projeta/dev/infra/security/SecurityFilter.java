@@ -31,10 +31,11 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = getToken(request);
-        if (token!=null){
-            String email = this.tokenService.authenticateToken(token);
 
-            UserModel user = (UserModel) this.userRepository.findByEmail(email)
+        if (token!=null){
+            String username = this.tokenService.authenticateToken(token);
+
+            UserModel user = this.userRepository.findByUsernameProperty(username)
                     .orElseThrow(()-> new FailedLoginException("Token inválido"));
 
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
