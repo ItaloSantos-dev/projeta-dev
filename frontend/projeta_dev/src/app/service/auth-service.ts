@@ -42,10 +42,11 @@ export class AuthService {
   
   }
 
-  getUsernameLogged():string{
+  getUsernameLogged():string|null{
     const token = localStorage.getItem('token') as string;
     if (!token) {
-      this.router.navigate(['/login']);
+      console.log("Não tem token");
+      return null;
     }
 
     const tokenDecoded = jwtDecode<JwtPayload>(token);
