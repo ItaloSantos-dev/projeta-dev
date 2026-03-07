@@ -13,7 +13,7 @@ import { AuthService } from '../../service/auth-service';
 export class Dashboard {
   private contentService = inject(ContentService);
 
-  private authService = inject(AuthService);
+  authService = inject(AuthService);
 
   private route = inject(ActivatedRoute);
 

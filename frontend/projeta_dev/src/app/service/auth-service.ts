@@ -49,6 +49,8 @@ export class AuthService {
     }
 
     const tokenDecoded = jwtDecode<JwtPayload>(token);
+    console.log("sub: "+tokenDecoded.sub);
+    
     return tokenDecoded.sub;
   }
 

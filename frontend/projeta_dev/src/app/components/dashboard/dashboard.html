@@ -85,7 +85,7 @@
             <span class="font-semibold text-sm">Buscar projeto</span>
         </button>
 
-        <a [routerLink]="['/projects/my-projects']" class="group flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">
+        <a [routerLink]="['/',authService.getUsernameLogged(), 'projects']" class="group flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">
             <span class="bg-slate-800 p-2 rounded-xl group-hover:bg-slate-700 transition-colors">
                 <i class="bi bi-folder2-open text-blue-400"></i>
             </span>

@@ -1,6 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Project } from '../../../../types/entity/project';
-import { RouterLink } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ProjectService } from '../../../service/project/project-service';
+import { User } from '../../../../types/entity/user';
+import { UserService } from '../../../service/user/user-service';
 
 @Component({
   selector: 'app-show-projects-of-user',
@@ -9,6 +12,38 @@ import { RouterLink } from "@angular/router";
   styleUrl: './show-projects-of-user.css',
 })
 export class ShowProjectsOfUser {
-  projectsCount=1;
-  projects = signal(<Project[]> ({} as Project[]));
+  private route = inject(ActivatedRoute);
+
+  projectsCount=0;
+
+  statusColor = new Map<string, string>([
+    ["OPEND", "emerald"],
+    ["CLOSED", "red"],
+    ["FINALED", "gray"]
+  ])
+
+  user = signal(<User>{})
+
+  username = "";
+
+  private userService = inject(UserService);
+
+  constructor(){
+    this.route.paramMap.subscribe(params => {
+      this.username = params.get('username') as string;
+    })
+  }
+
+  ngOnInit(){
+    this.userService.getUserByUsername(this.username).subscribe({
+      next:(dado)=>{
+        this.user.set(dado);
+        this.projectsCount = this.user().myProjects.length
+      },
+      error: (erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
+  }
 }
