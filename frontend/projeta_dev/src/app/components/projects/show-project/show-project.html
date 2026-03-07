@@ -5,14 +5,15 @@
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
             <h2 class="text-white text-3xl font-bold flex items-center gap-3">
                 <span class="w-2 h-8 bg-blue-500 rounded-full"></span>
-                Awesome Project Name <span class="text-slate-500 text-sm font-normal">#1024</span> </h2>
+                {{project().title}} <span class="text-slate-500 text-sm font-normal"></span> </h2>
 
             <a href="#" target="_blank" class="group flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white px-4 py-2 rounded-xl transition-all">
                 <i class="bi bi-github"></i>
                 <span class="text-sm font-semibold">Acessar Repositório</span> <i class="bi bi-box-arrow-up-right text-xs ml-1 opacity-50 group-hover:opacity-100 transition-opacity"></i>
             </a>
         </div>
-c
+
+
         <div class="w-full h-64 md:h-80 rounded-3xl overflow-hidden border border-slate-800 shadow-xl relative group">
             <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent z-10"></div>
             <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" 
@@ -29,21 +30,21 @@ c
                         <i class="bi bi-person-fill"></i>
                     </div>
                     <span class="text-xs font-medium text-slate-400 tracking-wide">
-                        Criado por <span class="text-white font-bold ml-1">Admin Silva</span> </span>
+                        Criado por <span class="text-white font-bold ml-1">{{project().creator}}</span> </span>
                 </div>
 
                 <span class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ACTIVE </span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-{{statusColor.get(project().status)}}-400"></span> {{project().status}} </span>
                 
                 <span class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                    <i class="bi bi-cpu"></i> PUBLIC </span>
+                    <i class="bi bi-cpu"></i> {{project().inputType}} </span>
 
                 <div class="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-700/50">
-                    Stack: <span class="text-blue-400">Angular, Spring Boot</span> </div>
+                    Stack: <span class="text-blue-400">{{project().stack}}</span> </div>
 
                 <div class="flex items-center gap-2 text-xs font-medium text-slate-500 ml-auto">
                     <i class="bi bi-calendar3"></i>
-                    <span>2023-10-25</span> </div>
+                    <span>{{project().createdAt}}</span> </div>
             </div>
 
             <div class="mb-8">
@@ -51,92 +52,74 @@ c
                     <i class="bi bi-text-paragraph text-blue-500"></i> Sobre o Projeto
                 </h3>
                 <p class="text-slate-400 text-sm leading-relaxed">
-                    Este é um projeto estático de exemplo. Ele serve para demonstrar a estrutura da tela de detalhes de um único projeto. A ideia é que aqui entre uma descrição completa sobre as motivações, a arquitetura utilizada e os objetivos da aplicação.
+                    {{project().description}}
                 </p>
             </div>
 
             <div>
                 <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                    <i class="bi bi-briefcase-fill text-blue-500"></i> Posições Abertas / Necessárias
+                    <i class="bi bi-briefcase-fill text-blue-500"></i> Posições no projeto
                 </h3>
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <li class="flex items-center gap-3 text-sm text-slate-300 bg-slate-800/30 p-3 rounded-xl border border-slate-700/50">
-                        <span class="bg-blue-500/20 text-blue-400 p-1.5 rounded-lg"><i class="bi bi-check2-square"></i></span>
-                        Desenvolvedor Front-end Angular
-                    </li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300 bg-slate-800/30 p-3 rounded-xl border border-slate-700/50">
-                        <span class="bg-blue-500/20 text-blue-400 p-1.5 rounded-lg"><i class="bi bi-check2-square"></i></span>
-                        Desenvolvedor Back-end Java
-                    </li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300 bg-slate-800/30 p-3 rounded-xl border border-slate-700/50">
-                        <span class="bg-blue-500/20 text-blue-400 p-1.5 rounded-lg"><i class="bi bi-check2-square"></i></span>
-                        UX/UI Designer
-                    </li>
-                    </ul>
+                    @for (position of project().positions; track position) {
+                        <li class="flex items-center gap-3 text-sm text-slate-300 bg-slate-800/30 p-3 rounded-xl border border-slate-700/50">
+                            <span class="bg-blue-500/20 text-blue-400 p-1.5 rounded-lg"><i class="bi bi-check2-square"></i></span>
+                            {{position}}
+                        </li>
+                    }
+                </ul>
             </div>
-        </div>
-
-        <div [ngClass]="{'max-h-100':usersOpen, 'max-h-25':!usersOpen}" class="transition-[max-height] duration-500 overflow-hidden bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl shadow-xl">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6 md:p-8">
-                <span class="text-white text-xl font-bold flex items-center gap-3">
-                    <i class="bi bi-people-fill text-purple-500 text-2xl"></i>
-                    Membros da Equipe
-                    <span class="bg-purple-500/20 text-purple-400 text-xs py-1 px-3 rounded-full ml-2">3</span> </span>
-                <button
-                    type="button" (click)="usersOpen = !usersOpen" 
-                    class="transition-transform duration-300 disabled:cursor-no-drop bg-slate-800 p-2 rounded-xl text-purple-400 cursor-pointer"
-                >
-                    <i class="bi bi-chevron-down inline-block transform transition-transform duration-500" [class.rotate-180]="usersOpen"></i>
-                </button>
-            </summary>
-            
-            <div class="px-6 md:px-8 pb-8 pt-0 flex flex-col gap-4">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 hover:bg-slate-800/80 transition-all group/item">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-slate-700 border-2 border-slate-600 overflow-hidden flex items-center justify-center text-slate-400 font-bold">
-                            JD
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <h3 class="text-white font-bold text-md group-hover/item:text-purple-400 transition-colors">John Doe</h3> <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                Papel: <span class="text-purple-400">Tech Lead</span> </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 hover:bg-slate-800/80 transition-all group/item">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-slate-700 border-2 border-slate-600 overflow-hidden flex items-center justify-center text-slate-400 font-bold">
-                            MA
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <h3 class="text-white font-bold text-md group-hover/item:text-purple-400 transition-colors">Maria Silva</h3>
-                            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                Papel: <span class="text-purple-400">Front-end</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
         </div>
 
     </div>
 
-    <div class="flex flex-col gap-4 bg-white/5 backdrop-blur-md p-5 shadow rounded-2xl right-50 fixed lg:flex h-fit">
-        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">Ações</p>
-        
-        <a [routerLink]="['/projetos']" class="group flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">
-            <span class="bg-slate-800 p-2 rounded-xl group-hover:bg-slate-700 transition-colors">
-                <i class="bi bi-arrow-left text-blue-400"></i>
-            </span>
-            <span class="font-semibold text-sm">Voltar aos Projetos</span>
-        </a>
+    <div class="flex flex-col gap-10 fixed right-50">
+        <div class="flex flex-col gap-4 w-65 bg-white/5 backdrop-blur-md p-5 shadow rounded-2xl right-50  lg:flex h-fit">
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">Ações</p>
+            
+            <a routerLink="../" class="group flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">
+                <span class="bg-slate-800 p-2 rounded-xl group-hover:bg-slate-700 transition-colors">
+                    <i class="bi bi-arrow-left text-blue-400"></i>
+                </span>
+                <span class="font-semibold text-sm">Voltar aos Projetos</span>
+            </a>
 
-        <button class="group flex items-center gap-4 bg-blue-600/10 border border-blue-500/30 text-blue-400 hover:bg-blue-600 hover:text-white p-4 rounded-2xl transition-all cursor-pointer text-left">
-            <span class="bg-blue-500/20 p-2 rounded-xl group-hover:bg-white/20 transition-colors">
-                <i class="bi bi-person-plus-fill"></i>
-            </span>
-            <span class="font-semibold text-sm">Solicitar Participação</span>
-        </button>
+            @if (project().creator===usernameLogged()) {
+                <button class="group flex items-center gap-4 bg-blue-600/10 border border-blue-500/30 text-blue-400 hover:bg-blue-600 hover:text-white p-4 rounded-2xl transition-all cursor-pointer text-left">
+                    <span class="bg-blue-500/20 p-2 rounded-xl group-hover:bg-white/20 transition-colors">
+                        <i class="bi bi-pencil-square"></i>
+                    </span>
+                    <span class="font-semibold text-sm">Editar projeto</span>
+                </button>
+            }
+            @else {
+                <button class="group flex items-center gap-4 bg-blue-600/10 border border-blue-500/30 text-blue-400 hover:bg-blue-600 hover:text-white p-4 rounded-2xl transition-all cursor-pointer text-left">
+                    <span class="bg-blue-500/20 p-2 rounded-xl group-hover:bg-white/20 transition-colors">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </span>
+                    <span class="font-semibold text-sm">Solicitar Participação</span>
+                </button>
+            }
+
+            
+        </div>
+
+        <div class="flex flex-col gap-4 bg-white/5 backdrop-blur-md p-5 shadow rounded-2xl right-50  lg:flex h-fit">
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">
+                Participantes  ({{project().contibutors.length}})
+            </p>
+            
+            @for (username of project().contibutors; track username) {
+                <div class="group flex items-center gap-4 bg-purple-600/10 border border-purple-500/30 text-purple-400 hover:text-white p-4 rounded-2xl transition-all cursor-pointer text-left">
+
+                    <div class="w-10 h-10 rounded-full bg-slate-700 border-2 border-slate-600 overflow-hidden flex items-center justify-center text-slate-400 font-bold">
+                        {{username.toUpperCase().slice(0,2)}}
+                    </div>
+                    <a [routerLink]="['/', username]" class="font-semibold text-sm">
+                        {{username}}
+                    </a>
+                </div>
+            }
+        </div>
     </div>
 </div>

@@ -18,7 +18,7 @@
 
                             <div class="flex flex-col gap-2">
                                 <h3 class="text-white font-bold text-lg  transition-colors">
-                                    <a class="cursor-pointer hover:underline hover:text-blue-400">
+                                    <a [routerLink]="[project.slug]" class="cursor-pointer hover:underline hover:text-blue-400">
                                         {{project.title}}
                                     </a>
                                 </h3>

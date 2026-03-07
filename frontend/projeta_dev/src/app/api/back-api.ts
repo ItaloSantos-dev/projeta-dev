@@ -50,5 +50,10 @@ export class BackApi {
     getUserByUsername(username:string):Observable<User>{
         return this.httpClient.get<User>(this.urlBase + "users/" + username);
     }
+
+    getProjectOfUserByUsernameAndSlug(username:string,slug:string):Observable<Project>{
+        const urlfinal = this.urlBase + "users/" + username + "/" + slug;
+        return this.httpClient.get<Project>(urlfinal);
+    }
 }
 
