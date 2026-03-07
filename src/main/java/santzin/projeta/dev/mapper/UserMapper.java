@@ -45,7 +45,7 @@ public class UserMapper {
 
         return new UserResponseDTO(
                 userModel.getName(),
-                userModel.getUsername(),
+                userModel.getUsernameProperty(),
                 userModel.getExperienceLevel(),
                 userModel.getPrincipalStack(),
                 myProjects

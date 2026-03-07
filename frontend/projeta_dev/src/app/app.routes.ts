@@ -12,6 +12,7 @@ import { ShowUser } from './components/users/show-user/show-user';
 export const routes: Routes = [
     {path:"", component:Dashboard},
     {path:"dashboard/:page", component:Dashboard},
+    {path:"dashboard", component:Dashboard},
     {path:"home", component:Home},
     {path:"login", component:Login},
     {path:"register", component:Register},

@@ -42,6 +42,16 @@ export class AuthService {
   
   }
 
+  getUsernameLogged():string{
+    const token = localStorage.getItem('token') as string;
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
+
+    const tokenDecoded = jwtDecode<JwtPayload>(token);
+    return tokenDecoded.sub;
+  }
+
   saveToken(token:string){
     localStorage.setItem('token', token);
   }

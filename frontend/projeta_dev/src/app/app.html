@@ -23,7 +23,18 @@
           <li><a routerLink="/about" class="text-gray-300 hover:text-white transition-all duration-200 font-medium">About</a></li>
           <li><a routerLink="/contact-us" class="text-gray-300 hover:text-white transition-all duration-200 font-medium">Contact-Us</a></li>
           @if (authService.islogged()) {
-            <li><button type="button" (click)="authService.logout()" class="text-gray-300 hover:text-white transition-all duration-200 font-medium">Logout</button ></li>
+
+            <li>
+              <a [routerLink]="[usernameLogged]" class="text-gray-300 hover:text-white transition-all duration-200 font-medium">
+              Profile
+              </a >
+            </li>
+
+            <li>
+              <button type="button" (click)="authService.logout()" class="text-gray-300 hover:text-white transition-all duration-200 font-medium">
+              Logout
+              </button >
+            </li>
           }
           <li>
             <a href="https://github.com/seu-usuario/seu-repo" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-200 hover:scale-110 flex items-center">
