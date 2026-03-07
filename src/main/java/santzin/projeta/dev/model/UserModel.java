@@ -55,6 +55,29 @@ public class UserModel implements UserDetails {
     @OneToMany(mappedBy = "creator")
     private List<ProjectModel> myProjects;
 
+    @Column(name = "about")
+    private String about;
+
+    @Column(name ="cover_url")
+    private String coverUrl;
+
+    @Column(name ="perfil_url")
+    private String perfilUrl;
+
+    @Column(name = "link1")
+    private String link1;
+
+    @Column(name = "link2")
+    private String link2;
+
+    @Column(name = "link3")
+    private String link3;
+
+    @Column(name = "link4")
+    private String link4;
+
+    @Column(name = "link5")
+    private String link5;
 
     @OneToMany(mappedBy = "user")
     private List<ProjectUserModel> projects;

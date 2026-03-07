@@ -1,5 +1,6 @@
 package santzin.projeta.dev.DTOs.user;
 
+import jakarta.persistence.Column;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.model.enums.UserExperienceLevel;
 
@@ -10,6 +11,15 @@ public record UserResponseDTO (
         String username,
         UserExperienceLevel experienceLevel,
         String principalStack,
-        List<ProjectResponseDTO> myProjects
+        List<ProjectResponseDTO> myProjects,
+        String about,
+        String coverUrl,
+        String perfilUrl,
+        String link1,
+        String link2,
+        String link3,
+        String link4,
+        String link5
+
 ){
 }
