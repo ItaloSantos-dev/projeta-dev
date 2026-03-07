@@ -7,10 +7,11 @@ export interface Project {
   imgUrl: string;
   description: string;
   stack: string;
+  creator:string;
   status: string;
   inputType: string;
   repositoryLink: string;
   createdAt: string; 
-  contirbutors:User[];
+  contibutors:string[];
   positions:string[];
 }
