@@ -8,6 +8,8 @@ import { Content } from "../../types/entity/content";
 import { ContentRequestDTO } from "../../types/DTO/content-request-dto";
 import { CreateProjectDTO } from "../../types/DTO/create-project-dto";
 import { MyProjectsDTO } from "../../types/DTO/my-projetcts-DTO";
+import { Project } from "../../types/entity/project";
+import { User } from "../../types/entity/user";
 
 @Injectable({
     providedIn:'root',
@@ -43,6 +45,15 @@ export class BackApi {
 
     getMyProjects():Observable<MyProjectsDTO>{
         return this.httpClient.get<MyProjectsDTO>(this.urlBase+"projects");
+    }
+
+    getUserByUsername(username:string):Observable<User>{
+        return this.httpClient.get<User>(this.urlBase + "users/" + username);
+    }
+
+    getProjectOfUserByUsernameAndSlug(username:string,slug:string):Observable<Project>{
+        const urlfinal = this.urlBase + "users/" + username + "/" + slug;
+        return this.httpClient.get<Project>(urlfinal);
     }
 }
 

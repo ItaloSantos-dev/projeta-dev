@@ -38,6 +38,14 @@ public class ProjectService {
 
 
 
+
+    public ProjectResponseDTO getProjectOfUserByUsernameAndSlug(String username, String slug){
+        return this.projectMapper.modelToResponse(this.projectRepository.findBySlug(slug)
+                .orElseThrow(ItemNotFoundException::new));
+    }
+
+
+
     public MyProjectsResponseDTO getMyProjects(UserModel user){
 
         List<Long> idsOfMyProjects = new ArrayList<>();

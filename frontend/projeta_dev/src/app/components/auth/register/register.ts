@@ -18,6 +18,7 @@ export class Register {
   formRegister = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
+    username: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     telephoneNumber: new FormControl('', Validators.required),
     experienceLevel: new FormControl('', [Validators.required]),
@@ -30,6 +31,7 @@ export class Register {
     return {
       name:this.formRegister.get('name')?.value as string,
       email:this.formRegister.get('email')?.value as string,
+      username:this.formRegister.get('username')?.value as string,
       password:this.formRegister.get('password')?.value as string,
       telephoneNumber:this.formRegister.get('telephoneNumber')?.value as string,
       principalStack:this.formRegister.get('principalStack')?.value as string,

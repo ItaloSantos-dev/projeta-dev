@@ -6,10 +6,13 @@ import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.ProjectUserModel;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<ProjectModel, Long> {
     List<ProjectModel> findByCreatorId(Long userId);
 
     Boolean existsByTitleAndCreatorId(String name, Long creatorId);
+
+    Optional<ProjectModel> findBySlug(String slug);
 }

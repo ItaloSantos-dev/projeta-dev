@@ -1,20 +1,33 @@
 <main class="flex items-center justify-center px-6 py-2">
 
-    <div class="max-w-md  p-10 rounded-3xl shadow-2xl border border-gray-800 bg-[#0f172a]">
+    <div class="  p-10 rounded-3xl shadow-2xl border border-gray-800 bg-[#0f172a]">
         <div class="text-center mb-10">
             <h2 class="text-3xl font-bold text-white mb-2">Crie sua conta</h2>
             <p class="text-gray-400">Junte-se a nós e comece a construir projetos reais.</p>
         </div>
 
         <form [formGroup]="formRegister" class="space-y-5">
-            <div>
-                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Nome</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                        <i class="bi bi-person"></i>
-                    </span>
-                    <input formControlName="name" type="text" id="name" 
-                        class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+            <div class="grid grid-cols-2 gap-5">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Nome</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="bi bi-person"></i>
+                        </span>
+                        <input formControlName="name" type="text" id="name" 
+                            class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-300 mb-2">Nome na aplicação</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="bi bi-person"></i>
+                        </span>
+                        <input formControlName="username" type="username" id="username" 
+                            class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                    </div>
                 </div>
             </div>
 
@@ -29,6 +42,8 @@
                 </div>
             </div>
 
+            
+
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Senha</label>
                 <div class="relative">
@@ -40,16 +55,53 @@
                 </div>
             </div>
 
-            <div>
-                <label for="telephoneNumber" class="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                        <i class="bi bi-telephone"></i>
-                    </span>
-                    <input formControlName="telephoneNumber" type="text" id="telephoneNumber" placeholder=""
-                        class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+            <div class="grid grid-cols-2 gap-5">
+
+                <div>
+                    <label for="telephoneNumber" class="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="bi bi-telephone"></i>
+                        </span>
+                        <input formControlName="telephoneNumber" type="text" id="telephoneNumber" placeholder=""
+                            class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                    </div>
                 </div>
+
+                <div class="">
+                    <label for="experienceLevel" class="block text-sm font-medium mt-1 text-gray-400 mb-2 ">
+                        Nível de Experiência
+                    </label>
+                    
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 group-focus-within:text-blue-400 transition-colors duration-300">
+                            <i class="bi bi-briefcase-fill"></i>
+                        </span>
+
+                        <select id="experienceLevel" 
+                                name="experienceLevel" 
+                                formControlName="experienceLevel"
+                                class="block w-full bg-gray-900/50 border border-gray-700 text-gray-200 text-sm rounded-xl py-3 pl-10 pr-10 
+                                    appearance-none cursor-pointer
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 
+                                    transition-all duration-300 hover:bg-gray-800">
+                            
+                            <option value="" disabled selected>Selecione seu nível</option>
+                            <option value="TRAINEE" class="bg-gray-900">🌱 Estagiário / Trainee</option>
+                            <option value="JUNIOR" class="bg-gray-900">⭐ Junior</option>
+                            <option value="PLENO" class="bg-gray-900">🚀 Pleno</option>
+                            <option value="SENIOR" class="bg-gray-900">👑 Sênior</option>
+                        </select>
+
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                            <i class="bi bi-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            
 
             <div>
                 <label for="principalStack" class="block text-sm font-medium text-gray-300 mb-2">Sua stack principal (separe-as por vírgula 'ex, ex, ex')</label>
@@ -62,36 +114,7 @@
                 </div>
             </div>
 
-            <div class="">
-                <label for="experienceLevel" class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 ml-1">
-                    Nível de Experiência
-                </label>
-                
-                <div class="relative group">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400 group-focus-within:text-blue-400 transition-colors duration-300">
-                        <i class="bi bi-briefcase-fill"></i>
-                    </span>
-
-                    <select id="experienceLevel" 
-                            name="experienceLevel" 
-                            formControlName="experienceLevel"
-                            class="block w-full bg-gray-900/50 border border-gray-700 text-gray-200 text-sm rounded-xl py-3 pl-10 pr-10 
-                                appearance-none cursor-pointer
-                                focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 
-                                transition-all duration-300 hover:bg-gray-800">
-                        
-                        <option value="" disabled selected>Selecione seu nível</option>
-                        <option value="TRAINEE" class="bg-gray-900">🌱 Estagiário / Trainee</option>
-                        <option value="JUNIOR" class="bg-gray-900">⭐ Junior</option>
-                        <option value="PLENO" class="bg-gray-900">🚀 Pleno</option>
-                        <option value="SENIOR" class="bg-gray-900">👑 Sênior</option>
-                    </select>
-
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-                        <i class="bi bi-chevron-down text-xs"></i>
-                    </div>
-                </div>
-            </div>
+            
 
             
 

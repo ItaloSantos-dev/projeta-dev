@@ -11,14 +11,16 @@ import java.util.List;
 public record ProjectResponseDTO(
         Long id,
         String title,
+        String slug,
         String imgUrl,
         String description,
         String stack,
+        String creator,
         ProjectStatus status,
         ProjectInputType inputType,
         String repositoryLink,
         LocalDate createdAt,
-        List<UserResponseDTO> users,
+        List<String > contibutors,
         List<String> positions
 ) {
 }
