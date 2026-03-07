@@ -82,6 +82,9 @@ public class UserModel implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<ProjectUserModel> projects;
 
+    @OneToMany(mappedBy = "user")
+    private List<HabilityModel> habilitys;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role==UserRole.ADMIN)
