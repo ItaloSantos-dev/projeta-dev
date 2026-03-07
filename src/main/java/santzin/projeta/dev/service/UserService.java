@@ -9,8 +9,13 @@ import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.exception.FailedLoginException;
 import santzin.projeta.dev.exception.ItemNotFoundException;
+import santzin.projeta.dev.mapper.ProjectMapper;
 import santzin.projeta.dev.mapper.UserMapper;
+import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.repository.UserRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -19,8 +24,12 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserMapper userMapper;
+
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private ProjectMapper projectMapper;
 
 
     @Override
@@ -37,6 +46,20 @@ public class UserService implements UserDetailsService {
         if (!this.userRepository.existsByUsernameProperty(username))
             throw new ItemNotFoundException();
         return this.projectService.getProjectOfUserByUsernameAndSlug(username, slug);
+    }
+
+    public List<ProjectResponseDTO> getProjectsOfUserByUsername(String username){
+        UserModel user = this.userRepository.findByUsernameProperty(username)
+                .orElseThrow(ItemNotFoundException::new);
+        List<ProjectResponseDTO> response = new ArrayList<>();
+
+        if (user.getMyProjects()!=null){
+            response = user.getMyProjects().stream()
+                    .map(p -> this.projectMapper.modelToResponse(p))
+                    .toList();
+        }
+
+        return response;
     }
 
 

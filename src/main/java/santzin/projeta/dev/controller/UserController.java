@@ -12,6 +12,8 @@ import santzin.projeta.dev.repository.UserRepository;
 import santzin.projeta.dev.service.ProjectService;
 import santzin.projeta.dev.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("users")
 public class UserController {
@@ -31,6 +33,11 @@ public class UserController {
             @PathVariable String  slugProject
     ){
         return ResponseEntity.ok(this.userService.getProjectOfUserByUsernameAndSlug(username, slugProject));
+    }
+
+    @GetMapping("/{username}/projects")
+    public ResponseEntity<List<ProjectResponseDTO>> getProjectsOfUserByUsername(@PathVariable String username){
+        return ResponseEntity.ok(this.userService.getProjectsOfUserByUsername(username));
     }
 
 
