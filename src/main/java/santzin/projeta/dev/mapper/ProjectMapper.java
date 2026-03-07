@@ -61,6 +61,7 @@ public class ProjectMapper {
                     .toList();
         }
 
+
         return new ProjectResponseDTO(
                 project.getId(),
                 project.getTitle(),
@@ -68,6 +69,7 @@ public class ProjectMapper {
                 project.getImgUrl(),
                 project.getDescription(),
                 project.getStack(),
+                project.getCreator().getUsernameProperty(),
                 project.getStatus(),
                 project.getInputType(),
                 project.getRepositoryLink(),

@@ -15,6 +15,7 @@ public record ProjectResponseDTO(
         String imgUrl,
         String description,
         String stack,
+        String creator,
         ProjectStatus status,
         ProjectInputType inputType,
         String repositoryLink,
