@@ -3,6 +3,7 @@ import { ContentService } from '../../service/content/content-service';
 import { Content } from '../../../types/entity/content';
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { AuthService } from '../../service/auth-service';
+import { TokenService } from '../../service/token/token-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,7 @@ import { AuthService } from '../../service/auth-service';
 export class Dashboard {
   private contentService = inject(ContentService);
 
-  authService = inject(AuthService);
+  tokenService = inject(TokenService);
 
   private route = inject(ActivatedRoute);
 
@@ -21,11 +22,17 @@ export class Dashboard {
 
   mostPopularContents = signal(<Content[]> ([]) );
 
+  usernameLogged = signal("");
+
   page:number = 1;
 
   ngOnInit(){
-    if (!this.authService.islogged()) {
-      this.router.navigate(['/home'])
+    const usernameOfToken = this.tokenService.getUsernameLogged();
+    if (usernameOfToken===null) {
+      this.router.navigate(['/login'])
+    }
+    else{
+      this.usernameLogged.set(usernameOfToken);
     }
 
     this.route.paramMap.subscribe( params => {

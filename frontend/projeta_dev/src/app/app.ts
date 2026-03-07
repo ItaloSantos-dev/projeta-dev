@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterLinkWithHref, Router } from '@angular/router';
 import { AuthService } from './service/auth-service';
+import { TokenService } from './service/token/token-service';
 
 @Component({
   selector: 'app-root',
@@ -13,17 +14,25 @@ export class App {
 
   private router = inject(Router);
 
+  tokenService = inject(TokenService);
   authService = inject(AuthService);
 
   usernameLogged = signal("");
 
   ngOnInit(){
-    console.log(this.usernameLogged);
     
-    this.usernameLogged.set(this.authService.getUsernameLogged() as string)
-    if (this.usernameLogged()===null||this.usernameLogged()==="") {
+    const username = this.tokenService.getUsernameLogged();
+    
+    if (username===null){
+      console.log("è nulo");
+      
+      localStorage.clear()
       this.router.navigate(['/login'])
+    }else{
+      this.usernameLogged.set(username as string);
     }
+
+    
   }
   
 
