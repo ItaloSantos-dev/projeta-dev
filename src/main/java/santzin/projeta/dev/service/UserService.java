@@ -5,13 +5,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import santzin.projeta.dev.DTOs.hability.HabilityResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.exception.FailedLoginException;
 import santzin.projeta.dev.exception.ItemNotFoundException;
+import santzin.projeta.dev.mapper.HabilityMapper;
 import santzin.projeta.dev.mapper.ProjectMapper;
 import santzin.projeta.dev.mapper.UserMapper;
+import santzin.projeta.dev.model.HabilityModel;
 import santzin.projeta.dev.model.UserModel;
+import santzin.projeta.dev.repository.HabilityRepository;
 import santzin.projeta.dev.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -30,6 +34,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private ProjectMapper projectMapper;
+
+    @Autowired
+    private HabilityMapper habilityMapper;
 
 
     @Override
@@ -60,6 +67,15 @@ public class UserService implements UserDetailsService {
         }
 
         return response;
+    }
+
+    public List<HabilityResponseDTO> getHabilitys(String username){
+        UserModel user = this.userRepository.findByUsernameProperty(username)
+                .orElseThrow(ItemNotFoundException::new);
+
+        return user.getHabilitys().stream()
+                .map(h -> this.habilityMapper.modelToResponse(h))
+                .toList();
     }
 
 
