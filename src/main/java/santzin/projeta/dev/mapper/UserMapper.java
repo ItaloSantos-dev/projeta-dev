@@ -48,7 +48,15 @@ public class UserMapper {
                 userModel.getUsernameProperty(),
                 userModel.getExperienceLevel(),
                 userModel.getPrincipalStack(),
-                myProjects
+                myProjects,
+                userModel.getAbout(),
+                userModel.getCoverUrl(),
+                userModel.getPerfilUrl(),
+                userModel.getLink1(),
+                userModel.getLink2(),
+                userModel.getLink3(),
+                userModel.getLink4(),
+                userModel.getLink5()
         );
     }
 }

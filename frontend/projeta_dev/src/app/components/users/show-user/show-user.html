@@ -8,21 +8,18 @@
                 {{user().name}} <span class="text-slate-500 text-sm font-normal">{{ '@' }}{{user().username}}</span> 
             </h2>
             
-            <a href="#" target="_blank" class="group flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white px-4 py-2 rounded-xl transition-all">
-                <i class="bi bi-linkedin"></i>
-                <span class="text-sm font-semibold">LinkedIn</span> <i class="bi bi-box-arrow-up-right text-xs ml-1 opacity-50 group-hover:opacity-100 transition-opacity"></i>
-            </a>
+            
         </div>
         <!--Adicionar campo para imagem-->
         <div class="w-full h-48 md:h-64 rounded-3xl overflow-hidden border border-slate-800 shadow-xl relative group">
             <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent z-10"></div>
-            <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=2070&auto=format&fit=crop" 
+            <img [src]="[user().coverUrl]" 
                  alt="Capa do perfil" 
                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
             
             <div class="absolute bottom-4 left-6 z-20 flex items-center gap-4">
                 <div class="w-20 h-20 rounded-full border-4 border-slate-900 overflow-hidden bg-slate-800">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" alt="Avatar" class="w-full h-full object-cover">
+                    <img [src]="user().perfilUrl" alt="Avatar" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
@@ -65,12 +62,11 @@
                 
                 <!--Adicionar campo de about no user-->
                 <p class="text-slate-400 text-sm leading-relaxed">
-                    FEATURE
-                    Desenvolvedor Full Stack apaixonado por criar arquiteturas escaláveis e interfaces intuitivas. Tenho mais de 6 anos de experiência desenvolvendo soluções para o setor financeiro e de e-commerce. Foco na entrega de código limpo, testes automatizados e cultura DevOps.
+                {{user().about}}
                 </p>
             </div>
 
-            <div>
+            <div class=" mb-8">
                 <!-- Depois fazer sistema de Adicionar habilidades, junto com escolha de icons do bootstrap com pre vizu -->
                 <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
                     <i class="bi bi-code-slash text-purple-500"></i> Habilidades em Destaque
@@ -92,6 +88,21 @@
                     </li>
                 </ul>
             </div>
+
+
+            <div>
+                <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="bi bi-link text-purple-500"></i> Links relevantes
+                </h3>
+                <ul class="flex flex-col gap-4">
+                    @for (link of listLinks; track $index) {
+                        <li class="list-disc list-inside">
+                            <a [href]="[link]" target="_blank" class="text-white transition hover:underline cursor-pointer hover:text-purple-500">{{link}}</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
         </div>
 
         <div [ngClass]="{'max-h-100':projetosOpen, 'max-h-25':!projetosOpen}" class="transition-[max-height] duration-500 overflow-hidden bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl shadow-xl">
@@ -141,12 +152,16 @@
             <span class="font-semibold text-sm">Voltar</span>
         </a>
 
-        <button class="group flex items-center gap-4 bg-purple-600/10 border border-purple-500/30 text-purple-400 hover:bg-purple-600 hover:text-white p-4 rounded-2xl transition-all cursor-pointer text-left">
-            <span class="bg-purple-500/20 p-2 rounded-xl group-hover:bg-white/20 transition-colors">
-                <i class="bi bi-person-plus"></i>
-            </span>
-            <span class="font-semibold text-sm">Seguir</span>
-        </button>
+
+
+        @if (!userLoggedIsCreator()) {
+            <button class="group flex items-center gap-4 bg-purple-600/10 border border-purple-500/30 text-purple-400 hover:bg-purple-600 hover:text-white p-4 rounded-2xl transition-all cursor-pointer text-left">
+                <span class="bg-purple-500/20 p-2 rounded-xl group-hover:bg-white/20 transition-colors">
+                    <i class="bi bi-person-plus"></i>
+                </span>
+                <span class="font-semibold text-sm">Seguir</span>
+            </button>
+        }
         
     </div>
 </div>

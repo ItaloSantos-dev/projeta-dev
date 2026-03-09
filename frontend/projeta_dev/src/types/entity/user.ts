@@ -6,5 +6,13 @@ export interface User {
   username: string;
   experienceLevel: UserExperienceLevel;
   principalStack: string;
-  myProjects:Project[]
+  myProjects:Project[];
+  about: string;
+  coverUrl: string;
+  perfilUrl: string;
+  link1: string;
+  link2: string;
+  link3: string;
+  link4: string;
+  link5: string;
 }
