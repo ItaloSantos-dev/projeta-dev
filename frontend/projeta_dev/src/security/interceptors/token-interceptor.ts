@@ -10,7 +10,9 @@ export function TokenInterceptor(
 
 ):Observable<HttpEvent<unknown>> {
     console.log("veio interceptor");
-    
+    if (req.url.includes('api.iconify.design')) {
+        return next(req); 
+    }
     const authService = inject(AuthService)
 
     const router = inject(Router);

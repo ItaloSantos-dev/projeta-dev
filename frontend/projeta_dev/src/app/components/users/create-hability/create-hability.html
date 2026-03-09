@@ -1,50 +1,87 @@
 <div class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm">
-    <div class="w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden rounded-3xl shadow-2xl border border-gray-800 bg-[#0f172a]/95 backdrop-blur-2xl">
+    <div [ngClass]="{'overflow-hidden':!showIconsZoom}" class="w-full max-w-lg max-h-[90vh] flex flex-col  rounded-3xl shadow-2xl border border-gray-800 bg-[#0f172a]/95 backdrop-blur-2xl">
         
         <div class="p-8 pb-4 text-center border-b border-gray-800/50">
             <h2 class="text-2xl font-bold text-white mb-1">Adicionar Habilidade</h2>
             <p class="text-gray-400 text-sm">Personalize o título e o ícone da sua nova skill.</p>
         </div>
 
-        <div [ngClass]="{'max-h-33':!hasIcon, 'max-h-screen':hasIcon}" class="flex-1 transition-[max-height]  duration-500 overflow-hidden p-8 space-y-6">
-            <form class="space-y-6">
+        <div [ngClass]="{'max-h-33':!hasIcon, 'max-h-screen':hasIcon, 'overflow-hidden':!showIconsZoom}" class="flex-1 transition-[max-height]  duration-500  p-4 space-y-6">
+            <form class="space-y-6" [formGroup]="formCreateHability">
                 <div class="flex items-end gap-5">
                     <div class="grow">
-                        <label for="skillTitle" class="block text-sm font-medium text-gray-300 mb-2">Título</label>
+                        <div class="flex items-center ">
+                            <label for="title" class="block text-sm font-medium text-gray-300 mb-2">Título</label>
+
+                            @if(hasIcon){
+                                <img class="w-10 h-10 p-1 object-contain group-hover:scale-110 transition-transform duration-300" [src]="linkSelected()" alt="Ícone">
+                            }
+                        </div>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
                                 <i class="bi bi-pencil"></i>
                             </span>
-                            <input formControlName="title" type="text" id="skillTitle" placeholder="Ex: Angular"
+                            
+                            <input formControlName="title" type="text" id="title"  placeholder="Ex: Angular"
                                 class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
                         </div>
                     </div>
 
                     <div class="flex flex-col items-center mb-1">
-                        <label class="block text-xs font-medium text-gray-400 mb-2">Ícone?</label>
-                        <input (click)="hasIcon = !hasIcon" type="checkbox" formControlName="hasIcon" [checked]="hasIcon"
+                        <label formControlName="hasIcon" for="hasIcon" class="block text-xs font-medium text-gray-400 mb-2">Ícone?</label>
+
+                        <input (click)="hasIcon = !hasIcon" type="checkbox" formControlName="hasIcon" id="hasIcon" [checked]="hasIcon"
                             class="w-6 h-6 bg-gray-800 border-gray-700 rounded text-blue-500 focus:ring-blue-500 cursor-pointer">
                     </div>
                 </div>
 
                 <div class="space-y-4 pt-4 border-t border-gray-800">
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Pesquise o ícone</label>
+                    <label for="iconLink" class="block text-sm font-medium  text-gray-300 mb-2">Pesquise o ícone</label>
                     <div class="flex gap-2">
                         <div class="relative grow">
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
                                 <i class="bi bi-search"></i>
                             </span>
-                            <input type="search" placeholder="Ex: bootstrap, code..." 
-                                class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <input #search (change)="iconSearch.set(search.value)" type="search" placeholder="Ex: bootstrap, code..." 
+                                class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500" id="iconLink" formControlName="iconLink">
                         </div>
-                        <button type="button" class="px-5 bg-gray-700 hover:bg-gray-600 text-white rounded-xl transition flex items-center">
+                        <button (click)="searchIcon()" type="button" class="px-5 bg-gray-700 hover:bg-gray-600 text-white rounded-xl transition flex items-center">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
 
-                    <textarea class="h-40 w-full bg-gray-900 border border-gray-700 text-gray-300 rounded-xl p-4 focus:outline-none focus:ring-1 focus:ring-gray-600" 
-                              placeholder="Resultado da busca...">
-                    </textarea>
+                    <div [ngClass]="{'': showIconsZoom}" >
+                        <input type="text" name="" disabled id="" class="hidder">
+                        <div 
+                            [ngClass]="{'h-40 w-full': !showIconsZoom, 'h-[50vh] w-[50vw]': showIconsZoom}"
+                            
+                            class="   overflow-y-auto items-center justify-center bg-gray-900  border-gray-800 text-gray-300 rounded-2xl p-5 transition-all duration-300 border border-white-700   focus:outline-none focus:ring-1 focus:ring-gray-600"
+                        >
+                            <div class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-4">
+                                @for (link of listLinks(); track $index) {
+                                    <button  (click)="selecLink($index)" type="button" >
+                                        <div [ngClass]="{'border-emerald-400':$index===linkIdSelected()}" class="group flex items-center justify-center aspect-square bg-gray-800 border  hover:border-blue-500 rounded-xl cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1">
+                                            <img class="w-10 h-10 p-1 object-contain group-hover:scale-110 transition-transform duration-300" [src]="link" alt="Ícone">
+                                        </div>
+                                    </button>
+                                }
+                            </div>
+                            @if(listLinks().length===0) {
+                                <div class="flex justify-center text-center items-center ">
+                                    <div class="block text-sm font-medium text-gray-300 mb-2">Nenhum item encontrado</div>
+                                </div>
+                            }
+                        </div>
+
+                        <div class=" mt-5 flex justify-center items-center">
+                            <div>
+                                <button (click)="showIconsZoom = !showIconsZoom" type="button">
+                                    <i class="bi bi-arrows-angle-expand cursor-pointer inline-block hover:scale-110 hover:bg-gray-400 text-white transition bg-gray-500 p-2 rounded-2xl"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </form>
         </div>
@@ -54,7 +91,7 @@
                 <i class="bi bi-x-octagon"></i> cancelar
             </button>
             
-            <button  type="button" class="flex-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2">
+            <button (click)="ngOnSubmit()"  type="button" class="flex-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2">
                 <i class="bi bi-save"></i> Salvar Habilidade
             </button>
         </div>
