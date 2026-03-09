@@ -6,4 +6,5 @@ import santzin.projeta.dev.model.HabilityModel;
 
 @Repository
 public interface HabilityRepository extends JpaRepository<HabilityModel, Long> {
+    boolean existsByTitle(String title);
 }
