@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import santzin.projeta.dev.DTOs.auth.RegisterRequestDTO;
+import santzin.projeta.dev.DTOs.hability.HabilityResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.UserModel;
@@ -19,6 +20,9 @@ public class UserMapper {
 
     @Autowired
     private ProjectMapper projectMapper;
+
+    @Autowired
+    private HabilityMapper habilityMapper;
 
     public UserModel requestRegisterToModel(RegisterRequestDTO request) {
         UserModel user = new UserModel();
@@ -43,6 +47,10 @@ public class UserMapper {
                         .map( p-> this.projectMapper.modelToResponse(p))
                         .toList();
 
+        List<HabilityResponseDTO> habilitys = userModel.getHabilitys().stream()
+                .map(h -> this.habilityMapper.modelToResponse(h))
+                .toList();
+
         return new UserResponseDTO(
                 userModel.getName(),
                 userModel.getUsernameProperty(),
@@ -56,7 +64,9 @@ public class UserMapper {
                 userModel.getLink2(),
                 userModel.getLink3(),
                 userModel.getLink4(),
-                userModel.getLink5()
+                userModel.getLink5(),
+                habilitys
+
         );
     }
 }
