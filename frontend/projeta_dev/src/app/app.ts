@@ -25,7 +25,6 @@ export class App {
     
     if (username===null){
       console.log("è nulo");
-      
       localStorage.clear()
       this.router.navigate(['/login'])
     }else{

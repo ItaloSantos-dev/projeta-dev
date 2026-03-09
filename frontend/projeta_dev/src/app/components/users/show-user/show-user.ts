@@ -4,10 +4,11 @@ import { NgClass } from '@angular/common';
 import { UserService } from '../../../service/user/user-service';
 import { User } from '../../../../types/entity/user';
 import { TokenService } from '../../../service/token/token-service';
+import { CreateHability } from "../create-hability/create-hability";
 
 @Component({
   selector: 'app-show-user',
-  imports: [RouterLink, NgClass],
+  imports: [RouterLink, NgClass, CreateHability],
   templateUrl: './show-user.html',
   styleUrl: './show-user.css',
 })
@@ -17,6 +18,8 @@ export class ShowUser {
   private router = inject(Router)
   private userService = inject(UserService);
   private tokenService = inject(TokenService);
+
+  shorFormCreateHability = false;
 
   user = signal(<User> ({} as User));
 
