@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators, ɵInternalForm
 import { IconApi } from '../../../api/icon-api';
 import { IconApiService } from '../../../service/icons/icon-api-service';
 import { CreateHabilityDTO } from '../../../../types/DTO/create-hability-dto';
+import { HabilityService } from '../../../service/hability/hability-service';
 
 @Component({
   selector: 'app-create-hability',
@@ -14,7 +15,7 @@ import { CreateHabilityDTO } from '../../../../types/DTO/create-hability-dto';
 export class CreateHability {
 
   
-
+  habilityService = inject(HabilityService);
   iconApiService = inject(IconApiService);
 
   formCreateHability = new FormGroup({
@@ -53,21 +54,32 @@ export class CreateHability {
   private createRequestHabilityDTO():CreateHabilityDTO{
     return {
       title:this.formCreateHability.get('title')?.value as string,
-      hasIcon:this.formCreateHability.get('hasIcon')?.value as boolean,
+      haveIcon:this.formCreateHability.get('hasIcon')?.value as boolean,
       iconLink:this.formCreateHability.get('iconLink')?.value as string
     }
     
   }
 
   ngOnSubmit(){
+    console.log(this.createRequestHabilityDTO());
     
+    this.habilityService.createHability(this.createRequestHabilityDTO()).subscribe({
+      next:(dado)=>{
+        this.closingForm();
+
+      },
+      error:(erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
     
   }
 
+  
+
   @Output() closeForm = new EventEmitter<boolean>();
   closingForm(){
-    console.log("emitindo");
-    
     this.closeForm.emit(false);
   }
 }

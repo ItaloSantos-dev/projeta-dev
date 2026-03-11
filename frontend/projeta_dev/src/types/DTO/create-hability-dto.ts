@@ -1,5 +1,5 @@
 export interface CreateHabilityDTO{
     title:string,
-    hasIcon:boolean
+    haveIcon:boolean
     iconLink?:string
 }

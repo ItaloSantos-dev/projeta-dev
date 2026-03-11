@@ -10,6 +10,8 @@ import { CreateProjectDTO } from "../../types/DTO/create-project-dto";
 import { MyProjectsDTO } from "../../types/DTO/my-projetcts-DTO";
 import { Project } from "../../types/entity/project";
 import { User } from "../../types/entity/user";
+import { CreateHabilityDTO } from "../../types/DTO/create-hability-dto";
+import { Hability } from "../../types/entity/hability";
 
 @Injectable({
     providedIn:'root',
@@ -54,6 +56,10 @@ export class BackApi {
     getProjectOfUserByUsernameAndSlug(username:string,slug:string):Observable<Project>{
         const urlfinal = this.urlBase + "users/" + username + "/" + slug;
         return this.httpClient.get<Project>(urlfinal);
+    }
+
+    createHability(data:CreateHabilityDTO):Observable<Hability>{
+        return this.httpClient.post<Hability>(this.urlBase + "habilitys", data);
     }
 }
 

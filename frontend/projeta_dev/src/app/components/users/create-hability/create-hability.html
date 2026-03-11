@@ -36,14 +36,14 @@
                 </div>
 
                 <div class="space-y-4 pt-4 border-t border-gray-800">
-                    <label for="iconLink" class="block text-sm font-medium  text-gray-300 mb-2">Pesquise o ícone</label>
+                    <label for="search" class="block text-sm font-medium  text-gray-300 mb-2">Pesquise o ícone</label>
                     <div class="flex gap-2">
                         <div class="relative grow">
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
                                 <i class="bi bi-search"></i>
                             </span>
                             <input #search (change)="iconSearch.set(search.value)" type="search" placeholder="Ex: bootstrap, code..." 
-                                class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500" id="iconLink" formControlName="iconLink">
+                                class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500" id="search">
                         </div>
                         <button (click)="searchIcon()" type="button" class="px-5 bg-gray-700 hover:bg-gray-600 text-white rounded-xl transition flex items-center">
                             <i class="bi bi-search"></i>
@@ -51,7 +51,7 @@
                     </div>
 
                     <div [ngClass]="{'': showIconsZoom}" >
-                        <input type="text" name="" disabled id="" class="hidder">
+                        <input type="text" name=""  id="" formControlName="iconLink" class="hidden">
                         <div 
                             [ngClass]="{'h-40 w-full': !showIconsZoom, 'h-[50vh] w-[50vw]': showIconsZoom}"
                             
