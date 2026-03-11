@@ -10,6 +10,7 @@ export interface Project {
   creator:string;
   status: string;
   inputType: string;
+  paid:boolean
   repositoryLink: string;
   createdAt: string; 
   contibutors:string[];

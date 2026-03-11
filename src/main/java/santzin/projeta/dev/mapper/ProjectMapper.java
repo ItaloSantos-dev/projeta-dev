@@ -43,6 +43,7 @@ public class ProjectMapper {
         project.setStatus(ProjectStatus.OPEND);
         project.setCreator(user);
         project.setInputType(requestDTO.inputType());
+        project.setPaid(requestDTO.paid());
         project.setRepositoryLink(requestDTO.repositoryLink());
         project.setCreatedAt(LocalDate.now());
 
@@ -77,6 +78,7 @@ public class ProjectMapper {
                 project.getCreator().getUsernameProperty(),
                 project.getStatus(),
                 project.getInputType(),
+                project.getPaid(),
                 project.getRepositoryLink(),
                 project.getCreatedAt(),
                 users,
@@ -93,6 +95,7 @@ public class ProjectMapper {
         project.setStack(requestDTO.stack());
         project.setStatus(requestDTO.status());
         project.setInputType(requestDTO.inputType());
+        project.setPaid(requestDTO.paid());
         project.setRepositoryLink(requestDTO.repositoryLink());
 
     }

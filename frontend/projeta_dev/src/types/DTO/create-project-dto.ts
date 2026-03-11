@@ -4,6 +4,7 @@ export interface CreateProjectDTO {
   description: string;
   stack: string;
   inputType: string;
+  paid:boolean;
   repositoryLink: string;
   principalPosition: string;
 }

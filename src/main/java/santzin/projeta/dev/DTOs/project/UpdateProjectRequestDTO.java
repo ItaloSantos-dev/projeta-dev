@@ -10,6 +10,7 @@ public record UpdateProjectRequestDTO(
         ProjectStatus status,
         String stack,
         ProjectInputType inputType,
+        Boolean paid,
         String repositoryLink
 ) {
 }

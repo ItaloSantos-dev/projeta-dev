@@ -18,6 +18,7 @@ public record ProjectResponseDTO(
         String creator,
         ProjectStatus status,
         ProjectInputType inputType,
+        Boolean paid,
         String repositoryLink,
         LocalDate createdAt,
         List<String > contibutors,

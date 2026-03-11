@@ -41,6 +41,9 @@ public class ProjectModel {
     @Column(name = "input_type", nullable = false)
     private ProjectInputType inputType;
 
+    @Column(name = "paid", nullable = false)
+    private Boolean paid;
+
     @Column(name = "repository_link")
     private String repositoryLink;
 

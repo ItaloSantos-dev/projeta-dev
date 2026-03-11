@@ -8,6 +8,7 @@ public record CreateProjectRequestDTO(
         String description,
         String stack,
         ProjectInputType inputType,
+        Boolean paid,
         String repositoryLink,
         String principalPosition
 ) {

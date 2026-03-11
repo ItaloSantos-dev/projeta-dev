@@ -16,7 +16,7 @@
 
         <div class="w-full h-64 md:h-80 rounded-3xl overflow-hidden border border-slate-800 shadow-xl relative group">
             <div class="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent z-10"></div>
-            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" 
+            <img [src]="project().imgUrl"
                  alt="Capa do projeto" 
                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
         </div>
@@ -39,7 +39,12 @@
                 </span>
                 
                 <span class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                    <i class="bi bi-cpu"></i> {{project().inputType}} </span>
+                    <i class="bi bi-cpu"></i> {{project().inputType}} 
+                </span>
+
+                <span class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <i class="bi bi-door-open"></i> {{project().paid? 'PAGO':'GRÁTIS'}} 
+                </span>
 
                 <div class="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-700/50">
                     Stack: <span class="text-blue-400">{{project().stack}}</span> </div>
