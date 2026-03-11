@@ -50,9 +50,14 @@ public class ProjectMapper {
     }
 
     public ProjectResponseDTO modelToResponse(ProjectModel project) {
-        List<String> users = project.getUsers().stream()
-                .map(u -> u.getUser().getUsernameProperty())
-                .toList();
+
+        List<String> users = new ArrayList<>();
+
+        if (project.getUsers()!=null){
+            users = project.getUsers().stream()
+                    .map(u -> u.getUser().getUsernameProperty())
+                    .toList();
+        }
 
         List<String> positions = new ArrayList<>();
         if (project.getPositions()!=null){
