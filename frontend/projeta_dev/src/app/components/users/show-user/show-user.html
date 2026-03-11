@@ -66,32 +66,48 @@
                 </p>
             </div>
 
-            <div class=" mb-8">
-                <div class="flex items-center gap-4 mb-4">
-                    <h3 class="text-white font-bold text-lg flex items-center gap-2 m-0">
-                        <i class="bi bi-code-slash text-purple-500"></i> Habilidades em Destaque
-                    </h3>
-
-                    <button (click)="shorFormCreateHability = true" type="button" title="Adicionar habilidade" class="flex cursor-pointer items-center justify-center w-8 h-8 bg-purple-500/20 text-purple-400 hover:bg-purple-500 hover:text-white transition-all duration-300 rounded-lg hover:scale-110 active:scale-95 shadow-sm">
+            @if(userLoggedIsCreator()){
+                <div class="flex gap-2 items-center mb-3">
+                    <button (click)="showFormCreateHability()" type="button" title="Adicionar habilidade" class="flex cursor-pointer items-center justify-center w-8 h-8 bg-purple-500/20 text-purple-400 hover:bg-purple-500 hover:text-white transition-all duration-300 rounded-lg hover:scale-110 active:scale-95 shadow-sm">
                         <i class="bi bi-plus text-xl"></i>
                     </button>
+                    <div class="text-white font-bold">
+                        @if(user().habilitys.length==0){Criar habilidade}
+                    </div>
                 </div>
-                <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    
-                    <li class="flex items-center gap-3 text-sm text-slate-300 bg-slate-800/30 p-3 rounded-xl border border-slate-700/50">
-                        <span class="bg-purple-500/20 text-purple-400 p-1.5 rounded-lg"><i class="bi bi-lightning-charge-fill"></i></span>
-                        Aplicações SPA com React e Redux
-                    </li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300 bg-slate-800/30 p-3 rounded-xl border border-slate-700/50">
-                        <span class="bg-purple-500/20 text-purple-400 p-1.5 rounded-lg"><i class="bi bi-database-fill"></i></span>
-                        APIs RESTful com Node.js e Express
-                    </li>
-                    <li class="flex items-center gap-3 text-sm text-slate-300 bg-slate-800/30 p-3 rounded-xl border border-slate-700/50">
-                        <span class="bg-purple-500/20 text-purple-400 p-1.5 rounded-lg"><i class="bi bi-cloud-check-fill"></i></span>
-                        Deploy CI/CD e Infra AWS
-                    </li>
-                </ul>
-            </div>
+            }
+
+            @if(user().habilitys.length>0){
+                <div class=" mb-8">
+                    <div class="flex items-center gap-4 mb-4">
+                        <h3 class="text-white font-bold text-lg flex items-center gap-2 m-0">
+                            <i class="bi bi-code-slash text-purple-500"></i> Habilidades em Destaque
+                        </h3>
+                    </div>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        
+                        @for (hability of user().habilitys; track hability.id) {
+                            <li class="group flex items-center gap-4 text-sm text-slate-200 bg-slate-800/40 p-3 rounded-2xl border border-slate-700/50 hover:border-purple-500/50 hover:bg-slate-800/60 transition-all duration-300 shadow-sm">
+                                <span class="shrink-0 bg-purple-500/10 text-purple-400 p-2  rounded-xl ring-1 ring-purple-500/20 group-hover:ring-purple-500/40 transition-all">
+                                    <img class="h-6 w-6 object-contain" [src]="hability.iconLink" [alt]="hability.title">
+                                </span>
+                                
+                                <div class="flex items-center justify-between w-full">
+                                    <span class="font-medium tracking-wide">
+                                        {{hability.title}}
+                                    </span>
+
+                                    @if(userLoggedIsCreator()){
+                                        <button class="opacity-0 group-hover:opacity-100 focus:opacity-100 p-2 cursor-pointer text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all duration-200" title="Excluir" (click)="ngOnDelete(hability.id)">
+                                            <i class="bi bi-trash3 text-lg"></i>
+                                        </button>
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
 
 
             <div>
@@ -168,7 +184,7 @@
         }
     </div>
 <!-- " -->
-    <app-create-hability class="absolute" (closeForm)="shorFormCreateHability = ($event)" [ngClass]="{'block':shorFormCreateHability, 'hidden':!shorFormCreateHability}"  >
+    <app-create-hability class="absolute" (closeForm)="closeFormCreateHability()" [ngClass]="{'block':shorFormCreateHability(), 'hidden':!shorFormCreateHability()}"  >
 
     </app-create-hability>
 </div>

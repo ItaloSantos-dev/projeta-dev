@@ -15,7 +15,8 @@ public class HabilityMapper {
         hability.setTitle(requestDTO.title());
         hability.setUser(user);
         hability.setHaveIcon(requestDTO.haveIcon());
-        hability.setIconLink(requestDTO.iconLink());
+        if (hability.getHaveIcon())
+            hability.setIconLink(requestDTO.iconLink());
         hability.setCreatedAt(LocalDate.now());
         return hability;
     }

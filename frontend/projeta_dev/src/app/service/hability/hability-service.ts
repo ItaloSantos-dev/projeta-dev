@@ -11,10 +11,10 @@ export class HabilityService {
   backApi = inject(BackApi);
 
   createHability(dado:CreateHabilityDTO):Observable<Hability>{
-    console.log("dADO");
-    console.log(dado);
-    
-    
     return this.backApi.createHability(dado);
+  }
+
+  deleteHability(id:number){
+    return this.backApi.deleteHability(id);
   }
 }

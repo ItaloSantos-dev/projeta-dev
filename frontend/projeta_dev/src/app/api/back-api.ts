@@ -61,5 +61,9 @@ export class BackApi {
     createHability(data:CreateHabilityDTO):Observable<Hability>{
         return this.httpClient.post<Hability>(this.urlBase + "habilitys", data);
     }
+
+    deleteHability(id:number){
+        return this.httpClient.delete(this.urlBase + "habilitys/"+ id);
+    }
 }
 

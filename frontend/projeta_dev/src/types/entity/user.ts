@@ -1,4 +1,5 @@
 import { UserExperienceLevel } from "../enums/user-experience-level";
+import { Hability } from "./hability";
 import { Project } from "./project";
 
 export interface User {
@@ -15,4 +16,5 @@ export interface User {
   link3: string;
   link4: string;
   link5: string;
+  habilitys:Hability[]
 }

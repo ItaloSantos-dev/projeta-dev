@@ -5,6 +5,7 @@ import { UserService } from '../../../service/user/user-service';
 import { User } from '../../../../types/entity/user';
 import { TokenService } from '../../../service/token/token-service';
 import { CreateHability } from "../create-hability/create-hability";
+import { HabilityService } from '../../../service/hability/hability-service';
 
 @Component({
   selector: 'app-show-user',
@@ -18,8 +19,15 @@ export class ShowUser {
   private router = inject(Router)
   private userService = inject(UserService);
   private tokenService = inject(TokenService);
+  private habilityService = inject(HabilityService);
 
-  shorFormCreateHability = false;
+  shorFormCreateHability = signal(false);
+
+  showFormCreateHability(){
+    console.log("abbb");
+    
+    this.shorFormCreateHability.set(true);
+  }
 
   user = signal(<User> ({} as User));
 
@@ -37,6 +45,40 @@ export class ShowUser {
     
   }
 
+  ngOnDelete(id:number){
+    this.habilityService.deleteHability(id).subscribe({
+      next:()=>{
+        this.loadUser()
+      },
+      error:(erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
+  }
+
+  closeFormCreateHability(){
+    console.log("fechando");
+    
+    this.shorFormCreateHability.set(false);
+    this.loadUser();
+  }
+
+  loadUser(){
+    this.userService.getUserByUsername(this.username).subscribe({
+      next:(dado) =>{
+        this.user.set(dado);
+        console.log(this.user().myProjects[0]);
+        this.completeListLinks()
+        
+      },
+      error:(erro) => {
+        console.log(erro.error);
+      }
+    })
+
+  }
+
   private username = "";
 
   constructor(){
@@ -46,6 +88,7 @@ export class ShowUser {
   }
 
   completeListLinks(){
+    this.listLinks.splice(0, this.listLinks.length)
     if (this.user().link1) {
       this.listLinks.push(this.user().link1);
     }
@@ -68,17 +111,6 @@ export class ShowUser {
   }
 
   ngOnInit(){
-    this.userService.getUserByUsername(this.username).subscribe({
-      next:(dado) =>{
-        this.user.set(dado);
-        console.log(this.user().myProjects[0]);
-        this.completeListLinks()
-        
-      },
-      error:(erro) => {
-        console.log(erro.error);
-        
-      }
-    })
+    this.loadUser();
   }
 }
