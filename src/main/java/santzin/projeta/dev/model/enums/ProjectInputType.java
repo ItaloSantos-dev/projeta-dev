@@ -1,7 +1,7 @@
 package santzin.projeta.dev.model.enums;
 
 public enum ProjectInputType {
-    PAID("PAID"), FREE("FREE");
+    RELESEAD("RELESEAD"), TEST("TEST"), PERMISSION("PERMISSION"), PAID("PAID");
     private String projectInputType;
 
     ProjectInputType (String projectInputType){
