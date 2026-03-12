@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import santzin.projeta.dev.DTOs.project_request.ProjectRequestResponseDTO;
+import santzin.projeta.dev.DTOs.project_user.CreateProjectUserDTO;
 import santzin.projeta.dev.exception.ItemNotFoundException;
 import santzin.projeta.dev.exception.NotPermitException;
 import santzin.projeta.dev.mapper.ProjectRequestMapper;
@@ -12,9 +13,12 @@ import santzin.projeta.dev.model.ProjectRequestModel;
 import santzin.projeta.dev.model.ProjectRequestNotificationModel;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.ProjectStatus;
+import santzin.projeta.dev.model.enums.StatusRequestProject;
 import santzin.projeta.dev.repository.ProjectRepository;
 import santzin.projeta.dev.repository.ProjectRequestRespository;
 import santzin.projeta.dev.repository.ProjectUserRepository;
+
+import java.time.LocalDate;
 
 @Service
 public class ProjectRequestService {
@@ -33,6 +37,9 @@ public class ProjectRequestService {
 
     @Autowired
     private ProjectUserRepository projectUserRepository;
+
+    @Autowired
+    private ProjectUserService projectUserService;
 
     @Transactional
     public ProjectRequestResponseDTO create(UserModel user, Long projectId){
@@ -62,5 +69,30 @@ public class ProjectRequestService {
 
         return this.projectRequestMapper.modelToResonse(projectRequestModel);
 
+    }
+
+    @Transactional
+    public void updateStatus (UserModel userModel, Long projectRequestId, StatusRequestProject newStatus, Long positionId){
+        ProjectRequestModel projectRequestModel = this.projectRequestRespository.findById(projectRequestId)
+                .orElseThrow(() -> new ItemNotFoundException(projectRequestId, "pedido"));
+
+        if (!userModel.getId().equals(projectRequestModel.getProject().getCreator().getId()))
+            throw new NotPermitException();
+
+        projectRequestModel.setStatus(newStatus);
+        projectRequestModel.setRespondedAt(LocalDate.now());
+
+        this.projectRequestRespository.save(projectRequestModel);
+
+        if (newStatus==StatusRequestProject.ACCEPTED){
+            this.projectUserService.createProjectUser(
+                    new CreateProjectUserDTO(
+                            projectRequestModel.getUser().getId(),
+                            projectRequestModel.getProject().getId(),
+                            positionId
+                    ),
+                    userModel
+            );
+        }
     }
 }
