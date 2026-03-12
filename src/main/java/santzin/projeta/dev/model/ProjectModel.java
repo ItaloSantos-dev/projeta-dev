@@ -59,5 +59,8 @@ public class ProjectModel {
 
     @OneToMany(mappedBy = "project")
     private List<ProjectPositionModel> positions;
+
+    @OneToMany(mappedBy = "project")
+    private List<ProjectRequestModel> projectRequests;
 }
 
