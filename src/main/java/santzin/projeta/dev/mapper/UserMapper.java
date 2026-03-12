@@ -12,6 +12,7 @@ import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.UserRole;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -42,14 +43,19 @@ public class UserMapper {
     }
 
     public UserResponseDTO modelToResponse(UserModel userModel){
-        List<ProjectResponseDTO> myProjects = userModel.getMyProjects().isEmpty()? null :
-                userModel.getMyProjects().stream()
-                        .map( p-> this.projectMapper.modelToResponse(p))
-                        .toList();
+        List<ProjectResponseDTO> myProjects = new ArrayList<>();
 
-        List<HabilityResponseDTO> habilitys = userModel.getHabilitys().stream()
-                .map(h -> this.habilityMapper.modelToResponse(h))
-                .toList();
+        if (userModel.getMyProjects()!=null)
+            myProjects = userModel.getMyProjects().stream()
+                            .map( p-> this.projectMapper.modelToResponse(p))
+                            .toList();
+
+        List<HabilityResponseDTO> habilitys = new ArrayList<>();
+
+        if (userModel.getHabilitys()!=null)
+            habilitys = userModel.getHabilitys().stream()
+                    .map(h -> this.habilityMapper.modelToResponse(h))
+                    .toList();
 
         return new UserResponseDTO(
                 userModel.getName(),
