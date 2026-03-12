@@ -31,4 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
-src/main/java/santzin/projeta/dev/teste.java
+src/main/java/santzin/projeta/dev/controller/Teste.java
