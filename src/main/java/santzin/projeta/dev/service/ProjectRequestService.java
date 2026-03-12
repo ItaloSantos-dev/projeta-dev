@@ -1,0 +1,66 @@
+package santzin.projeta.dev.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import santzin.projeta.dev.DTOs.project_request.ProjectRequestResponseDTO;
+import santzin.projeta.dev.exception.ItemNotFoundException;
+import santzin.projeta.dev.exception.NotPermitException;
+import santzin.projeta.dev.mapper.ProjectRequestMapper;
+import santzin.projeta.dev.model.ProjectModel;
+import santzin.projeta.dev.model.ProjectRequestModel;
+import santzin.projeta.dev.model.ProjectRequestNotificationModel;
+import santzin.projeta.dev.model.UserModel;
+import santzin.projeta.dev.model.enums.ProjectStatus;
+import santzin.projeta.dev.repository.ProjectRepository;
+import santzin.projeta.dev.repository.ProjectRequestRespository;
+import santzin.projeta.dev.repository.ProjectUserRepository;
+
+@Service
+public class ProjectRequestService {
+
+    @Autowired
+    private ProjectRequestRespository projectRequestRespository;
+
+    @Autowired
+    private ProjectRequestNotificationService projectRequestNotificationService;
+
+    @Autowired
+    private ProjectRequestMapper projectRequestMapper;
+
+    @Autowired
+    private ProjectRepository projectRepository;
+
+    @Autowired
+    private ProjectUserRepository projectUserRepository;
+
+    @Transactional
+    public ProjectRequestResponseDTO create(UserModel user, Long projectId){
+
+        //busca projeto
+        ProjectModel project = this.projectRepository.findById(projectId)
+                .orElseThrow(() -> new ItemNotFoundException(projectId, "projeto"));
+
+        //verifica se não é o dono
+        if (user.getId().equals(project.getCreator().getId()))
+            throw new NotPermitException();
+
+        //verifica se ja é um participante
+        if(this.projectUserRepository.existsByUserIdAndProjectId(user.getId(), project.getId()))
+            throw new NotPermitException();
+
+        if (project.getStatus()!=ProjectStatus.OPEND)
+            throw new NotPermitException();
+
+        //cria pedido
+        ProjectRequestModel projectRequestModel = this.projectRequestMapper.requestToModel(user, project);
+
+        projectRequestModel = this.projectRequestRespository.save(projectRequestModel);
+
+        //cria notificação para o criador do projeto
+        ProjectRequestNotificationModel projectRequestNotificationModel = this.projectRequestNotificationService.create(projectRequestModel, project.getCreator());
+
+        return this.projectRequestMapper.modelToResonse(projectRequestModel);
+
+    }
+}
