@@ -12,6 +12,7 @@ import { Project } from "../../types/entity/project";
 import { User } from "../../types/entity/user";
 import { CreateHabilityDTO } from "../../types/DTO/create-hability-dto";
 import { Hability } from "../../types/entity/hability";
+import { ProjectRequest } from "../../types/entity/project-request";
 
 @Injectable({
     providedIn:'root',
@@ -64,6 +65,10 @@ export class BackApi {
 
     deleteHability(id:number){
         return this.httpClient.delete(this.urlBase + "habilitys/"+ id);
+    }
+
+    createProjectRequest(projectId:number):Observable<ProjectRequest>{
+        return this.httpClient.post<ProjectRequest>(this.urlBase +"projects/" + projectId + "/requests", null);
     }
 }
 

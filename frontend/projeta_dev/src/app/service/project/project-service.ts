@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { CreateProjectDTO } from '../../../types/DTO/create-project-dto';
 import { MyProjectsDTO } from '../../../types/DTO/my-projetcts-DTO';
 import { Project } from '../../../types/entity/project';
+import { ProjectRequest } from '../../../types/entity/project-request';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,9 @@ export class ProjectService {
 
   getProjectOfUserByUsernameAndSlug(username:string,slug:string):Observable<Project>{
     return this.backApi.getProjectOfUserByUsernameAndSlug(username, slug);
+  }
+
+  createProjectRequest(projectId:number):Observable<ProjectRequest>{
+    return this.backApi.createProjectRequest(projectId);
   }
 }

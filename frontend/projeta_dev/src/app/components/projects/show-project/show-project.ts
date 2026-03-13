@@ -5,6 +5,7 @@ import { ProjectService } from '../../../service/project/project-service';
 import { Project } from '../../../../types/entity/project';
 import { AuthService } from '../../../service/auth-service';
 import { TokenService } from '../../../service/token/token-service';
+import { InputType } from '../../../../types/enums/input-type';
 
 @Component({
   selector: 'app-show-project',
@@ -33,6 +34,8 @@ export class ShowProject {
     ["FINALED", "gray"]
   ]);
 
+  inputType = InputType;
+
 
   userLoggedIsCreator():boolean{
     const userOfToken = this.tokenService.getUsernameLogged();
@@ -44,6 +47,20 @@ export class ShowProject {
       return userOfToken===this.username;
     }
     
+  }
+
+
+  createProjectRequest(){
+    this.projectService.createProjectRequest(this.project().id).subscribe({
+      next:(dado)=>{
+        console.log(dado.status);
+        
+      },
+      error:(erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
   }
 
 
