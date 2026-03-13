@@ -82,7 +82,21 @@
 
     <div class="flex flex-col gap-10 fixed right-50">
         <div class="flex flex-col gap-4 w-65 bg-white/5 backdrop-blur-md p-5 shadow rounded-2xl right-50  lg:flex h-fit">
-            <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">Ações</p>
+            <div class="flex justify-between">
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">Ações</p>
+                
+                <button class="relative">
+                    <span class="flex items-center gap-1.5 hover:border-purple-700 hover:text-white transition-all cursor-pointer font-extrabold px-3 py-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                        
+                        @if(project().requestsCount > 0){
+                            <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+                        }
+
+                        <i class="bi bi-bell transition-all hover:scale-110"></i>
+                    </span>
+
+                </button>
+            </div>
             
             <a routerLink="../" class="group flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">
                 <span class="bg-slate-800 p-2 rounded-xl group-hover:bg-slate-700 transition-colors">

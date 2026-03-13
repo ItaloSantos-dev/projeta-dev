@@ -8,6 +8,7 @@ import { CreateProject } from './components/projects/create-project/create-proje
 import { ShowProject } from './components/projects/show-project/show-project';
 import { ShowUser } from './components/users/show-user/show-user';
 import { ShowProjectsOfUser } from './components/projects/show-projects-of-user/show-projects-of-user';
+import { RequestsProject } from './components/projects/requests-project/requests-project';
 
 export const routes: Routes = [
     {path:"", component:Dashboard},
@@ -20,5 +21,6 @@ export const routes: Routes = [
     {path:"projects/create", component:CreateProject},
     {path:":username", component:ShowUser},
     {path:":username/projects", component:ShowProjectsOfUser},
-    {path:":username/projects/:slug", component:ShowProject}
+    {path:":username/projects/:slug", component:ShowProject},
+    {path:":username/projects/:slug/requests", component:RequestsProject}
 ];
