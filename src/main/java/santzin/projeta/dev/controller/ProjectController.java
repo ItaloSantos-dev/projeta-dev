@@ -8,7 +8,11 @@ import santzin.projeta.dev.DTOs.project.CreateProjectRequestDTO;
 import santzin.projeta.dev.DTOs.project.MyProjectsResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
+import santzin.projeta.dev.DTOs.project_request.ProjectRequestResponseDTO;
+import santzin.projeta.dev.DTOs.project_request.UpdateProjectRequestRequestDTO;
+import santzin.projeta.dev.DTOs.project_request_notification.ProjectRequestNotificationResponseDTO;
 import santzin.projeta.dev.model.UserModel;
+import santzin.projeta.dev.service.ProjectRequestService;
 import santzin.projeta.dev.service.ProjectService;
 
 import java.util.List;
@@ -18,6 +22,9 @@ import java.util.List;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private ProjectRequestService projectRequestService;
 
     @GetMapping
     public ResponseEntity<MyProjectsResponseDTO> getMyProjects(@AuthenticationPrincipal UserModel user){
@@ -50,6 +57,22 @@ public class ProjectController {
             @AuthenticationPrincipal UserModel user
     ){
         return ResponseEntity.ok(this.projectService.UpdateById(id, updateProjectRequestDTO, user));
+    }
+
+
+    @PutMapping("/requests/{projectRequestId}")
+    public ResponseEntity<Void> acceptedProjectRequest(
+            @AuthenticationPrincipal UserModel userModel,
+            @PathVariable Long projectRequestId,
+            @RequestBody UpdateProjectRequestRequestDTO requestDTO
+    ){
+        this.projectRequestService.updateStatus(userModel, projectRequestId, requestDTO.newStatus(), requestDTO.positionId());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/requests")
+    public ResponseEntity<ProjectRequestResponseDTO> createProjectRequest(@AuthenticationPrincipal UserModel user, @PathVariable Long id){
+        return ResponseEntity.ok(this.projectRequestService.create(user, id));
     }
 
 
