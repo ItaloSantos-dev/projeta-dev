@@ -1,6 +1,7 @@
 package santzin.projeta.dev.DTOs.project;
 
 
+import santzin.projeta.dev.DTOs.project_request.ProjectRequestResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.enums.ProjectInputType;
 import santzin.projeta.dev.model.enums.ProjectStatus;
@@ -21,6 +22,7 @@ public record ProjectResponseDTO(
         Boolean paid,
         String repositoryLink,
         LocalDate createdAt,
+        Integer requestsCount,
         List<String > contibutors,
         List<String> positions
 ) {

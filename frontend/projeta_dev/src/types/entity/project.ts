@@ -12,7 +12,8 @@ export interface Project {
   inputType: string;
   paid:boolean
   repositoryLink: string;
-  createdAt: string; 
+  createdAt: string;
+  requestsCount:number;
   contibutors:string[];
   positions:string[];
 }

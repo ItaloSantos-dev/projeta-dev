@@ -9,6 +9,7 @@ import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.ProjectStatus;
+import santzin.projeta.dev.model.enums.StatusRequestProject;
 import santzin.projeta.dev.repository.UserRepository;
 
 import java.text.Normalizer;
@@ -81,6 +82,7 @@ public class ProjectMapper {
                 project.getPaid(),
                 project.getRepositoryLink(),
                 project.getCreatedAt(),
+                project.getProjectRequests().stream().filter( pr-> pr.getStatus()== StatusRequestProject.PENDING).toList().size(),
                 users,
                 positions
         );
