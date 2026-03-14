@@ -12,6 +12,7 @@ import santzin.projeta.dev.DTOs.project_request.ProjectRequestResponseDTO;
 import santzin.projeta.dev.DTOs.project_request.UpdateProjectRequestRequestDTO;
 import santzin.projeta.dev.DTOs.project_request_notification.ProjectRequestNotificationResponseDTO;
 import santzin.projeta.dev.model.UserModel;
+import santzin.projeta.dev.service.ProjectRequestNotificationService;
 import santzin.projeta.dev.service.ProjectRequestService;
 import santzin.projeta.dev.service.ProjectService;
 
@@ -25,6 +26,9 @@ public class ProjectController {
 
     @Autowired
     private ProjectRequestService projectRequestService;
+
+    @Autowired
+    private ProjectRequestNotificationService projectRequestNotificationService;
 
     @GetMapping
     public ResponseEntity<MyProjectsResponseDTO> getMyProjects(@AuthenticationPrincipal UserModel user){
@@ -73,6 +77,13 @@ public class ProjectController {
     @PostMapping("/{id}/requests")
     public ResponseEntity<ProjectRequestResponseDTO> createProjectRequest(@AuthenticationPrincipal UserModel user, @PathVariable Long id){
         return ResponseEntity.ok(this.projectRequestService.create(user, id));
+    }
+    @GetMapping("/{id}/requests")
+    public ResponseEntity<List<ProjectRequestNotificationResponseDTO>> getNotificationsRequestsOfProjectById(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserModel user
+    ){
+        return ResponseEntity.ok(this.projectRequestNotificationService.getNotificationsRequestsOfProjectById(id, user));
     }
 
 

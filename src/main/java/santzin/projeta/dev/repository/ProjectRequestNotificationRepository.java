@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ProjectRequestNotificationRepository extends JpaRepository<ProjectRequestNotificationModel, Long> {
     List<ProjectRequestNotificationModel> findByUserId(Long userId);
+
+    List<ProjectRequestNotificationModel> findByProjectRequest_Project_Id(Long projectId);
 }
