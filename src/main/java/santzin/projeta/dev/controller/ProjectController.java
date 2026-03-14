@@ -64,15 +64,7 @@ public class ProjectController {
     }
 
 
-    @PutMapping("/requests/{projectRequestId}")
-    public ResponseEntity<Void> acceptedProjectRequest(
-            @AuthenticationPrincipal UserModel userModel,
-            @PathVariable Long projectRequestId,
-            @RequestBody UpdateProjectRequestRequestDTO requestDTO
-    ){
-        this.projectRequestService.updateStatus(userModel, projectRequestId, requestDTO.newStatus(), requestDTO.positionId());
-        return ResponseEntity.ok().build();
-    }
+
 
     @PostMapping("/{id}/requests")
     public ResponseEntity<ProjectRequestResponseDTO> createProjectRequest(@AuthenticationPrincipal UserModel user, @PathVariable Long id){

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import santzin.projeta.dev.DTOs.project_request.ProjectRequestResponseDTO;
+import santzin.projeta.dev.DTOs.project_request.UpdateProjectRequestRequestDTO;
 import santzin.projeta.dev.DTOs.project_user.CreateProjectUserDTO;
 import santzin.projeta.dev.exception.ItemNotFoundException;
 import santzin.projeta.dev.exception.NotPermitException;
@@ -72,24 +73,24 @@ public class ProjectRequestService {
     }
 
     @Transactional
-    public void updateStatus (UserModel userModel, Long projectRequestId, StatusRequestProject newStatus, Long positionId){
+    public void updateStatus (UserModel userModel, Long projectRequestId, UpdateProjectRequestRequestDTO requestDTO){
         ProjectRequestModel projectRequestModel = this.projectRequestRespository.findById(projectRequestId)
                 .orElseThrow(() -> new ItemNotFoundException(projectRequestId, "pedido"));
 
         if (!userModel.getId().equals(projectRequestModel.getProject().getCreator().getId()))
             throw new NotPermitException();
 
-        projectRequestModel.setStatus(newStatus);
+        projectRequestModel.setStatus(requestDTO.newStatus());
         projectRequestModel.setRespondedAt(LocalDate.now());
 
         this.projectRequestRespository.save(projectRequestModel);
 
-        if (newStatus==StatusRequestProject.ACCEPTED){
+        if (requestDTO.newStatus()==StatusRequestProject.ACCEPTED){
             this.projectUserService.createProjectUser(
                     new CreateProjectUserDTO(
                             projectRequestModel.getUser().getId(),
                             projectRequestModel.getProject().getId(),
-                            positionId
+                            requestDTO.positionId()
                     ),
                     userModel
             );

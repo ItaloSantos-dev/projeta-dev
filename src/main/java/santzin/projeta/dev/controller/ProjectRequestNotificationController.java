@@ -3,9 +3,8 @@ package santzin.projeta.dev.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import santzin.projeta.dev.DTOs.project_request.UpdateProjectRequestRequestDTO;
 import santzin.projeta.dev.DTOs.project_request_notification.ProjectRequestNotificationResponseDTO;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.service.ProjectRequestNotificationService;
@@ -22,5 +21,15 @@ public class ProjectRequestNotificationController {
     @GetMapping
     public ResponseEntity<List<ProjectRequestNotificationResponseDTO>> getAllNotifications(@AuthenticationPrincipal UserModel userModel){
         return ResponseEntity.ok(this.projectRequestNotificationService.getAllNotifications(userModel));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateNotificationAndRequest(
+            @AuthenticationPrincipal UserModel userModel,
+            @RequestBody UpdateProjectRequestRequestDTO requestDTO,
+            @PathVariable Long id
+    ){
+        this.projectRequestNotificationService.updateNotificationAndRequest(id, requestDTO, userModel);
+        return ResponseEntity.ok().build();
     }
 }
