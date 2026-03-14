@@ -34,4 +34,7 @@ public class ProjectRequestNotificationModel {
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
+
+    @Column(name = "read_at")
+    private LocalDate readAt;
 }
