@@ -13,6 +13,7 @@ import { User } from "../../types/entity/user";
 import { CreateHabilityDTO } from "../../types/DTO/create-hability-dto";
 import { Hability } from "../../types/entity/hability";
 import { ProjectRequest } from "../../types/entity/project-request";
+import { ProjectRequestNotification } from "../../types/entity/project-request-notification";
 
 @Injectable({
     providedIn:'root',
@@ -69,6 +70,10 @@ export class BackApi {
 
     createProjectRequest(projectId:number):Observable<ProjectRequest>{
         return this.httpClient.post<ProjectRequest>(this.urlBase +"projects/" + projectId + "/requests", null);
+    }
+
+    getNotificationOfProjectBySlug(slug:string):Observable<ProjectRequestNotification[]>{
+        return this.httpClient.get<ProjectRequestNotification[]>(this.urlBase + "projects/" + slug + "/requests");
     }
 }
 

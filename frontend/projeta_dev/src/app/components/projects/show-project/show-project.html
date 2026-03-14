@@ -85,7 +85,7 @@
             <div class="flex justify-between">
                 <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">Ações</p>
                 
-                <button class="relative">
+                <a [routerLink]="'requests'" class="relative">
                     <span class="flex items-center gap-1.5 hover:border-purple-700 hover:text-white transition-all cursor-pointer font-extrabold px-3 py-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
                         
                         @if(project().requestsCount > 0){
@@ -95,7 +95,7 @@
                         <i class="bi bi-bell transition-all hover:scale-110"></i>
                     </span>
 
-                </button>
+                </a>
             </div>
             
             <a routerLink="../" class="group flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">

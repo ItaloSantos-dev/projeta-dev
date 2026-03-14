@@ -5,127 +5,81 @@
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
             <h2 class="text-white text-3xl font-bold flex items-center gap-3">
                 <span class="w-2 h-8 bg-purple-500 rounded-full"></span>
-                Notificações <span class="text-slate-500 text-sm font-normal">3 não lidas</span>
+                Pedidos de participação <span class="text-slate-500 text-sm font-normal">{{notificationsOfProject()[0].projectTitle}}</span>
             </h2>
-
-            <button class="group flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white px-4 py-2 rounded-xl transition-all">
-                <i class="bi bi-check2-all"></i>
-                <span class="text-sm font-semibold">Marcar todas como lidas</span>
-            </button>
         </div>
 
         <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl shadow-xl p-6 md:p-8 flex flex-col gap-4">
+            @for (notification of notificationsOfProject(); track notification.id) {
+                @if (!notification.read) {
+                    <div class="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-blue-900/10 border border-blue-500/30 p-4 rounded-2xl transition-all hover:bg-blue-900/20">
+                    
+                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
+
+                        <div class="w-12 h-12 shrink-0 rounded-full bg-slate-800 border-2 border-blue-500/50 overflow-hidden flex items-center justify-center text-blue-400 font-bold text-lg">
+                            {{notification.usernameSender.toUpperCase().slice(0,2)}} 
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                <a href="#" class="text-white font-bold hover:underline">{{notification.usernameSender}}</a> 
+                                solicitou participação no seu projeto 
+                                <span class="font-semibold text-blue-400">"{{notification.projectTitle}}"</span>
+                                <br>
+                                <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                                    {{notification.type}}
+                                </span>
+                            </p>
+                            <div class="flex items-center gap-2 mt-1 text-xs font-medium text-slate-500">
+                                <i class="bi bi-clock"></i>
+                                <span>{{notification.createdAt}}</span> </div>
+                        </div>
+
+                        <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
+                            <button class="flex-1 sm:flex-none bg-emerald-500/10 hover:bg-emerald-500 hover:text-white border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
+                                <i class="bi bi-check-lg"></i> Aceitar
+                            </button>
+                            <button class="flex-1 sm:flex-none bg-red-500/10 hover:bg-red-500 hover:text-white border border-red-500/30 text-red-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
+                                <i class="bi bi-x-lg"></i> Recusar
+                            </button>
+                        </div>
+                    </div>
+                }
+                @else {
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-slate-800/30 border border-slate-700/50 p-4 rounded-2xl transition-all hover:bg-slate-800/50 opacity-70 hover:opacity-100">
+                
+                        <div class="w-12 h-12 shrink-0 rounded-full bg-slate-700 border-2 border-slate-600 overflow-hidden flex items-center justify-center text-slate-400 font-bold text-lg">
+                            AL
+                        </div>
+
+                        <div class="flex-1">
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                <a href="#" class="text-slate-300 font-bold hover:underline">alice_backend</a> 
+                                aceitou sua solicitação para o projeto 
+                                <span class="font-semibold text-slate-300">"API de Pagamentos"</span>.
+                                <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md bg-slate-700 text-slate-400 border border-slate-600">
+                                    REQUEST_ACCEPTED </span>
+                            </p>
+                            <div class="flex items-center gap-2 mt-1 text-xs font-medium text-slate-500">
+                                <i class="bi bi-check2-all text-blue-500"></i> <span>10 de Março de 2026</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
+                            <button class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 hover:text-white border border-slate-600 text-slate-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
+                                Acessar Projeto
+                            </button>
+                        </div>
+                    </div>
+                }
+            }
             
-            <div class="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-blue-900/10 border border-blue-500/30 p-4 rounded-2xl transition-all hover:bg-blue-900/20">
-                <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
 
-                <div class="w-12 h-12 shrink-0 rounded-full bg-slate-800 border-2 border-blue-500/50 overflow-hidden flex items-center justify-center text-blue-400 font-bold text-lg">
-                    DE </div>
 
-                <div class="flex-1">
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        <a href="#" class="text-white font-bold hover:underline">dev_master</a> 
-                        solicitou participação no seu projeto 
-                        <span class="font-semibold text-blue-400">"Sistema de Gestão Escolar"</span>.
-                        <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md bg-purple-500/20 text-purple-400 border border-purple-500/30">
-                            REQUEST_TO_JOIN </span>
-                    </p>
-                    <div class="flex items-center gap-2 mt-1 text-xs font-medium text-slate-500">
-                        <i class="bi bi-clock"></i>
-                        <span>13 de Março de 2026</span> </div>
-                </div>
+            
 
-                <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
-                    <button class="flex-1 sm:flex-none bg-emerald-500/10 hover:bg-emerald-500 hover:text-white border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
-                        <i class="bi bi-check-lg"></i> Aceitar
-                    </button>
-                    <button class="flex-1 sm:flex-none bg-red-500/10 hover:bg-red-500 hover:text-white border border-red-500/30 text-red-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
-                        <i class="bi bi-x-lg"></i> Recusar
-                    </button>
-                </div>
-            </div>
+            
 
-            <div class="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-purple-900/10 border border-purple-500/30 p-4 rounded-2xl transition-all hover:bg-purple-900/20">
-                <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
-
-                <div class="w-12 h-12 shrink-0 rounded-full bg-slate-800 border-2 border-purple-500/50 overflow-hidden flex items-center justify-center text-purple-400 font-bold text-lg">
-                    UI
-                </div>
-
-                <div class="flex-1">
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        <a href="#" class="text-white font-bold hover:underline">ui_designer</a> 
-                        te convidou para colaborar no projeto 
-                        <span class="font-semibold text-purple-400">"App de Delivery V2"</span>.
-                        <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md bg-purple-500/20 text-purple-400 border border-purple-500/30">
-                            PROJECT_INVITE </span>
-                    </p>
-                    <div class="flex items-center gap-2 mt-1 text-xs font-medium text-slate-500">
-                        <i class="bi bi-clock"></i>
-                        <span>12 de Março de 2026</span>
-                    </div>
-                </div>
-
-                <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
-                    <button class="flex-1 sm:flex-none bg-blue-600/20 hover:bg-blue-600 hover:text-white border border-blue-500/30 text-blue-400 px-4 py-1.5 rounded-lg text-sm font-semibold transition-all">
-                        Ver Convite
-                    </button>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-3 my-2">
-                <div class="h-px bg-slate-800 flex-1"></div>
-                <span class="text-xs font-semibold text-slate-600 uppercase tracking-widest">Anteriores</span>
-                <div class="h-px bg-slate-800 flex-1"></div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-slate-800/30 border border-slate-700/50 p-4 rounded-2xl transition-all hover:bg-slate-800/50 opacity-70 hover:opacity-100">
-                
-                <div class="w-12 h-12 shrink-0 rounded-full bg-slate-700 border-2 border-slate-600 overflow-hidden flex items-center justify-center text-slate-400 font-bold text-lg">
-                    AL
-                </div>
-
-                <div class="flex-1">
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        <a href="#" class="text-slate-300 font-bold hover:underline">alice_backend</a> 
-                        aceitou sua solicitação para o projeto 
-                        <span class="font-semibold text-slate-300">"API de Pagamentos"</span>.
-                        <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md bg-slate-700 text-slate-400 border border-slate-600">
-                            REQUEST_ACCEPTED </span>
-                    </p>
-                    <div class="flex items-center gap-2 mt-1 text-xs font-medium text-slate-500">
-                        <i class="bi bi-check2-all text-blue-500"></i> <span>10 de Março de 2026</span>
-                    </div>
-                </div>
-
-                <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
-                    <button class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 hover:text-white border border-slate-600 text-slate-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
-                        Acessar Projeto
-                    </button>
-                </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-slate-800/30 border border-slate-700/50 p-4 rounded-2xl transition-all hover:bg-slate-800/50 opacity-70 hover:opacity-100">
-                
-                <div class="w-12 h-12 shrink-0 rounded-full bg-slate-700 border-2 border-slate-600 overflow-hidden flex items-center justify-center text-slate-400 font-bold text-lg">
-                    CR
-                </div>
-
-                <div class="flex-1">
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        <a href="#" class="text-slate-300 font-bold hover:underline">carlos_cto</a> 
-                        recusou sua solicitação para o projeto 
-                        <span class="font-semibold text-slate-300">"ERP Cloud"</span>.
-                        <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md bg-slate-700 text-slate-400 border border-slate-600">
-                            REQUEST_REJECTED </span>
-                    </p>
-                    <div class="flex items-center gap-2 mt-1 text-xs font-medium text-slate-500">
-                        <i class="bi bi-check2-all text-blue-500"></i>
-                        <span>08 de Março de 2026</span>
-                    </div>
-                </div>
-                
-            </div>
+        
 
         </div>
     </div>
