@@ -26,8 +26,6 @@ public class ProjectRequestNotificationService {
     @Autowired
     private ProjectRequestNotificationMapper projectRequestNotificationMapper;
 
-    @Autowired
-    private ProjectRequestService projectRequestService;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -61,21 +59,5 @@ public class ProjectRequestNotificationService {
 
     }
 
-    public void updateNotificationAndRequest(Long notificationId, UpdateProjectRequestRequestDTO requestDTO, UserModel user){
-        ProjectRequestNotificationModel prnm = this.projectRequestNotificationRepository.findById(notificationId)
-                .orElseThrow(ItemNotFoundException::new);
 
-        if (!prnm.getUser().getId().equals(user.getId()))
-            throw new NotPermitException();
-
-        if (!prnm.getProjectRequest().getProject().getCreator().getId().equals(user.getId()))
-            throw new NotPermitException();
-
-        prnm.setRead(true);
-        prnm.setReadAt(LocalDate.now());
-
-        this.projectRequestService.updateStatus(user, prnm.getProjectRequest().getId(), requestDTO);
-
-        this.projectRequestNotificationRepository.save(prnm);
-    }
 }

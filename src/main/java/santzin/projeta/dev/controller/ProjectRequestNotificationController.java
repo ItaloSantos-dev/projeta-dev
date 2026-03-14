@@ -23,13 +23,5 @@ public class ProjectRequestNotificationController {
         return ResponseEntity.ok(this.projectRequestNotificationService.getAllNotifications(userModel));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateNotificationAndRequest(
-            @AuthenticationPrincipal UserModel userModel,
-            @RequestBody UpdateProjectRequestRequestDTO requestDTO,
-            @PathVariable Long id
-    ){
-        this.projectRequestNotificationService.updateNotificationAndRequest(id, requestDTO, userModel);
-        return ResponseEntity.ok().build();
-    }
+
 }

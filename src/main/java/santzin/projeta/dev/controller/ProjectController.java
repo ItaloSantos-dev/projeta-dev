@@ -78,6 +78,16 @@ public class ProjectController {
         return ResponseEntity.ok(this.projectRequestNotificationService.getNotificationsRequestsOfProjectBySlug(slug, user));
     }
 
+    @PutMapping("{slug}/requests/{notificationId}")
+    public ResponseEntity<Void> updateNotificationAndRequest(
+            @AuthenticationPrincipal UserModel userModel,
+            @RequestBody UpdateProjectRequestRequestDTO requestDTO,
+            @PathVariable Long notificationId
+    ){
+        this.projectRequestService.updateNotificationAndRequest(notificationId, requestDTO, userModel);
+        return ResponseEntity.ok().build();
+    }
+
 
 
 }

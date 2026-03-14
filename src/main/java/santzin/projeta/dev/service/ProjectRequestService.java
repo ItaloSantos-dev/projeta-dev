@@ -16,6 +16,7 @@ import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.ProjectStatus;
 import santzin.projeta.dev.model.enums.StatusRequestProject;
 import santzin.projeta.dev.repository.ProjectRepository;
+import santzin.projeta.dev.repository.ProjectRequestNotificationRepository;
 import santzin.projeta.dev.repository.ProjectRequestRespository;
 import santzin.projeta.dev.repository.ProjectUserRepository;
 
@@ -35,6 +36,9 @@ public class ProjectRequestService {
 
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private ProjectRequestNotificationRepository projectRequestNotificationRepository;
 
     @Autowired
     private ProjectUserRepository projectUserRepository;
@@ -95,5 +99,25 @@ public class ProjectRequestService {
                     userModel
             );
         }
+    }
+
+
+
+    public void updateNotificationAndRequest(Long notificationId, UpdateProjectRequestRequestDTO requestDTO, UserModel user){
+        ProjectRequestNotificationModel prnm = this.projectRequestNotificationRepository.findById(notificationId)
+                .orElseThrow(ItemNotFoundException::new);
+
+        if (!prnm.getUser().getId().equals(user.getId()))
+            throw new NotPermitException();
+
+        if (!prnm.getProjectRequest().getProject().getCreator().getId().equals(user.getId()))
+            throw new NotPermitException();
+
+        prnm.setRead(true);
+        prnm.setReadAt(LocalDate.now());
+
+        this.updateStatus(user, prnm.getProjectRequest().getId(), requestDTO);
+
+        this.projectRequestNotificationRepository.save(prnm);
     }
 }
