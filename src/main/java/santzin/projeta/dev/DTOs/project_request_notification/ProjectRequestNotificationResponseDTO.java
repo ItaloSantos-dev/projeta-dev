@@ -7,7 +7,8 @@ import java.time.LocalDate;
 
 public record ProjectRequestNotificationResponseDTO(
         Long id,
-        ProjectRequestResponseDTO projectRequest,
+        String  projectTitle,
+        String projectSlug,
         String usernameSender,
         String usernameReceiver,
         boolean read,

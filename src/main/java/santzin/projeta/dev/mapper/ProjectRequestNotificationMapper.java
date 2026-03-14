@@ -31,7 +31,8 @@ public class ProjectRequestNotificationMapper {
     public ProjectRequestNotificationResponseDTO modelToResponse(ProjectRequestNotificationModel projectRequestNotificationModel){
         return new ProjectRequestNotificationResponseDTO(
                 projectRequestNotificationModel.getId(),
-                this.projectRequestMapper.modelToResonse(projectRequestNotificationModel.getProjectRequest()),
+               projectRequestNotificationModel.getProjectRequest().getProject().getTitle(),
+               projectRequestNotificationModel.getProjectRequest().getProject().getSlug(),
                 projectRequestNotificationModel.getProjectRequest().getUser().getUsernameProperty(),
                 projectRequestNotificationModel.getUser().getUsernameProperty(),
                 projectRequestNotificationModel.getRead(),

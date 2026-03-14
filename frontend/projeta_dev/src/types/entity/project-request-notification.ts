@@ -3,7 +3,8 @@ import { ProjectRequest } from "./project-request";
 
 export interface ProjectRequestNotification{
     id: number;
-    projectRequest: ProjectRequest;
+    projectTitle:string,
+    projectSlug:string,
     usernameSender: string;
     usernameReceiver: string;
     read: boolean;
