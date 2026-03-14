@@ -3,6 +3,7 @@ package santzin.projeta.dev.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import santzin.projeta.dev.DTOs.project_position.ProjectPositionResponseDTO;
+import santzin.projeta.dev.DTOs.project_position.ProjectPositionSimplifiedResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.ProjectPositionModel;
@@ -40,5 +41,9 @@ public class ProjectPositionMapper {
         newPosition.setName(name);
         newPosition.setProject(project);
         return newPosition;
+    }
+
+    public ProjectPositionSimplifiedResponseDTO modelToSimplifiedResponse(ProjectPositionModel position){
+        return new ProjectPositionSimplifiedResponseDTO(position.getId(), position.getName());
     }
 }
