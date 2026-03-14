@@ -8,6 +8,8 @@ import santzin.projeta.dev.DTOs.project.CreateProjectRequestDTO;
 import santzin.projeta.dev.DTOs.project.MyProjectsResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
+import santzin.projeta.dev.DTOs.project_position.ProjectPositionResponseDTO;
+import santzin.projeta.dev.DTOs.project_position.ProjectPositionSimplifiedResponseDTO;
 import santzin.projeta.dev.DTOs.project_request.ProjectRequestResponseDTO;
 import santzin.projeta.dev.DTOs.project_request.UpdateProjectRequestRequestDTO;
 import santzin.projeta.dev.DTOs.project_request_notification.ProjectRequestNotificationResponseDTO;
@@ -86,6 +88,13 @@ public class ProjectController {
     ){
         this.projectRequestService.updateNotificationAndRequest(notificationId, requestDTO, userModel);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{slug}")
+    public ResponseEntity<List<ProjectPositionSimplifiedResponseDTO>> getPositionsOfProjectBySlug(
+            @PathVariable String slug
+    ){
+        return ResponseEntity.ok(this.projectService.getPositionsOfProjectBySlug(slug));
     }
 
 

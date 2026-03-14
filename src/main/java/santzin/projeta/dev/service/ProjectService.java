@@ -7,10 +7,13 @@ import santzin.projeta.dev.DTOs.project.CreateProjectRequestDTO;
 import santzin.projeta.dev.DTOs.project.MyProjectsResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
+import santzin.projeta.dev.DTOs.project_position.ProjectPositionResponseDTO;
+import santzin.projeta.dev.DTOs.project_position.ProjectPositionSimplifiedResponseDTO;
 import santzin.projeta.dev.exception.ItemNotFoundException;
 import santzin.projeta.dev.exception.ItemWithValueAlreadyExistsException;
 import santzin.projeta.dev.exception.NotPermitException;
 import santzin.projeta.dev.mapper.ProjectMapper;
+import santzin.projeta.dev.mapper.ProjectPositionMapper;
 import santzin.projeta.dev.model.ProjectModel;
 import santzin.projeta.dev.model.ProjectPositionModel;
 import santzin.projeta.dev.model.ProjectUserModel;
@@ -35,6 +38,9 @@ public class ProjectService {
 
     @Autowired
     private ProjectUserRepository projectUserRepository;
+
+    @Autowired
+    private ProjectPositionMapper projectPositionMapper;
 
 
 
@@ -132,6 +138,14 @@ public class ProjectService {
         this.projectMapper.updateModel(project,requestDTO);
 
         return this.projectMapper.modelToResponse(this.projectRepository.save(project));
+    }
+
+    public List<ProjectPositionSimplifiedResponseDTO> getPositionsOfProjectBySlug(String  slug){
+        return this.projectRepository.findBySlug(slug)
+                .orElseThrow(ItemNotFoundException::new)
+                .getPositions().stream()
+                .map(p -> this.projectPositionMapper.modelToSimplifiedResponse(p))
+                .toList();
     }
 
 
