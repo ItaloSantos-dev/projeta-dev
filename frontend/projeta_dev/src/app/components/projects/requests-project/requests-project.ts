@@ -20,6 +20,7 @@ export class RequestsProject {
   showFormPositioForUser = false;
 
   notificationsOfProject = signal(<ProjectRequestNotification[]>[]);
+  notificationForForm = signal(<ProjectRequestNotification>({}));
 
   constructor(){
     this.route.paramMap.subscribe(params=>{
@@ -46,6 +47,11 @@ export class RequestsProject {
 
   ngOnInit(){
     this.loadNotifications()
+  }
+
+  openFormPositioForUser(notification:ProjectRequestNotification){
+    this.notificationForForm.set(notification);
+    this.showFormPositioForUser = true;
   }
 
   
