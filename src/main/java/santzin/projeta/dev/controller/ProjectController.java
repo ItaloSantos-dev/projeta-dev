@@ -78,12 +78,12 @@ public class ProjectController {
     public ResponseEntity<ProjectRequestResponseDTO> createProjectRequest(@AuthenticationPrincipal UserModel user, @PathVariable Long id){
         return ResponseEntity.ok(this.projectRequestService.create(user, id));
     }
-    @GetMapping("/{id}/requests")
+    @GetMapping("/{slug}/requests")
     public ResponseEntity<List<ProjectRequestNotificationResponseDTO>> getNotificationsRequestsOfProjectById(
-            @PathVariable Long id,
+            @PathVariable String  slug,
             @AuthenticationPrincipal UserModel user
     ){
-        return ResponseEntity.ok(this.projectRequestNotificationService.getNotificationsRequestsOfProjectById(id, user));
+        return ResponseEntity.ok(this.projectRequestNotificationService.getNotificationsRequestsOfProjectBySlug(slug, user));
     }
 
 

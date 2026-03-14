@@ -40,16 +40,16 @@ public class ProjectRequestNotificationService {
                 .toList();
     }
 
-    public List<ProjectRequestNotificationResponseDTO> getNotificationsRequestsOfProjectById(
-            Long projectId, UserModel user
+    public List<ProjectRequestNotificationResponseDTO> getNotificationsRequestsOfProjectBySlug(
+            String slug, UserModel user
     ){
-        ProjectModel projectModel = this.projectRepository.findById(projectId)
-                .orElseThrow(() -> new ItemNotFoundException(projectId, "projeto"));
+        ProjectModel projectModel = this.projectRepository.findBySlug(slug)
+                .orElseThrow(ItemNotFoundException::new);
 
         if (!projectModel.getCreator().getId().equals(user.getId()))
             throw new NotPermitException();
 
-        return this.projectRequestNotificationRepository.findByProjectRequest_Project_Id(projectId).stream()
+        return this.projectRequestNotificationRepository.findByProjectRequest_Project_Id(projectModel.getId()).stream()
                 .map(prnm -> this.projectRequestNotificationMapper.modelToResponse(prnm))
                 .toList();
 
