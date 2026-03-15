@@ -68,6 +68,11 @@ public class ProjectMapper {
                     .toList();
         }
 
+        Integer requestCount = 0;
+        if (project.getProjectRequests()!=null){
+            requestCount = project.getProjectRequests().stream().filter( pr-> pr.getStatus()== StatusRequestProject.PENDING).toList().size();
+        }
+
 
         return new ProjectResponseDTO(
                 project.getId(),
@@ -82,7 +87,7 @@ public class ProjectMapper {
                 project.getPaid(),
                 project.getRepositoryLink(),
                 project.getCreatedAt(),
-                project.getProjectRequests().stream().filter( pr-> pr.getStatus()== StatusRequestProject.PENDING).toList().size(),
+                requestCount,
                 users,
                 positions
         );

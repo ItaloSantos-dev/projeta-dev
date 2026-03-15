@@ -21,7 +21,8 @@ public record UserResponseDTO (
         String link3,
         String link4,
         String link5,
-        List<HabilityResponseDTO> habilitys
+        List<HabilityResponseDTO> habilitys,
+        Integer requestCount
 
 ){
 }

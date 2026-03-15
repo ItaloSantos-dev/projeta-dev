@@ -9,6 +9,7 @@ import santzin.projeta.dev.DTOs.hability.HabilityResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.UserModel;
+import santzin.projeta.dev.model.enums.StatusRequestProject;
 import santzin.projeta.dev.model.enums.UserRole;
 
 import java.time.LocalDate;
@@ -71,7 +72,8 @@ public class UserMapper {
                 userModel.getLink3(),
                 userModel.getLink4(),
                 userModel.getLink5(),
-                habilitys
+                habilitys,
+                userModel.getProjectRequests().stream().filter(pr -> pr.getStatus()== StatusRequestProject.PENDING).toList().size()
 
         );
     }

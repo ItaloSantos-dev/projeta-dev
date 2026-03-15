@@ -16,5 +16,6 @@ export interface User {
   link3: string;
   link4: string;
   link5: string;
-  habilitys:Hability[]
+  habilitys:Hability[],
+  requestCount:number
 }
