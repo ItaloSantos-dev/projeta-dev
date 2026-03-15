@@ -90,7 +90,7 @@ public class ProjectController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{slug}")
+    @GetMapping("/{slug}/positions")
     public ResponseEntity<List<ProjectPositionSimplifiedResponseDTO>> getPositionsOfProjectBySlug(
             @PathVariable String slug
     ){

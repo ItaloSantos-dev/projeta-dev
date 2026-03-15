@@ -8,45 +8,18 @@
         <div class="flex-1 overflow-y-auto p-8">
             <ul class="space-y-3">
                 
-                <li>
-                    <label for="op1" class="flex items-center p-4 border border-gray-800 rounded-2xl cursor-pointer transition-all duration-200 hover:bg-gray-800/40 has-checked:border-blue-500 has-checked:bg-blue-500/10 group">
-                        <input name="op" id="op1" type="radio" class="w-5 h-5 text-blue-500 bg-gray-900 border-gray-700 focus:ring-blue-600 focus:ring-offset-[#0f172a] accent-blue-500 cursor-pointer">
-                        <div class="ml-4 flex flex-col">
-                            <span class="text-gray-200 font-medium transition-colors group-has-checked:text-blue-400">Desenvolvedor Front-end</span>
-                            <span class="text-gray-500 text-sm mt-0.5">Foco na interface, UI/UX e interações.</span>
-                        </div>
-                    </label>
-                </li>
+                @for (position of positionsOfProject(); track position.id) {
+                    <li>
+                        <label [for]="position.name" class="flex items-center p-4 border border-gray-800 rounded-2xl cursor-pointer transition-all duration-200 hover:bg-gray-800/40 has-checked:border-blue-500 has-checked:bg-blue-500/10 group">
+
+                            <input name="op" [id]="position.name" type="radio" class="w-5 h-5 text-blue-500 bg-gray-900 border-gray-700 focus:ring-blue-600 focus:ring-offset-[#0f172a] accent-blue-500 cursor-pointer">
+                            <div class="ml-4 flex flex-col">
+                                <span class="text-gray-200 font-medium transition-colors group-has-checked:text-blue-400">{{position.name}}</span>
+                            </div>
+                        </label>
+                    </li>
+                }
                 
-                <li>
-                    <label for="op2" class="flex items-center p-4 border border-gray-800 rounded-2xl cursor-pointer transition-all duration-200 hover:bg-gray-800/40 has-checked:border-blue-500 has-checked:bg-blue-500/10 group">
-                        <input name="op" id="op2" type="radio" class="w-5 h-5 text-blue-500 bg-gray-900 border-gray-700 focus:ring-blue-600 focus:ring-offset-[#0f172a] accent-blue-500 cursor-pointer">
-                        <div class="ml-4 flex flex-col">
-                            <span class="text-gray-200 font-medium transition-colors group-has-checked:text-blue-400">Desenvolvedor Back-end</span>
-                            <span class="text-gray-500 text-sm mt-0.5">Arquitetura, banco de dados e regras de negócio.</span>
-                        </div>
-                    </label>
-                </li>
-
-                <li>
-                    <label for="op3" class="flex items-center p-4 border border-gray-800 rounded-2xl cursor-pointer transition-all duration-200 hover:bg-gray-800/40 has-checked:border-blue-500 has-checked:bg-blue-500/10 group">
-                        <input name="op" id="op3" type="radio" class="w-5 h-5 text-blue-500 bg-gray-900 border-gray-700 focus:ring-blue-600 focus:ring-offset-[#0f172a] accent-blue-500 cursor-pointer">
-                        <div class="ml-4 flex flex-col">
-                            <span class="text-gray-200 font-medium transition-colors group-has-checked:text-blue-400">Product Manager</span>
-                            <span class="text-gray-500 text-sm mt-0.5">Estratégia, roadmap e gestão do produto.</span>
-                        </div>
-                    </label>
-                </li>
-
-                <li>
-                    <label for="op4" class="flex items-center p-4 border border-gray-800 rounded-2xl cursor-pointer transition-all duration-200 hover:bg-gray-800/40 has-checked:border-blue-500 has-checked:bg-blue-500/10 group">
-                        <input name="op" id="op4" type="radio" class="w-5 h-5 text-blue-500 bg-gray-900 border-gray-700 focus:ring-blue-600 focus:ring-offset-[#0f172a] accent-blue-500 cursor-pointer">
-                        <div class="ml-4 flex flex-col">
-                            <span class="text-gray-200 font-medium transition-colors group-has-checked:text-blue-400">Designer UI/UX</span>
-                            <span class="text-gray-500 text-sm mt-0.5">Prototipagem, pesquisa e visual design.</span>
-                        </div>
-                    </label>
-                </li>
 
             </ul>
         </div>

@@ -75,5 +75,6 @@
             
         </div>
     </div>
-    <app-position-for-user [ngClass]="{'hidden':!showFormPositioForUser}" (closeForm)="closeFormPositionForuser()" [notification]="this.notificationForForm" ></app-position-for-user>
+    <app-position-for-user [ngClass]="{'hidden':!showFormPositioForUser}" (closeForm)="closeFormPositionForuser()" [notification]="this.notificationForForm"
+    [positionsOfProject]="this.positionsOfProject" ></app-position-for-user>
 </div>

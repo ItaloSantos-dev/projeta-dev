@@ -6,6 +6,7 @@ import { MyProjectsDTO } from '../../../types/DTO/my-projetcts-DTO';
 import { Project } from '../../../types/entity/project';
 import { ProjectRequest } from '../../../types/entity/project-request';
 import { ProjectRequestNotification } from '../../../types/entity/project-request-notification';
+import { PositionSimplified } from '../../../types/entity/position-simplified';
 
 @Injectable({
   providedIn: 'root',
@@ -31,5 +32,9 @@ export class ProjectService {
 
   getNotificationOfProjectBySlug(slug:string):Observable<ProjectRequestNotification[]>{
     return this.backApi.getNotificationOfProjectBySlug(slug);
+  }
+
+  getPositionsOfProjectBySlug(slug:string):Observable<PositionSimplified[]>{
+    return this.backApi.getPositionsOfProjectBySlug(slug);
   }
 }

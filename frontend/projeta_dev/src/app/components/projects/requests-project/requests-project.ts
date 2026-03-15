@@ -4,6 +4,7 @@ import { ProjectService } from '../../../service/project/project-service';
 import { ProjectRequestNotification } from '../../../../types/entity/project-request-notification';
 import { PositionForUser } from "../position-for-user/position-for-user";
 import { NgClass } from "@angular/common";
+import { PositionSimplified } from '../../../../types/entity/position-simplified';
 
 @Component({
   selector: 'app-requests-project',
@@ -45,12 +46,29 @@ export class RequestsProject {
     })
   }
 
+  positionsOfProject = signal(<PositionSimplified[]>[]);
+
+  loadPositionsOfProject(notification:ProjectRequestNotification){
+    
+    this.projectService.getPositionsOfProjectBySlug(notification.projectSlug).subscribe({
+      next:(dado)=>{
+        this.positionsOfProject.set(dado);
+      
+      },
+      error:(erro)=>{
+        console.log("ERRO: " +erro.error);
+        
+      }
+    })
+  }
+
   ngOnInit(){
     this.loadNotifications()
   }
 
   openFormPositioForUser(notification:ProjectRequestNotification){
     this.notificationForForm.set(notification);
+    this.loadPositionsOfProject(notification);
     this.showFormPositioForUser = true;
   }
 
