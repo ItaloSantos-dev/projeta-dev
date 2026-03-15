@@ -11,4 +11,5 @@ export interface ProjectRequestNotification{
     read: boolean;
     type: TypeProjectRequestNotification;
     createdAt: string;
+    readAt: string;
 }

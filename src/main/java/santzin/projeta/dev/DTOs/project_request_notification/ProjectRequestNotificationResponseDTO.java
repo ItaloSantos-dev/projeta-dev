@@ -14,7 +14,8 @@ public record ProjectRequestNotificationResponseDTO(
         ProjectRequestResponseDTO projectRequest,
         boolean read,
         TypeProjectRequestNotification type,
-        LocalDate createdAt
+        LocalDate createdAt,
+        LocalDate readAt
 
 ) {
 }

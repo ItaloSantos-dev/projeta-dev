@@ -38,7 +38,8 @@ public class ProjectRequestNotificationMapper {
                 this.projectRequestMapper.modelToResonse(projectRequestNotificationModel.getProjectRequest()),
                 projectRequestNotificationModel.getRead(),
                 projectRequestNotificationModel.getType(),
-                projectRequestNotificationModel.getCreatedAt()
+                projectRequestNotificationModel.getCreatedAt(),
+                projectRequestNotificationModel.getReadAt()
                 );
     }
 }
