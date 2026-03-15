@@ -35,6 +35,7 @@ public class ProjectRequestNotificationMapper {
                projectRequestNotificationModel.getProjectRequest().getProject().getSlug(),
                 projectRequestNotificationModel.getProjectRequest().getUser().getUsernameProperty(),
                 projectRequestNotificationModel.getUser().getUsernameProperty(),
+                this.projectRequestMapper.modelToResonse(projectRequestNotificationModel.getProjectRequest()),
                 projectRequestNotificationModel.getRead(),
                 projectRequestNotificationModel.getType(),
                 projectRequestNotificationModel.getCreatedAt()

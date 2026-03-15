@@ -7,6 +7,7 @@ export interface ProjectRequestNotification{
     projectSlug:string,
     usernameSender: string;
     usernameReceiver: string;
+    projectRequest: ProjectRequest;
     read: boolean;
     type: TypeProjectRequestNotification;
     createdAt: string;

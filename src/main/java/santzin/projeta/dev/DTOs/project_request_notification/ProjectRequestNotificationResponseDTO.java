@@ -11,6 +11,7 @@ public record ProjectRequestNotificationResponseDTO(
         String projectSlug,
         String usernameSender,
         String usernameReceiver,
+        ProjectRequestResponseDTO projectRequest,
         boolean read,
         TypeProjectRequestNotification type,
         LocalDate createdAt
