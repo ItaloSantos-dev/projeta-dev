@@ -87,6 +87,18 @@ export class RequestsProject {
     this.showFormPositioForUser = true;
   }
 
+  ngOnSubmit(notificationId:number){
+    this.projectService.updateNotificationAndRequest(notificationId, {newStatus:ProjectStatus.REJECTED, positionId:null}).subscribe({
+      next:()=>{
+        this.loadNotifications()
+      },
+      error:(erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
+  }
+
   
 
 }

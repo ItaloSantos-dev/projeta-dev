@@ -24,7 +24,7 @@ export class PositionForUser {
 
   private projectService = inject(ProjectService);
 
-  createUpdateProjectRequestRequestDTO(newStatus:ProjectStatus, positionId:number=0){
+  createUpdateProjectRequestRequestDTO(newStatus:ProjectStatus, positionId:number){
     return {
       newStatus:newStatus,
       positionId:positionId

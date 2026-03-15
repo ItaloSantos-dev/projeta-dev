@@ -38,7 +38,7 @@
                             <button (click)="openFormPositioForUser(notification)" class="flex-1 sm:flex-none bg-emerald-500/10 hover:bg-emerald-500 hover:text-white border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
                                 <i class="bi bi-check-lg"></i> Aceitar
                             </button>
-                            <button class="flex-1 sm:flex-none bg-red-500/10 hover:bg-red-500 hover:text-white border border-red-500/30 text-red-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
+                            <button (click)="ngOnSubmit(notification.id)" class="flex-1 sm:flex-none bg-red-500/10 hover:bg-red-500 hover:text-white border border-red-500/30 text-red-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
                                 <i class="bi bi-x-lg"></i> Recusar
                             </button>
                         </div>
