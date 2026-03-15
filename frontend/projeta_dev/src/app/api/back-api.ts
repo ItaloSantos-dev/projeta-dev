@@ -15,6 +15,7 @@ import { Hability } from "../../types/entity/hability";
 import { ProjectRequest } from "../../types/entity/project-request";
 import { ProjectRequestNotification } from "../../types/entity/project-request-notification";
 import { PositionSimplified } from "../../types/entity/position-simplified";
+import { UpdateProjectRequestRequestDTO } from "../../types/DTO/update-project-request-request-dto";
 
 @Injectable({
     providedIn:'root',
@@ -78,6 +79,10 @@ export class BackApi {
     }
     getPositionsOfProjectBySlug(slug:string):Observable<PositionSimplified[]>{
         return this.httpClient.get<PositionSimplified[]>(this.urlBase +"projects/"+ slug + "/positions");
+    }
+
+    updateNotificationAndRequest(notificationId:number,data:UpdateProjectRequestRequestDTO):Observable<void>{
+        return this.httpClient.put<void>(this.urlBase + "projects/requests/" + notificationId, data);
     }
 }
 
