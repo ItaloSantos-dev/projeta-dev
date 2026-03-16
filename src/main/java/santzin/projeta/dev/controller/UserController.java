@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import santzin.projeta.dev.DTOs.hability.HabilityResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
+import santzin.projeta.dev.DTOs.project_request_notification.ProjectRequestNotificationResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.repository.UserRepository;
+import santzin.projeta.dev.service.ProjectRequestNotificationService;
 import santzin.projeta.dev.service.ProjectService;
 import santzin.projeta.dev.service.UserService;
 
@@ -22,6 +24,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProjectRequestNotificationService projectRequestNotificationService;
 
 
     @GetMapping("/{username}")
@@ -45,6 +50,13 @@ public class UserController {
     @GetMapping("/{username}/habilitys")
     public List<HabilityResponseDTO> getHabilitys (@PathVariable String username){
         return this.userService.getHabilitys(username);
+    }
+
+    @GetMapping("/requests")
+    public ResponseEntity<List<ProjectRequestNotificationResponseDTO>> getNotificationsByAuthentication(
+            @AuthenticationPrincipal UserModel userModel
+    ){
+        return ResponseEntity.ok(this.projectRequestNotificationService.getNotificationsRequestsOfuserById(userModel));
     }
 
 

@@ -59,5 +59,11 @@ public class ProjectRequestNotificationService {
 
     }
 
+    public  List<ProjectRequestNotificationResponseDTO> getNotificationsRequestsOfuserById(UserModel user){
+        return this.projectRequestNotificationRepository.findByUserId(user.getId()).stream()
+                .map(prnm -> this.projectRequestNotificationMapper.modelToResponse(prnm))
+                .toList();
+    }
+
 
 }
