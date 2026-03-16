@@ -15,6 +15,7 @@ import santzin.projeta.dev.model.ProjectRequestNotificationModel;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.ProjectStatus;
 import santzin.projeta.dev.model.enums.StatusRequestProject;
+import santzin.projeta.dev.model.enums.TypeProjectRequestNotification;
 import santzin.projeta.dev.repository.ProjectRepository;
 import santzin.projeta.dev.repository.ProjectRequestNotificationRepository;
 import santzin.projeta.dev.repository.ProjectRequestRespository;
@@ -99,6 +100,9 @@ public class ProjectRequestService {
                     userModel
             );
         }
+
+        this.projectRequestNotificationService.create(projectRequestModel, projectRequestModel.getUser());
+
     }
 
 
