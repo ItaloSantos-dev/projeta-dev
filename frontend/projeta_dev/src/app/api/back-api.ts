@@ -84,5 +84,9 @@ export class BackApi {
     updateNotificationAndRequest(notificationId:number,data:UpdateProjectRequestRequestDTO):Observable<void>{
         return this.httpClient.put<void>(this.urlBase + "projects/requests/" + notificationId, data);
     }
+
+    getNotificationsOfUserById():Observable<ProjectRequestNotification[]>{
+        return this.httpClient.get<ProjectRequestNotification[]>(this.urlBase + "users/requests");
+    }
 }
 
