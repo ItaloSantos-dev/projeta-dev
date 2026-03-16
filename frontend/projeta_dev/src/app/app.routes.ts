@@ -18,7 +18,7 @@ export const routes: Routes = [
     {path:"home", component:Home},
     {path:"login", component:Login},
     {path:"register", component:Register},
-    {path:"requests", component:MyNotifications},
+    {path:"notifications", component:MyNotifications},
     {path:"contents/:owner/:slug", component:ShowContent},
     {path:"projects/create", component:CreateProject},
     {path:":username", component:ShowUser},

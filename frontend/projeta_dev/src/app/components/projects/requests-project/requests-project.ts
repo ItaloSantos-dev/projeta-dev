@@ -6,6 +6,7 @@ import { PositionForUser } from "../position-for-user/position-for-user";
 import { NgClass } from "@angular/common";
 import { PositionSimplified } from '../../../../types/entity/position-simplified';
 import { ProjectStatus } from '../../../../types/enums/project-status';
+import { TokenService } from '../../../service/token/token-service';
 
 @Component({
   selector: 'app-requests-project',
@@ -16,6 +17,7 @@ import { ProjectStatus } from '../../../../types/enums/project-status';
 export class RequestsProject {
   private route = inject(ActivatedRoute);
   private projectService = inject(ProjectService);
+  private tokenService = inject(TokenService);
 
   private projectSlug:string|null = "";
 
@@ -59,6 +61,10 @@ export class RequestsProject {
         
       }
     })
+  }
+
+  notificationIsRequest(notification:ProjectRequestNotification){
+    return this.tokenService.getUsernameLogged() ==notification.usernameReceiver;
   }
 
   positionsOfProject = signal(<PositionSimplified[]>[]);

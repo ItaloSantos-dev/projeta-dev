@@ -6,7 +6,8 @@ import { PositionSimplified } from '../../../../types/entity/position-simplified
 import { ProjectStatus } from '../../../../types/enums/project-status';
 import { PositionForUser } from "../../projects/position-for-user/position-for-user";
 import { NgClass } from "@angular/common";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { TokenService } from '../../../service/token/token-service';
 
 @Component({
   selector: 'app-my-notifications',
@@ -17,9 +18,12 @@ import { RouterLink } from "@angular/router";
 export class MyNotifications {
   private userService = inject(UserService);
   private projectService = inject(ProjectService);
-  notifications = signal(<ProjectRequestNotification[]> []);
+ 
   positionsOfProject = signal(<PositionSimplified[]>[]);
   showFormPositioForUser = false;
+  router = inject(Router);
+
+  tokenService = inject(TokenService);
 
   statusProjectForWord(status:ProjectStatus):string{
     if (status===ProjectStatus.ACCEPTED)
@@ -40,10 +44,14 @@ export class MyNotifications {
     this.loadNotifications();
   }
 
+   notificationsResponse = signal(<ProjectRequestNotification[]> []);
+   notificationsRequest = signal(<ProjectRequestNotification[]> []);
+
   loadNotifications(){
     this.userService.getNotificationsOfUserById().subscribe({
       next:(dado)=>{
-        this.notifications.set(dado);
+        this.notificationsResponse.set(dado.filter(n => n.projectRequest.project.creator!==this.tokenService.getUsernameLogged()));
+        this.notificationsRequest.set(dado.filter(n => n.projectRequest.project.creator===this.tokenService.getUsernameLogged()));
       },
       error:(erro)=>{
         console.log(erro.error);
@@ -89,5 +97,15 @@ export class MyNotifications {
         
       }
     })
+  }
+
+  notificationIsResponseOfMyRequest(notification:ProjectRequestNotification){
+     const userOfToken = this.tokenService.getUsernameLogged();
+      if (userOfToken===null){
+        this.router.navigate(['/login']);
+        return false;
+      }
+      return notification.projectRequest.project.creator !== userOfToken;
+    
   }
 }

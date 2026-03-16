@@ -11,82 +11,84 @@
 
         <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-3xl shadow-xl p-6 md:p-8 flex flex-col gap-4">
             @for (notification of notificationsOfProject(); track notification.id) {
-                @if (!notification.read) {
-                    <div class="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-blue-900/10 border border-blue-500/30 p-4 rounded-2xl transition-all hover:bg-blue-900/20">
-                    
-                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
+                @if(this.notificationIsRequest(notification)){
+                    @if (!notification.read) {
+                        <div class="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-blue-900/10 border border-blue-500/30 p-4 rounded-2xl transition-all hover:bg-blue-900/20">
+                        
+                            <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
 
-                        <div class="w-12 h-12 shrink-0 rounded-full bg-slate-800 border-2 border-blue-500/50 overflow-hidden flex items-center justify-center text-blue-400 font-bold text-lg">
-                            {{notification.usernameSender.toUpperCase().slice(0,2)}} 
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-slate-300 text-sm leading-relaxed">
-                                <a href="#" class="text-white font-bold hover:underline">{{notification.usernameSender}}</a> 
-                                solicitou participação no seu projeto 
-                                <span class="font-semibold text-blue-400">"{{notification.projectTitle}}"</span>
-                                <br>
-                                <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md bg-purple-500/20 text-purple-400 border border-purple-500/30">
-                                    {{notification.type}}
-                                </span>
-                            </p>
-                            <div class="flex items-center gap-2 mt-1 text-xs font-medium text-slate-500">
-                                <i class="bi bi-clock"></i>
-                                <span>{{notification.createdAt}}</span> </div>
-                        </div>
-
-                        <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
-                            <button (click)="openFormPositioForUser(notification)" class="flex-1 sm:flex-none bg-emerald-500/10 hover:bg-emerald-500 hover:text-white border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
-                                <i class="bi bi-check-lg"></i> Aceitar
-                            </button>
-                            <button (click)="ngOnSubmit(notification.id)" class="flex-1 sm:flex-none bg-red-500/10 hover:bg-red-500 hover:text-white border border-red-500/30 text-red-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
-                                <i class="bi bi-x-lg"></i> Recusar
-                            </button>
-                        </div>
-                    </div>
-                }
-                @else {
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-slate-800/30 border border-slate-700/50 p-4 rounded-2xl transition-all hover:bg-slate-800/50 opacity-70 hover:opacity-100">
-                
-                        <div class="w-12 h-12 shrink-0 rounded-full bg-slate-700 border-2 border-slate-600 overflow-hidden flex items-center justify-center text-slate-400 font-bold text-lg">
-                           {{notification.usernameSender.toUpperCase().slice(0,2)}}
-                        </div>
-
-                        <div class="flex-1">
-                            <div class="flex flex-col">
-                                <p class="text-slate-400 text-sm leading-relaxed">
-                                    Você {{this.statusProjectForWord(notification.projectRequest.status)}}                                
-                                    a solicitação do(a) <a [href]="notification.usernameSender" class="text-slate-300 font-bold hover:underline">
-                                        {{notification.usernameSender}}
-                                    </a>  para participar do projeto:
-                                    <span class="font-semibold text-slate-300">{{notification.projectTitle}}</span>.
-                                </p>
-                                <div>
-                                    <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md 
-                                    bg-{{this.statusProjectForColor(notification.projectRequest.status)}}-700 
-                                    text-{{this.statusProjectForColor(notification.projectRequest.status)}}-400 border 
-                                    border-{{this.statusProjectForColor(notification.projectRequest.status)}}-600">
-
-                                        {{notification.projectRequest.status}}    
+                            <div class="w-12 h-12 shrink-0 rounded-full bg-slate-800 border-2 border-blue-500/50 overflow-hidden flex items-center justify-center text-blue-400 font-bold text-lg">
+                                {{notification.usernameSender.toUpperCase().slice(0,2)}} 
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-slate-300 text-sm leading-relaxed">
+                                    <a href="#" class="text-white font-bold hover:underline">{{notification.usernameSender}}</a> 
+                                    solicitou participação no seu projeto 
+                                    <span class="font-semibold text-blue-400">"{{notification.projectTitle}}"</span>
+                                    <br>
+                                    <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                                        {{notification.type}}
                                     </span>
-                                </div>
+                                </p>
+                                <div class="flex items-center gap-2 mt-1 text-xs font-medium text-slate-500">
+                                    <i class="bi bi-clock"></i>
+                                    <span>{{notification.createdAt}}</span> </div>
                             </div>
-                            <div class="flex justify-between items-center gap-2 mt-1 text-xs font-medium text-slate-500">
-                                <div>
-                                    <i class="bi bi-check2 text-blue-500"></i>SEND: <span>{{notification.createdAt}}</span>
-                                </div>
 
-                                <div>
-                                    <i class="bi bi-check2-all text-blue-500"></i>READ: <span>{{notification.readAt}}</span>
-                                </div>
+                            <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
+                                <button (click)="openFormPositioForUser(notification)" class="flex-1 sm:flex-none bg-emerald-500/10 hover:bg-emerald-500 hover:text-white border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
+                                    <i class="bi bi-check-lg"></i> Aceitar
+                                </button>
+                                <button (click)="ngOnSubmit(notification.id)" class="flex-1 sm:flex-none bg-red-500/10 hover:bg-red-500 hover:text-white border border-red-500/30 text-red-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
+                                    <i class="bi bi-x-lg"></i> Recusar
+                                </button>
                             </div>
                         </div>
+                    }
+                    @else {
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-slate-800/30 border border-slate-700/50 p-4 rounded-2xl transition-all hover:bg-slate-800/50 opacity-70 hover:opacity-100">
+                    
+                            <div class="w-12 h-12 shrink-0 rounded-full bg-slate-700 border-2 border-slate-600 overflow-hidden flex items-center justify-center text-slate-400 font-bold text-lg">
+                            {{notification.usernameSender.toUpperCase().slice(0,2)}}
+                            </div>
 
-                        <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
-                            <a routerLink="../" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 hover:text-white border border-slate-600 text-slate-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
-                                Acessar Projeto
-                            </a>
+                            <div class="flex-1">
+                                <div class="flex flex-col">
+                                    <p class="text-slate-400 text-sm leading-relaxed">
+                                        Você {{this.statusProjectForWord(notification.projectRequest.status)}}                                
+                                        a solicitação do(a) <a [href]="notification.usernameSender" class="text-slate-300 font-bold hover:underline">
+                                            {{notification.usernameSender}}
+                                        </a>  para participar do projeto:
+                                        <span class="font-semibold text-slate-300">{{notification.projectTitle}}</span>.
+                                    </p>
+                                    <div>
+                                        <span class="inline-block px-2 py-0.5 ml-1 text-[10px] font-bold uppercase rounded-md 
+                                        bg-{{this.statusProjectForColor(notification.projectRequest.status)}}-700 
+                                        text-{{this.statusProjectForColor(notification.projectRequest.status)}}-400 border 
+                                        border-{{this.statusProjectForColor(notification.projectRequest.status)}}-600">
+
+                                            {{notification.projectRequest.status}}    
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center gap-2 mt-1 text-xs font-medium text-slate-500">
+                                    <div>
+                                        <i class="bi bi-check2 text-blue-500"></i>SEND: <span>{{notification.createdAt}}</span>
+                                    </div>
+
+                                    <div>
+                                        <i class="bi bi-check2-all text-blue-500"></i>READ: <span>{{notification.readAt}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
+                                <a routerLink="../" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 hover:text-white border border-slate-600 text-slate-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
+                                    Acessar Projeto
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
             }
             
