@@ -118,6 +118,7 @@ public class ProjectRequestService {
             throw new NotPermitException();
 
         prnm.setRead(true);
+        prnm.setType(prnm.getProjectRequest().getStatus().getTypeProjectByStatusRequest());
         prnm.setReadAt(LocalDate.now());
 
         this.updateStatus(user, prnm.getProjectRequest().getId(), requestDTO);

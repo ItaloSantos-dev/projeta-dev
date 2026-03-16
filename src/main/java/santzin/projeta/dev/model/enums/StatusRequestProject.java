@@ -11,4 +11,14 @@ public enum StatusRequestProject {
     String getStatusRequestProject(){
         return this.statusRequestProject;
     }
+
+    public TypeProjectRequestNotification getTypeProjectByStatusRequest(){
+        if (this == ACCEPTED)
+            return TypeProjectRequestNotification.ACCEPTED;
+        if (this == REJECTED)
+            return TypeProjectRequestNotification.DENIED;
+        return TypeProjectRequestNotification.REQUEST;
+    }
 }
+
+
