@@ -38,6 +38,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private HabilityMapper habilityMapper;
 
+    @Autowired
+    private ProjectRequestNotificationService projectRequestNotificationService;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,8 +48,9 @@ public class UserService implements UserDetailsService {
     }
 
     public UserResponseDTO getUserByUsername(String username){
-        return this.userMapper.modelToResponse(this.userRepository.findByUsernameProperty(username)
-                .orElseThrow(ItemNotFoundException::new));
+        UserModel user = this.userRepository.findByUsernameProperty(username)
+                .orElseThrow(ItemNotFoundException::new);
+        return this.userMapper.modelToResponse(user);
     }
 
     public ProjectResponseDTO getProjectOfUserByUsernameAndSlug(String username, String slug){

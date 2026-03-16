@@ -58,6 +58,14 @@ public class UserMapper {
                     .map(h -> this.habilityMapper.modelToResponse(h))
                     .toList();
 
+        int notificationsCount = 0;
+        if (userModel.getNotifications()!=null)
+            notificationsCount = userModel.getNotifications().stream()
+                    .filter(prnm -> !prnm.getRead())
+                    .toList()
+                    .size();
+
+
         return new UserResponseDTO(
                 userModel.getName(),
                 userModel.getUsernameProperty(),
@@ -73,7 +81,7 @@ public class UserMapper {
                 userModel.getLink4(),
                 userModel.getLink5(),
                 habilitys,
-                userModel.getProjectRequests().stream().filter(pr -> pr.getStatus()== StatusRequestProject.PENDING).toList().size()
+                notificationsCount
 
         );
     }

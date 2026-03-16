@@ -22,10 +22,10 @@ public class ProjectPositionMapper {
 
 
     public ProjectPositionResponseDTO modelToResponse(ProjectPositionModel position){
-        List<UserResponseDTO> users = new ArrayList<>();
+        List<String> users = new ArrayList<>();
         if(position.getUsers()!=null) {
              users= position.getUsers().stream()
-                    .map(u -> this.userMapper.modelToResponse(u.getUser())
+                    .map(u -> u.getUser().getUsernameProperty()
                     ).toList();
         }
         return new ProjectPositionResponseDTO(

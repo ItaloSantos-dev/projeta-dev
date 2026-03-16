@@ -9,6 +9,6 @@ public record ProjectPositionResponseDTO (
         Long id,
         String name,
         ProjectResponseDTO project,
-        List<UserResponseDTO> users
+        List<String > users
 ){
 }
