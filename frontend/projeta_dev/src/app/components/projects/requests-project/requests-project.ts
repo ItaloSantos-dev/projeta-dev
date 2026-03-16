@@ -50,7 +50,7 @@ export class RequestsProject {
   }
 
   loadNotifications(){
-    this.projectService.getNotificationOfProjectBySlug(this.projectSlug as string).subscribe({
+    this.projectService.getRequestsOfProjectBySlug(this.projectSlug as string).subscribe({
       next:(dado)=>{
         this.notificationsOfProject.set(dado);
       },

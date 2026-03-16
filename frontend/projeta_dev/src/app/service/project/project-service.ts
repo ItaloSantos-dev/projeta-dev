@@ -31,8 +31,8 @@ export class ProjectService {
     return this.backApi.createProjectRequest(projectId);
   }
 
-  getNotificationOfProjectBySlug(slug:string):Observable<ProjectRequestNotification[]>{
-    return this.backApi.getNotificationOfProjectBySlug(slug);
+  getRequestsOfProjectBySlug(slug:string):Observable<ProjectRequestNotification[]>{
+    return this.backApi.getRequestsOfProjectBySlug(slug);
   }
 
   getPositionsOfProjectBySlug(slug:string):Observable<PositionSimplified[]>{

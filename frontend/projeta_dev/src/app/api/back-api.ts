@@ -74,9 +74,10 @@ export class BackApi {
         return this.httpClient.post<ProjectRequest>(this.urlBase +"projects/" + projectId + "/requests", null);
     }
 
-    getNotificationOfProjectBySlug(slug:string):Observable<ProjectRequestNotification[]>{
+    getRequestsOfProjectBySlug(slug:string):Observable<ProjectRequestNotification[]>{
         return this.httpClient.get<ProjectRequestNotification[]>(this.urlBase + "projects/" + slug + "/requests");
     }
+
     getPositionsOfProjectBySlug(slug:string):Observable<PositionSimplified[]>{
         return this.httpClient.get<PositionSimplified[]>(this.urlBase +"projects/"+ slug + "/positions");
     }
@@ -86,7 +87,7 @@ export class BackApi {
     }
 
     getNotificationsOfUserById():Observable<ProjectRequestNotification[]>{
-        return this.httpClient.get<ProjectRequestNotification[]>(this.urlBase + "users/requests");
+        return this.httpClient.get<ProjectRequestNotification[]>(this.urlBase + "users/notifications");
     }
 }
 

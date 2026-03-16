@@ -65,13 +65,11 @@ public class ProjectController {
         return ResponseEntity.ok(this.projectService.UpdateById(id, updateProjectRequestDTO, user));
     }
 
-
-
-
     @PostMapping("/{id}/requests")
     public ResponseEntity<ProjectRequestResponseDTO> createProjectRequest(@AuthenticationPrincipal UserModel user, @PathVariable Long id){
         return ResponseEntity.ok(this.projectRequestService.create(user, id));
     }
+
     @GetMapping("/{slug}/requests")
     public ResponseEntity<List<ProjectRequestNotificationResponseDTO>> getNotificationsRequestsOfProjectById(
             @PathVariable String  slug,

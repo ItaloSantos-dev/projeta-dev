@@ -52,7 +52,7 @@ public class UserController {
         return this.userService.getHabilitys(username);
     }
 
-    @GetMapping("/requests")
+    @GetMapping("/notifications")
     public ResponseEntity<List<ProjectRequestNotificationResponseDTO>> getNotificationsByAuthentication(
             @AuthenticationPrincipal UserModel userModel
     ){
