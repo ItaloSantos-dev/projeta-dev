@@ -49,6 +49,18 @@ export class ShowProject {
     
   }
 
+  userLoggedIsContributorOfProject():boolean{
+    const userOfToken = this.tokenService.getUsernameLogged();
+    if (userOfToken===null){
+      this.router.navigate(['/login']);
+      return false;
+    }
+    else{
+      return this.project().contibutors.includes(userOfToken);
+    }
+    
+  }
+
 
   createProjectRequest(){
     this.projectService.createProjectRequest(this.project().id).subscribe({
