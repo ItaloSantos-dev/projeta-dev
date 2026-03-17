@@ -17,4 +17,8 @@ export class UserService {
   getNotificationsOfUserById():Observable<ProjectRequestNotification[]>{
     return this.backApi.getNotificationsOfUserById();
   }
+
+  setNotificationReadById(id:number):Observable<void>{
+    return this.backApi.setNotificationReadById(id);
+  }
 }

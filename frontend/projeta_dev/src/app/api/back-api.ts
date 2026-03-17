@@ -89,5 +89,9 @@ export class BackApi {
     getNotificationsOfUserById():Observable<ProjectRequestNotification[]>{
         return this.httpClient.get<ProjectRequestNotification[]>(this.urlBase + "users/notifications");
     }
+
+    setNotificationReadById(id:number):Observable<void>{
+        return this.httpClient.put<void>(this.urlBase + "users/notifications/" + id, null);
+    }
 }
 

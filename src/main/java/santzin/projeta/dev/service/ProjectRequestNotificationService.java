@@ -65,5 +65,13 @@ public class ProjectRequestNotificationService {
                 .toList();
     }
 
+    public void setReadNotificationById(Long id){
+        ProjectRequestNotificationModel prnm = this.projectRequestNotificationRepository.findById(id)
+                .orElseThrow(ItemNotFoundException::new);
+        prnm.setRead(true);
+        prnm.setReadAt(LocalDate.now());
+        this.projectRequestNotificationRepository.save(prnm);
+    }
+
 
 }

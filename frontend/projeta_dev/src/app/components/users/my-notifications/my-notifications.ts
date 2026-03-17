@@ -108,4 +108,16 @@ export class MyNotifications {
       return notification.projectRequest.project.creator !== userOfToken;
     
   }
+
+  setNotificationRedById(id:number){
+    this.userService.setNotificationReadById(id).subscribe({
+      next:() =>{
+        this.loadNotifications();
+      },
+      error:(erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
+  }
 }
