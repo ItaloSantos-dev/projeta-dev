@@ -21,15 +21,12 @@ export class App {
 
   ngOnInit(){
     
-    const username = this.tokenService.getUsernameLogged();
-    
-    if (username===null){
-      console.log("è nulo");
-      localStorage.clear()
-      this.router.navigate(['/login'])
-    }else{
-      this.usernameLogged.set(username as string);
-    }
+    this.authService.trigger$.subscribe(()=>{
+      this.usernameLogged.set(localStorage.getItem('usernameLogged') as string);
+    })
+    const username = localStorage.getItem('usernameLogged');
+    if (username)
+      this.usernameLogged.set(username);
 
     
   }

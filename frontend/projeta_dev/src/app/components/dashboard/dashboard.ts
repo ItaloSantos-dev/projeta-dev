@@ -24,16 +24,17 @@ export class Dashboard {
 
   usernameLogged = signal("");
 
+  private authService = inject(AuthService);
+
   page:number = 1;
 
   ngOnInit(){
-    const usernameOfToken = this.tokenService.getUsernameLogged();
-    if (usernameOfToken===null) {
-      this.router.navigate(['/login'])
-    }
-    else{
-      this.usernameLogged.set(usernameOfToken);
-    }
+    this.authService.trigger$.subscribe(() =>{
+      this.usernameLogged.set(localStorage.getItem('usernameLogged') as string);
+    })
+     const username = localStorage.getItem('usernameLogged');
+    if (username)
+      this.usernameLogged.set(username);
 
     this.route.paramMap.subscribe( params => {
       this.page = Number(params.get('page')) ===0? 1: Number(params.get('page'));

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { LoginDTO } from '../../types/DTO/login-dto';
 import { BackApi } from '../api/back-api';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { RegisterDTO } from '../../types/DTO/register-dto';
 import { Router } from '@angular/router';
 import { JwtPayload, TokenService } from './token/token-service';
@@ -41,6 +41,24 @@ export class AuthService {
   logout(){
     localStorage.clear();
     this.router.navigate(['/login'])
+  }
+
+  saveUsername(){
+    const username = this.tokenService.getUsernameLogged();
+    console.log("user"+ username);
+    
+    if (username)
+      localStorage.setItem('usernameLogged', username);
+  }
+  
+
+  private trigger = new Subject<void>();
+
+
+  trigger$ = this.trigger.asObservable();
+
+  emitTrigger(){
+    this.trigger.next();
   }
 
   
