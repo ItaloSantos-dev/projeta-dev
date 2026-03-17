@@ -3,14 +3,14 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProjectService } from '../../../service/project/project-service';
 import { ProjectRequestNotification } from '../../../../types/entity/project-request-notification';
 import { PositionForUser } from "../position-for-user/position-for-user";
-import { NgClass } from "@angular/common";
+import { NgClass, NgIf } from "@angular/common";
 import { PositionSimplified } from '../../../../types/entity/position-simplified';
 import { ProjectStatus } from '../../../../types/enums/project-status';
 import { TokenService } from '../../../service/token/token-service';
 
 @Component({
   selector: 'app-requests-project',
-  imports: [PositionForUser, NgClass, RouterLink],
+  imports: [PositionForUser, RouterLink, NgIf],
   templateUrl: './requests-project.html',
   styleUrl: './requests-project.css',
 })

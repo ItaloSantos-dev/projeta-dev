@@ -200,7 +200,10 @@
         }
     </div>
 <!-- " -->
-    <app-create-hability class="absolute" (closeForm)="closeFormCreateHability()" [ngClass]="{'block':shorFormCreateHability(), 'hidden':!shorFormCreateHability()}"  >
-
+    <app-create-hability
+        *ngIf="shorFormCreateHability()"
+        class="absolute"
+        (closeForm)="closeFormCreateHability()"
+    >
     </app-create-hability>
 </div>

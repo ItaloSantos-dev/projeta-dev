@@ -94,6 +94,6 @@
             
         </div>
     </div>
-    <app-position-for-user [ngClass]="{'hidden opacity-100':!showFormPositioForUser}" (closeForm)="closeFormPositionForuser()" [notification]="this.notificationForForm"
+    <app-position-for-user *ngIf="showFormPositioForUser" (closeForm)="closeFormPositionForuser()" [notification]="this.notificationForForm"
     [positionsOfProject]="this.positionsOfProject" ></app-position-for-user>
 </div>
