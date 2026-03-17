@@ -122,6 +122,13 @@
                         </span>
                     </div>
                 }
+                @else if (this.userAlreadyRequestForProject()) {
+                    <div class="group flex items-center gap-4 bg-blue-600/10 border border-blue-500/30 text-blue-400 hover:bg-blue-600 hover:text-white p-4 rounded-2xl transition-all cursor-pointer text-left">
+                        <span class="font-semibold text-sm flex justify-center text-center items-center">
+                            VOCÊ JÁ SOLICITOU PARTICIPAÇÃO PARA ESTE PROJETO
+                        </span>
+                    </div>
+                }
                 @else {
                     @if(project().inputType === inputType.RELEASED){
                         <button class="group flex items-center gap-4 bg-blue-600/10 border border-blue-500/30 text-blue-400 hover:bg-blue-600 hover:text-white p-4 rounded-2xl transition-all cursor-pointer text-left">

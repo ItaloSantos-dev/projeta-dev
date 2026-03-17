@@ -24,6 +24,7 @@ public record ProjectResponseDTO(
         LocalDate createdAt,
         Integer requestsCount,
         List<String > contibutors,
-        List<String> positions
+        List<String> positions,
+        List<String> usersWithRequests
 ) {
 }

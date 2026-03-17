@@ -36,6 +36,10 @@ export class ShowProject {
 
   inputType = InputType;
 
+  userAlreadyRequestForProject(){
+    return this.project().usersWithRequests.includes(this.tokenService.getUsernameLogged() as string)
+  }
+
 
   userLoggedIsCreator():boolean{
     const userOfToken = this.tokenService.getUsernameLogged();

@@ -7,6 +7,7 @@ import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.project.UpdateProjectRequestDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.model.ProjectModel;
+import santzin.projeta.dev.model.ProjectRequestModel;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.ProjectStatus;
 import santzin.projeta.dev.model.enums.StatusRequestProject;
@@ -67,10 +68,16 @@ public class ProjectMapper {
                     .map(p -> p.getName())
                     .toList();
         }
+        List<String > usersWithRequests = new ArrayList<>();
 
         Integer requestCount = 0;
         if (project.getProjectRequests()!=null){
-            requestCount = project.getProjectRequests().stream().filter( pr-> pr.getStatus()== StatusRequestProject.PENDING).toList().size();
+            for (ProjectRequestModel projectRequest : project.getProjectRequests()){
+                if (projectRequest.getStatus()==StatusRequestProject.PENDING)
+                    requestCount++;
+
+                usersWithRequests.add(projectRequest.getUser().getUsernameProperty());
+            }
         }
 
 
@@ -89,7 +96,9 @@ public class ProjectMapper {
                 project.getCreatedAt(),
                 requestCount,
                 users,
-                positions
+                positions,
+                usersWithRequests
+
         );
     }
 
