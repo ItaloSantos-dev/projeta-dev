@@ -6,6 +6,7 @@ import santzin.projeta.dev.DTOs.project_request_notification.ProjectRequestNotif
 import santzin.projeta.dev.model.ProjectRequestModel;
 import santzin.projeta.dev.model.ProjectRequestNotificationModel;
 import santzin.projeta.dev.model.UserModel;
+import santzin.projeta.dev.model.enums.StatusRequestProject;
 import santzin.projeta.dev.model.enums.TypeProjectRequestNotification;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class ProjectRequestNotificationMapper {
         projectRequestNotificationModel.setProjectRequest(projectRequestModel);
         projectRequestNotificationModel.setUser(user);
         projectRequestNotificationModel.setRead(false);
-        projectRequestNotificationModel.setType(TypeProjectRequestNotification.REQUEST);
+        projectRequestNotificationModel.setType(projectRequestModel.getStatus().getTypeProjectByStatusRequest());
         projectRequestNotificationModel.setCreatedAt(LocalDate.now());
 
         return projectRequestNotificationModel;
