@@ -10,10 +10,16 @@ import java.util.List;
 public interface UsersFollowRepository extends JpaRepository<UsersFollowModel, Long> {
 
     //retorna lista que o user segue
-    List<UserModel> findByUserFollowingId(Long id);
+    List<UsersFollowModel> findByUserFollowingId(Long id);
+
+
+    List<UsersFollowModel> findByUserFollowingUsernameProperty(String  username);
 
     //Retorna lista de quem segue o user
-    List<UserModel> findByUserFollowedId(Long id);
+    List<UsersFollowModel> findByUserFollowedId(Long id);
+
+    List<UsersFollowModel> findByUserFollowedUsernameProperty(String  username);
+
 
     boolean existsByUserFollowingIdAndUserFollowedId(Long userFollowingId, Long userFollowedId);
 }

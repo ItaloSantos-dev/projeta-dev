@@ -13,6 +13,7 @@ import santzin.projeta.dev.repository.UserRepository;
 import santzin.projeta.dev.service.ProjectRequestNotificationService;
 import santzin.projeta.dev.service.ProjectService;
 import santzin.projeta.dev.service.UserService;
+import santzin.projeta.dev.service.UsersFollowService;
 
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class UserController {
 
     @Autowired
     private ProjectRequestNotificationService projectRequestNotificationService;
+
+    @Autowired
+    private UsersFollowService usersFollowService;
 
 
     @GetMapping("/{username}")
@@ -61,6 +65,15 @@ public class UserController {
         this.projectRequestNotificationService.setReadNotificationById(id);
     }
 
+    @GetMapping("/{username}/following")
+    public ResponseEntity<List<UserResponseDTO>> getFollowingOfUserByUsername(@PathVariable String username){
+        return ResponseEntity.ok(this.usersFollowService.getFollowingOfUserByUsername(username));
+    }
+
+    @GetMapping("/{username}/followers")
+    public ResponseEntity<List<UserResponseDTO>> getFollowersOfUserByUsername(@PathVariable String username){
+        return ResponseEntity.ok(this.usersFollowService.getFollowersOfUserByUsername(username));
+    }
 
 
 
