@@ -17,5 +17,7 @@ export interface User {
   link4: string;
   link5: string;
   habilitys:Hability[],
-  notificationsCount:number
+  notificationsCount:number;
+  followingCount:number;
+  followersCount:number;
 }

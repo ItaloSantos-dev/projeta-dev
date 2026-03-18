@@ -81,8 +81,9 @@ public class UserMapper {
                 userModel.getLink4(),
                 userModel.getLink5(),
                 habilitys,
-                notificationsCount
-
+                notificationsCount,
+                userModel.getFollowing()==null? 0 : userModel.getFollowing().size(),
+                userModel.getFollowers()==null? 0 : userModel.getFollowers().size()
         );
     }
 }
