@@ -165,20 +165,22 @@
     <div class="flex flex-col gap-4 bg-white/5 backdrop-blur-md p-5 shadow rounded-2xl right-50 fixed lg:flex h-fit z-50">
         
 
-        <div class="flex justify-between">
-            <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">Ações</p>
+        @if (userLoggedIsCreator()) {
+            <div class="flex justify-between">
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest px-2">Ações</p>
 
-            <a [routerLink]="'/notifications'" class="relative">
-                <span class="flex items-center gap-1.5 hover:border-purple-700 hover:text-white transition-all cursor-pointer font-extrabold px-3 py-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                    
-                    @if(user().notificationsCount > 0){
-                        <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
-                    }
-                    <i class="bi bi-bell transition-all hover:scale-110"></i>
-                </span>
+                <a [routerLink]="'/notifications'" class="relative">
+                    <span class="flex items-center gap-1.5 hover:border-purple-700 hover:text-white transition-all cursor-pointer font-extrabold px-3 py-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                        
+                        @if(user().notificationsCount > 0){
+                            <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+                        }
+                        <i class="bi bi-bell transition-all hover:scale-110"></i>
+                    </span>
 
-            </a>
-        </div>
+                </a>
+            </div>
+        }
         
         <a [routerLink]="['../']" class="group flex items-center gap-4 bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 p-4 rounded-2xl transition-all">
             <span class="bg-slate-800 p-2 rounded-xl group-hover:bg-slate-700 transition-colors">
