@@ -14,4 +14,6 @@ public interface UsersFollowRepository extends JpaRepository<UsersFollowModel, L
 
     //Retorna lista de quem segue o user
     List<UserModel> findByUserFollowedId(Long id);
+
+    boolean existsByUserFollowingIdAndUserFollowedId(Long userFollowingId, Long userFollowedId);
 }
