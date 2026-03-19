@@ -64,6 +64,18 @@ public class UserMapper {
                     .filter(prnm -> !prnm.getRead())
                     .toList()
                     .size();
+        List<String> following = new ArrayList<>();
+        List<String> followers = new ArrayList<>();
+
+        if (userModel.getFollowing() != null)
+            following = userModel.getFollowing().stream()
+                    .map(uf -> uf.getUserFollowed().getUsernameProperty())
+                    .toList();
+
+        if (userModel.getFollowers() != null)
+            followers = userModel.getFollowers().stream()
+                    .map(uf -> uf.getUserFollowing().getUsernameProperty())
+                    .toList();
 
 
         return new UserResponseDTO(
@@ -82,8 +94,8 @@ public class UserMapper {
                 userModel.getLink5(),
                 habilitys,
                 notificationsCount,
-                userModel.getFollowing()==null? 0 : userModel.getFollowing().size(),
-                userModel.getFollowers()==null? 0 : userModel.getFollowers().size()
+                following,
+                followers
         );
     }
 }

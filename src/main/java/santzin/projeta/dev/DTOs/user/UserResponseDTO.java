@@ -23,7 +23,7 @@ public record UserResponseDTO (
         String link5,
         List<HabilityResponseDTO> habilitys,
         Integer notificationsCount,
-        Integer followingCount,
-        Integer followersCount
+        List<String> following,
+        List<String> followers
 ){
 }

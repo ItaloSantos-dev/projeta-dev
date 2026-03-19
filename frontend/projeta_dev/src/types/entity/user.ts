@@ -18,6 +18,6 @@ export interface User {
   link5: string;
   habilitys:Hability[],
   notificationsCount:number;
-  followingCount:number;
-  followersCount:number;
+  following:string[];
+  followers:string[];
 }

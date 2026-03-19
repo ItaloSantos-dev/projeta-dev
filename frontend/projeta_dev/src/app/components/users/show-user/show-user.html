@@ -203,17 +203,17 @@
 
 
         <div class="flex gap-3 items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-            <div class="flex flex-col items-center w-1/2">
-                <span class="text-white font-bold text-lg">{{ user().followingCount }}</span>
+            <a [routerLink]="'following'" class="flex flex-col items-center w-1/2">
+                <span class="text-white font-bold text-lg">{{ user().following.length }}</span>
                 <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">Seguindo</span>
-            </div>
+            </a>
             
             <div class="w-px h-8 bg-slate-700/50"></div>
             
-            <div class="flex flex-col items-center w-1/2">
-                <span class="text-white font-bold text-lg">{{ user().followersCount }}</span>
+            <a [routerLink]="'followers'" class="flex flex-col items-center w-1/2">
+                <span class="text-white font-bold text-lg">{{ user().followers.length}}</span>
                 <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">Seguidores</span>
-            </div>
+            </a >
         </div>
     </div>
 <!-- " -->
