@@ -47,11 +47,13 @@
                             </div>
                         }
                         @else {
-                            <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
-                                <button class="flex-1 sm:flex-none bg-emerald-500/10 hover:bg-emerald-500 hover:text-white border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
-                                    <i class="bi bi-person-dash"></i>Seguir
-                                </button>
-                            </div>
+                            @if (!thisUserIsUserLogged(user)) {
+                                <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
+                                    <button (click)="followUserById(user.id)" class="cursor-pointer flex-1 sm:flex-none bg-emerald-500/10 hover:bg-emerald-500 hover:text-white border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
+                                        <i class="bi bi-person-dash"></i>Seguir
+                                    </button>
+                                </div>
+                            }
                         }
                     </div>
                 

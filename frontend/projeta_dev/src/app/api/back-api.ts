@@ -105,5 +105,9 @@ export class BackApi {
     deleteByUserFollowingIdAndUserFollowedId(id:number):Observable<void>{
         return this.httpClient.delete<void>(this.urlBase + "users/following/" + id);
     }
+
+    followUserById(id:number):Observable<void>{
+        return this.httpClient.post<void>(this.urlBase + "users/following/" + id, null);
+    }
 }
 

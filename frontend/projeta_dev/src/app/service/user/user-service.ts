@@ -32,4 +32,8 @@ export class UserService {
   deleteByUserFollowingIdAndUserFollowedId(id:number):Observable<void>{
     return this.backApi.deleteByUserFollowingIdAndUserFollowedId(id);
   }
+
+  followUserById(id:number):Observable<void>{
+    return this.backApi.followUserById(id);
+  }
 }

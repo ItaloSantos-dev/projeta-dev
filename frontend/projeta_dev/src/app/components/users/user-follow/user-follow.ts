@@ -112,4 +112,20 @@ export class UserFollow {
       }
     })
   }
+
+  followUserById(id:number){
+    this.userService.followUserById(id).subscribe({
+      next:()=>{
+        this.loadUsers();
+      },
+      error:(erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
+  }
+
+  thisUserIsUserLogged(user:User){
+    return user.username === this.tokenService.getUsernameLogged();
+  }
 }

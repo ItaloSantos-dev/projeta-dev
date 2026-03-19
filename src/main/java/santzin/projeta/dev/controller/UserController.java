@@ -69,6 +69,11 @@ public class UserController {
     public ResponseEntity<List<UserResponseDTO>> getFollowingOfUserByUsername(@PathVariable String username){
         return ResponseEntity.ok(this.usersFollowService.getFollowingOfUserByUsername(username));
     }
+    @PostMapping("/following/{id}")
+    public ResponseEntity<Void> createProjectRequest(@AuthenticationPrincipal UserModel user, @PathVariable Long id){
+        this.usersFollowService.followUserById(user, id);
+        return ResponseEntity.ok().build();
+    }
     @DeleteMapping("/following/{id}")
     public ResponseEntity<List<UserResponseDTO>> getFollowingOfUserByUsername(
             @AuthenticationPrincipal UserModel user,

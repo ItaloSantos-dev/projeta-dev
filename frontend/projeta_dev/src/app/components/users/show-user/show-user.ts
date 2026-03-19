@@ -113,4 +113,20 @@ export class ShowUser {
   ngOnInit(){
     this.loadUser();
   }
+
+  userLoggedFollowThisUser(user:User):boolean{
+    return user.followers.includes(localStorage.getItem('usernameLogged') as string);
+  }
+
+  followUserById(id:number){
+    this.userService.followUserById(id).subscribe({
+      next:()=>{
+        this.loadUser();
+      },
+      error:(erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
+  }
 }
