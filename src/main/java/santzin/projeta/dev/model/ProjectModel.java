@@ -62,5 +62,8 @@ public class ProjectModel {
 
     @OneToMany(mappedBy = "project")
     private List<ProjectRequestModel> projectRequests;
+
+    @Column(name = "fixed_position")
+    private Integer fixedPosition;
 }
 
