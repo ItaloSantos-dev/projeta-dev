@@ -16,6 +16,7 @@ import { ProjectRequest } from "../../types/entity/project-request";
 import { ProjectRequestNotification } from "../../types/entity/project-request-notification";
 import { PositionSimplified } from "../../types/entity/position-simplified";
 import { UpdateProjectRequestRequestDTO } from "../../types/DTO/update-project-request-request-dto";
+import { UserWithProjects } from "../../types/entity/user-with-projects";
 
 @Injectable({
     providedIn:'root',
@@ -38,6 +39,9 @@ export class BackApi {
         params = params.set("page", page);
         params = params.append("strategy", strategy);
         return this.httpClient.get<Content[]>(this.urlBase+"contents/most-popular", {params:params});
+    }
+    getUserWithProjects(username:string):Observable<UserWithProjects>{
+        return this.httpClient.get<UserWithProjects>(this.urlBase + "users/"+username+"/projects")
     }
 
     getContent(data:ContentRequestDTO):Observable<Content>{ 

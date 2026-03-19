@@ -130,7 +130,7 @@
                 <span class="text-white text-xl font-bold flex items-center gap-3">
                     <i class="bi bi-journal-code text-blue-500 text-2xl"></i>
                     Projetos Fixados
-                    <span class="bg-blue-500/20 text-blue-400 text-xs py-1 px-3 rounded-full ml-2">2</span> 
+                    <span class="bg-blue-500/20 text-blue-400 text-xs py-1 px-3 rounded-full ml-2">{{user().myProjectsFixed.length}}</span> 
                 </span>
                 <button
                     type="button" (click)="projetosOpen = !projetosOpen" 
@@ -140,23 +140,26 @@
                 </button>
             </summary>
             <!-- Depois fazer sistema de fixar projetos -->
-            @for (project of user().myProjects; track project.id) {
+            @for (project of user().myProjectsFixed; track project.id) {
 
-                <a class="px-6 md:px-8 pb-8 pt-0 flex flex-col gap-4">
+                <div  class="px-6 md:px-8 pb-8 pt-0 flex flex-col gap-4">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-800/40 border border-slate-700/50 rounded-2xl p-5 hover:bg-slate-800/80 transition-all group/item">
                         <div class="flex items-center gap-4">
                             <div class="w-10 h-10 rounded-xl bg-slate-700 border border-slate-600 flex items-center justify-center text-blue-400 text-lg">
                                 <i class="bi bi-cart3"></i>
                             </div>
                             <div class="flex flex-col gap-1">
-                                <h3 class="text-white font-bold text-md group-hover/item:text-blue-400 transition-colors">{{project.title}}</h3> 
+                                <h3 class="text-white font-bold text-md group-hover/item:text-blue-400 transition-colors">
+                                    <a [routerLink]="['projects', project.slug]">{{project.title}}</a>
+                                    
+                                </h3> 
                                 <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
                                     Stack: <span class="text-blue-400">{{project.stack}}</span> 
                                 </p>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
             }
         </div>
 

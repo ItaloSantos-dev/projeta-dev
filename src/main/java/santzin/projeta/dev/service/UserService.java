@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import santzin.projeta.dev.DTOs.hability.HabilityResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
+import santzin.projeta.dev.DTOs.user.UserWithProjectsResponseDTO;
 import santzin.projeta.dev.exception.FailedLoginException;
 import santzin.projeta.dev.exception.ItemNotFoundException;
 import santzin.projeta.dev.mapper.HabilityMapper;
@@ -60,18 +61,11 @@ public class UserService implements UserDetailsService {
         return this.projectService.getProjectOfUserByUsernameAndSlug(username, slug);
     }
 
-    public List<ProjectResponseDTO> getProjectsOfUserByUsername(String username){
+    public UserWithProjectsResponseDTO getProjectsOfUserByUsername(String username){
         UserModel user = this.userRepository.findByUsernameProperty(username)
                 .orElseThrow(ItemNotFoundException::new);
         List<ProjectResponseDTO> response = new ArrayList<>();
-
-        if (user.getMyProjects()!=null){
-            response = user.getMyProjects().stream()
-                    .map(p -> this.projectMapper.modelToResponse(p))
-                    .toList();
-        }
-
-        return response;
+        return this.userMapper.modelToWithProjectsResponse(user);
     }
 
     public List<HabilityResponseDTO> getHabilitys(String username){

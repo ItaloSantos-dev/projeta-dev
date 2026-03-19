@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { NgClass } from '@angular/common';
 import { UserService } from '../../../service/user/user-service';
 import { User } from '../../../../types/entity/user';
@@ -68,7 +68,7 @@ export class ShowUser {
     this.userService.getUserByUsername(this.username).subscribe({
       next:(dado) =>{
         this.user.set(dado);
-        console.log(this.user().myProjects[0]);
+  
         this.completeListLinks()
         
       },

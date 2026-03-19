@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 import { ProjectService } from '../../../service/project/project-service';
 import { User } from '../../../../types/entity/user';
 import { UserService } from '../../../service/user/user-service';
+import { UserWithProjects } from '../../../../types/entity/user-with-projects';
 
 @Component({
   selector: 'app-show-projects-of-user',
@@ -22,7 +23,7 @@ export class ShowProjectsOfUser {
     ["FINALED", "gray"]
   ])
 
-  user = signal(<User>{})
+  user = signal(<UserWithProjects>{})
 
   username = "";
 
@@ -35,7 +36,7 @@ export class ShowProjectsOfUser {
   }
 
   ngOnInit(){
-    this.userService.getUserByUsername(this.username).subscribe({
+    this.userService.getUserWithProjects(this.username).subscribe({
       next:(dado)=>{
         this.user.set(dado);
         this.projectsCount = this.user().myProjects.length

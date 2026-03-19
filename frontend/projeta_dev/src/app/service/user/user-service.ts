@@ -3,6 +3,7 @@ import { BackApi } from '../../api/back-api';
 import { Observable } from 'rxjs';
 import { User } from '../../../types/entity/user';
 import { ProjectRequestNotification } from '../../../types/entity/project-request-notification';
+import { UserWithProjects } from '../../../types/entity/user-with-projects';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +36,9 @@ export class UserService {
 
   followUserById(id:number):Observable<void>{
     return this.backApi.followUserById(id);
+  }
+
+  getUserWithProjects(username:string):Observable<UserWithProjects>{
+      return this.backApi.getUserWithProjects(username);
   }
 }

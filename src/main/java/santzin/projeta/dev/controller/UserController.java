@@ -8,6 +8,7 @@ import santzin.projeta.dev.DTOs.hability.HabilityResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.project_request_notification.ProjectRequestNotificationResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
+import santzin.projeta.dev.DTOs.user.UserWithProjectsResponseDTO;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.repository.UserRepository;
 import santzin.projeta.dev.service.ProjectRequestNotificationService;
@@ -44,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/{username}/projects")
-    public ResponseEntity<List<ProjectResponseDTO>> getProjectsOfUserByUsername(@PathVariable String username){
+    public ResponseEntity<UserWithProjectsResponseDTO> getUserWithProjectsByUsername(@PathVariable String username){
         return ResponseEntity.ok(this.userService.getProjectsOfUserByUsername(username));
     }
 

@@ -8,6 +8,7 @@ import santzin.projeta.dev.DTOs.auth.RegisterRequestDTO;
 import santzin.projeta.dev.DTOs.hability.HabilityResponseDTO;
 import santzin.projeta.dev.DTOs.project.ProjectResponseDTO;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
+import santzin.projeta.dev.DTOs.user.UserWithProjectsResponseDTO;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.StatusRequestProject;
 import santzin.projeta.dev.model.enums.UserRole;
@@ -79,6 +80,64 @@ public class UserMapper {
                 userModel.getExperienceLevel(),
                 userModel.getPrincipalStack(),
                 myProjectsFixed,
+                userModel.getAbout(),
+                userModel.getCoverUrl(),
+                userModel.getPerfilUrl(),
+                userModel.getLink1(),
+                userModel.getLink2(),
+                userModel.getLink3(),
+                userModel.getLink4(),
+                userModel.getLink5(),
+                habilitys,
+                notificationsCount,
+                following,
+                followers
+        );
+    }
+
+    public UserWithProjectsResponseDTO modelToWithProjectsResponse(UserModel userModel){
+
+        List<ProjectResponseDTO> myProjects = new ArrayList<>();
+
+        if (userModel.getMyProjects()!=null)
+            myProjects = userModel.getMyProjects().stream()
+                    .map( p-> this.projectMapper.modelToResponse(p))
+                    .toList();
+
+        List<HabilityResponseDTO> habilitys = new ArrayList<>();
+
+        if (userModel.getHabilitys()!=null)
+            habilitys = userModel.getHabilitys().stream()
+                    .map(h -> this.habilityMapper.modelToResponse(h))
+                    .toList();
+
+        int notificationsCount = 0;
+        if (userModel.getNotifications()!=null)
+            notificationsCount = userModel.getNotifications().stream()
+                    .filter(prnm -> !prnm.getRead())
+                    .toList()
+                    .size();
+        List<String> following = new ArrayList<>();
+        List<String> followers = new ArrayList<>();
+
+        if (userModel.getFollowing() != null)
+            following = userModel.getFollowing().stream()
+                    .map(uf -> uf.getUserFollowed().getUsernameProperty())
+                    .toList();
+
+        if (userModel.getFollowers() != null)
+            followers = userModel.getFollowers().stream()
+                    .map(uf -> uf.getUserFollowing().getUsernameProperty())
+                    .toList();
+
+
+        return new UserWithProjectsResponseDTO(
+                userModel.getId(),
+                userModel.getName(),
+                userModel.getUsernameProperty(),
+                userModel.getExperienceLevel(),
+                userModel.getPrincipalStack(),
+                myProjects,
                 userModel.getAbout(),
                 userModel.getCoverUrl(),
                 userModel.getPerfilUrl(),

@@ -2,13 +2,13 @@ import { UserExperienceLevel } from "../enums/user-experience-level";
 import { Hability } from "./hability";
 import { Project } from "./project";
 
-export interface User {
+export interface UserWithProjects {
   id:number;
   name: string;
   username: string;
   experienceLevel: UserExperienceLevel;
   principalStack: string;
-  myProjectsFixed:Project[];
+  myProjects:Project[];
   about: string;
   coverUrl: string;
   perfilUrl: string;
