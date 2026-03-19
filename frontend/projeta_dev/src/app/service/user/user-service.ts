@@ -29,4 +29,7 @@ export class UserService {
   getFollowersOfUser(username:string):Observable<User[]>{
     return this.backApi.getFollowersOfUser(username);
   }
+  deleteByUserFollowingIdAndUserFollowedId(id:number):Observable<void>{
+    return this.backApi.deleteByUserFollowingIdAndUserFollowedId(id);
+  }
 }

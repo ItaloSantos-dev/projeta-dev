@@ -41,7 +41,7 @@
 
                         @if (userLoggedFollowThisUser(user)) {
                             <div class="flex gap-2 w-full sm:w-auto mt-3 sm:mt-0">
-                                <button class="flex-1 sm:flex-none bg-red-500/10 hover:bg-red-500 hover:text-white border border-red-500/30 text-red-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
+                                <button (click)="unfollowUserById(user.id)" class="cursor-pointer flex-1 sm:flex-none bg-red-500/10 hover:bg-red-500 hover:text-white border border-red-500/30 text-red-400 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all">
                                     <i class="bi bi-person-dash"></i> Deixar de seguir
                                 </button>
                             </div>

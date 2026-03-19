@@ -101,5 +101,9 @@ export class BackApi {
     getFollowersOfUser(username:string):Observable<User[]>{
         return this.httpClient.get<User[]>(this.urlBase + "users/" + username + "/followers");
     }
+
+    deleteByUserFollowingIdAndUserFollowedId(id:number):Observable<void>{
+        return this.httpClient.delete<void>(this.urlBase + "users/following/" + id);
+    }
 }
 

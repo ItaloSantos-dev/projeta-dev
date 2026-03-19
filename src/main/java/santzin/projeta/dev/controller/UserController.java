@@ -69,6 +69,14 @@ public class UserController {
     public ResponseEntity<List<UserResponseDTO>> getFollowingOfUserByUsername(@PathVariable String username){
         return ResponseEntity.ok(this.usersFollowService.getFollowingOfUserByUsername(username));
     }
+    @DeleteMapping("/following/{id}")
+    public ResponseEntity<List<UserResponseDTO>> getFollowingOfUserByUsername(
+            @AuthenticationPrincipal UserModel user,
+            @PathVariable Long id
+            ){
+        this.usersFollowService.deleteUserFollowByUserFollowedId(user, id);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/{username}/followers")
     public ResponseEntity<List<UserResponseDTO>> getFollowersOfUserByUsername(@PathVariable String username){

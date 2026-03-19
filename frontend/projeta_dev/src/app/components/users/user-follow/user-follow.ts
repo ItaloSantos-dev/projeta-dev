@@ -61,6 +61,10 @@ export class UserFollow {
   }
 
   ngOnInit(){
+    this.loadUsers();
+  }
+
+  loadUsers(){
     const url = this.router.url;
     //Exibe seguimores
     if (url.includes("following")) {
@@ -88,7 +92,6 @@ export class UserFollow {
       })
       this.typeUser = 2;
     }
-    
   }
 
   userLoggedFollowThisUser(user:User):boolean{
@@ -96,5 +99,17 @@ export class UserFollow {
   }
   userLoggeidIsActualUser(){
     return this.username === this.tokenService.getUsernameLogged();
+  }
+
+  unfollowUserById(id:number){
+    this.userService.deleteByUserFollowingIdAndUserFollowedId(id).subscribe({
+      next:()=>{
+        this.loadUsers();
+      },
+      error:(erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
   }
 }

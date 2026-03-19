@@ -2,6 +2,7 @@ package santzin.projeta.dev.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import santzin.projeta.dev.DTOs.user.UserResponseDTO;
 import santzin.projeta.dev.exception.ItemNotFoundException;
 import santzin.projeta.dev.exception.ItemWithValueAlreadyExistsException;
@@ -60,5 +61,13 @@ public class UsersFollowService {
         return this.usersFollowRepository.findByUserFollowedUsernameProperty(username).stream()
                 .map(userFollow -> this.userMapper.modelToResponse(userFollow.getUserFollowing()))
                 .toList();
+    }
+
+    @Transactional
+    public void deleteUserFollowByUserFollowedId(UserModel user, Long id){
+        if (!this.usersFollowRepository.existsByUserFollowingIdAndUserFollowedId(user.getId(), id))
+            throw new ItemNotFoundException();
+        this.usersFollowRepository.deleteByUserFollowingIdAndUserFollowedId(user.getId(), id);
+
     }
 }
