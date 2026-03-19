@@ -15,4 +15,6 @@ public interface ProjectRepository extends JpaRepository<ProjectModel, Long> {
     Boolean existsByTitleAndCreatorId(String name, Long creatorId);
 
     Optional<ProjectModel> findBySlug(String slug);
+
+    boolean existsByCreatorIdAndFixedPosition(Long creatorId, Integer fixiedPosition);
 }

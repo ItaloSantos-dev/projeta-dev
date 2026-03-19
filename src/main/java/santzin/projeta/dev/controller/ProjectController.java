@@ -95,6 +95,25 @@ public class ProjectController {
         return ResponseEntity.ok(this.projectService.getPositionsOfProjectBySlug(slug));
     }
 
+    @PostMapping("/{id}/fixed")
+    public ResponseEntity<Void> fixedProjectById(
+            @AuthenticationPrincipal UserModel user,
+            @PathVariable Long id,
+            @RequestBody Integer position
+    ){
+        this.projectService.fixedProjectById(user, id, position);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/desfixed")
+    public ResponseEntity<Void> desfixedProjectById(
+            @AuthenticationPrincipal UserModel user,
+            @PathVariable Long id
+    ){
+        this.projectService.desfixedProjectById(user, id);
+        return ResponseEntity.ok().build();
+    }
+
 
 
 }
