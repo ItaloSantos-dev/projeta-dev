@@ -8,6 +8,7 @@ import santzin.projeta.dev.model.enums.UserExperienceLevel;
 import java.util.List;
 
 public record UserResponseDTO (
+        Long id,
         String name,
         String username,
         UserExperienceLevel experienceLevel,

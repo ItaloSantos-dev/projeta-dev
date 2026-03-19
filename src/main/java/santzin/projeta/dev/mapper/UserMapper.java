@@ -79,6 +79,7 @@ public class UserMapper {
 
 
         return new UserResponseDTO(
+                userModel.getId(),
                 userModel.getName(),
                 userModel.getUsernameProperty(),
                 userModel.getExperienceLevel(),
