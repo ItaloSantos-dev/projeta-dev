@@ -21,4 +21,12 @@ export class UserService {
   setNotificationReadById(id:number):Observable<void>{
     return this.backApi.setNotificationReadById(id);
   }
+
+  getFollowingOfUser(username:string):Observable<User[]>{
+    return this.backApi.getFollowingOfUser(username);
+  }
+
+  getFollowersOfUser(username:string):Observable<User[]>{
+    return this.backApi.getFollowersOfUser(username);
+  }
 }

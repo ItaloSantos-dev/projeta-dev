@@ -93,5 +93,13 @@ export class BackApi {
     setNotificationReadById(id:number):Observable<void>{
         return this.httpClient.put<void>(this.urlBase + "users/notifications/" + id, null);
     }
+
+    getFollowingOfUser(username:string):Observable<User[]>{
+        return this.httpClient.get<User[]>(this.urlBase + "users/" + username + "/following");
+    }
+
+    getFollowersOfUser(username:string):Observable<User[]>{
+        return this.httpClient.get<User[]>(this.urlBase + "users/" + username + "/followers");
+    }
 }
 
