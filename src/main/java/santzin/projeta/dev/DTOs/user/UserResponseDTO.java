@@ -13,7 +13,7 @@ public record UserResponseDTO (
         String username,
         UserExperienceLevel experienceLevel,
         String principalStack,
-        List<ProjectResponseDTO> myProjects,
+        List<ProjectResponseDTO> myProjectsFixed,
         String about,
         String coverUrl,
         String perfilUrl,

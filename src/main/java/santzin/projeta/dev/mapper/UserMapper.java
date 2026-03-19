@@ -43,13 +43,7 @@ public class UserMapper {
         return user;
     }
 
-    public UserResponseDTO modelToResponse(UserModel userModel){
-        List<ProjectResponseDTO> myProjects = new ArrayList<>();
-
-        if (userModel.getMyProjects()!=null)
-            myProjects = userModel.getMyProjects().stream()
-                            .map( p-> this.projectMapper.modelToResponse(p))
-                            .toList();
+    public UserResponseDTO modelToResponse(UserModel userModel, List<ProjectResponseDTO> myProjectsFixed){
 
         List<HabilityResponseDTO> habilitys = new ArrayList<>();
 
@@ -84,7 +78,7 @@ public class UserMapper {
                 userModel.getUsernameProperty(),
                 userModel.getExperienceLevel(),
                 userModel.getPrincipalStack(),
-                myProjects,
+                myProjectsFixed,
                 userModel.getAbout(),
                 userModel.getCoverUrl(),
                 userModel.getPerfilUrl(),

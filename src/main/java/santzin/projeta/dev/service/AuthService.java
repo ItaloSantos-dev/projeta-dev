@@ -13,6 +13,8 @@ import santzin.projeta.dev.mapper.UserMapper;
 import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class AuthService {
 
@@ -39,7 +41,7 @@ public class AuthService {
         if(this.userRepository.existsByEmail(requestDTO.email()))
             throw new FailedRegisterException("Este email já está cadastrado");
         UserModel newUser = userMapper.requestRegisterToModel(requestDTO);
-        return this.userMapper.modelToResponse(this.userRepository.save(newUser));
+        return this.userMapper.modelToResponse(this.userRepository.save(newUser), List.of());
 
     }
 }

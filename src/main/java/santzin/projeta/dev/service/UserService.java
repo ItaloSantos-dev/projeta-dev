@@ -50,7 +50,8 @@ public class UserService implements UserDetailsService {
     public UserResponseDTO getUserByUsername(String username){
         UserModel user = this.userRepository.findByUsernameProperty(username)
                 .orElseThrow(ItemNotFoundException::new);
-        return this.userMapper.modelToResponse(user);
+
+        return this.userMapper.modelToResponse(user, this.projectService.getProjectsFixedByUserId(user.getId()));
     }
 
     public ProjectResponseDTO getProjectOfUserByUsernameAndSlug(String username, String slug){

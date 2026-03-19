@@ -22,6 +22,7 @@ import santzin.projeta.dev.repository.ProjectPositionRepository;
 import santzin.projeta.dev.repository.ProjectRepository;
 import santzin.projeta.dev.repository.ProjectUserRepository;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -177,6 +178,12 @@ public class ProjectService {
 
         project.setFixedPosition(null);
         this.projectRepository.save(project);
+    }
+
+    public List<ProjectResponseDTO> getProjectsFixedByUserId(Long id){
+        return this.projectRepository.findByCreatorIdAndFixedPositionIsNotNull(id).stream()
+                .map(p -> this.projectMapper.modelToResponse(p))
+                .toList();
     }
 
 

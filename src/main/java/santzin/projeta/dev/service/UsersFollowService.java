@@ -50,7 +50,7 @@ public class UsersFollowService {
             throw new ItemNotFoundException();
 
         return this.usersFollowRepository.findByUserFollowingUsernameProperty(username).stream()
-                .map(userFollow -> this.userMapper.modelToResponse(userFollow.getUserFollowed()))
+                .map(userFollow -> this.userMapper.modelToResponse(userFollow.getUserFollowed(), List.of()))
                 .toList();
     }
 
@@ -59,7 +59,7 @@ public class UsersFollowService {
             throw new ItemNotFoundException();
 
         return this.usersFollowRepository.findByUserFollowedUsernameProperty(username).stream()
-                .map(userFollow -> this.userMapper.modelToResponse(userFollow.getUserFollowing()))
+                .map(userFollow -> this.userMapper.modelToResponse(userFollow.getUserFollowing(), List.of()))
                 .toList();
     }
 
