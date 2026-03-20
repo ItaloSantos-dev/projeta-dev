@@ -6,6 +6,7 @@ import { User } from '../../../../types/entity/user';
 import { TokenService } from '../../../service/token/token-service';
 import { CreateHability } from "../create-hability/create-hability";
 import { HabilityService } from '../../../service/hability/hability-service';
+import { ProjectService } from '../../../service/project/project-service';
 
 @Component({
   selector: 'app-show-user',
@@ -20,6 +21,7 @@ export class ShowUser {
   private userService = inject(UserService);
   private tokenService = inject(TokenService);
   private habilityService = inject(HabilityService);
+  private projectService = inject(ProjectService);
 
   shorFormCreateHability = signal(false);
 
@@ -129,4 +131,20 @@ export class ShowUser {
       }
     })
   }
+
+  desfixedProjecById(id:number){
+    this.projectService.desfixedProjectById(id).subscribe({
+      next:()=>{
+        this.loadUser();
+      },
+      error: (erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
+  }
+
+  thisUserIsUserLogged(user:User){
+      return user.username === this.tokenService.getUsernameLogged();
+    }
 }

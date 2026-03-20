@@ -117,5 +117,9 @@ export class BackApi {
     fixedProjectById(id:number):Observable<void>{
         return this.httpClient.post<void>(this.urlBase + "projects/" + id + "/fixed", null);
     }
+
+    desfixedProjectById(id:number):Observable<void>{
+        return this.httpClient.post<void>(this.urlBase + "projects/" + id + "/desfixed", null);
+    }
 }
 

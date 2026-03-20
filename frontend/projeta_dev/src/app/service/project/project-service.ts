@@ -46,4 +46,8 @@ export class ProjectService {
   fixedProjectById(id:number):Observable<void>{
     return this.backApi.fixedProjectById(id);
   }
+
+  desfixedProjectById(id:number):Observable<void>{
+    return this.backApi.desfixedProjectById(id);
+  }
 }
