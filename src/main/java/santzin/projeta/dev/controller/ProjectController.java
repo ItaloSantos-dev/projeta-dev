@@ -98,8 +98,7 @@ public class ProjectController {
     @PostMapping("/{id}/fixed")
     public ResponseEntity<Void> fixedProjectById(
             @AuthenticationPrincipal UserModel user,
-            @PathVariable Long id,
-            @RequestBody Integer position
+            @PathVariable Long id
     ){
         this.projectService.fixedProjectById(user, id);
         return ResponseEntity.ok().build();
