@@ -149,22 +149,26 @@ public class ProjectService {
                 .toList();
     }
 
-    public void fixedProjectById(UserModel user, Long projectId, Integer position){
-        //Vejo se ta no range
-        if (position>4 || position<1)
-            throw new ItemNotFoundException();
-
-        //Vejo se o user ja tem um projeto com essa position
-        if (this.projectRepository.existsByCreatorIdAndFixedPosition(user.getId(), position))
-            throw new NotPermitException();
-
+    public void fixedProjectById(UserModel user, Long projectId){
         ProjectModel project = this.projectRepository.findById(projectId)
                 .orElseThrow(ItemNotFoundException::new);
+        if (project.getFixedPosition()!=null)
+            throw new NotPermitException();
+
+        List<ProjectModel> projectsFixedOfUser = this.projectRepository.findByCreatorIdAndFixedPositionIsNotNull(user.getId());
+
+        Integer newPositionFixed = projectsFixedOfUser.size();
+
+        if (newPositionFixed.equals(5))
+            throw new NotPermitException();
+
+        newPositionFixed++;
+
 
         if (!project.getCreator().getId().equals(user.getId()))
             throw new NotPermitException();
 
-        project.setFixedPosition(position);
+        project.setFixedPosition(newPositionFixed);
 
         this.projectRepository.save(project);
     }

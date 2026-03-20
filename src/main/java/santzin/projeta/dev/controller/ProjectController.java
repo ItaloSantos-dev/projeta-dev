@@ -101,7 +101,7 @@ public class ProjectController {
             @PathVariable Long id,
             @RequestBody Integer position
     ){
-        this.projectService.fixedProjectById(user, id, position);
+        this.projectService.fixedProjectById(user, id);
         return ResponseEntity.ok().build();
     }
 
