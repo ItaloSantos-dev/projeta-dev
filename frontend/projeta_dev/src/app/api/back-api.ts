@@ -113,5 +113,9 @@ export class BackApi {
     followUserById(id:number):Observable<void>{
         return this.httpClient.post<void>(this.urlBase + "users/following/" + id, null);
     }
+
+    fixedProjectById(id:number):Observable<void>{
+        return this.httpClient.post<void>(this.urlBase + "projects/" + id + "/fixed", null);
+    }
 }
 

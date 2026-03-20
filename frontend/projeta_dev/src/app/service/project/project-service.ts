@@ -42,4 +42,8 @@ export class ProjectService {
   updateNotificationAndRequest(notificationId:number,data:UpdateProjectRequestRequestDTO):Observable<void>{
     return this.backApi.updateNotificationAndRequest(notificationId,data);
   }
+
+  fixedProjectById(id:number):Observable<void>{
+    return this.backApi.fixedProjectById(id);
+  }
 }

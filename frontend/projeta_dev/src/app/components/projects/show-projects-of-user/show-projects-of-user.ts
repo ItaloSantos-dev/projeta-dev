@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { Project } from '../../../../types/entity/project';
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ProjectService } from '../../../service/project/project-service';
 import { User } from '../../../../types/entity/user';
 import { UserService } from '../../../service/user/user-service';
 import { UserWithProjects } from '../../../../types/entity/user-with-projects';
+import { TokenService } from '../../../service/token/token-service';
 
 @Component({
   selector: 'app-show-projects-of-user',
@@ -14,6 +15,9 @@ import { UserWithProjects } from '../../../../types/entity/user-with-projects';
 })
 export class ShowProjectsOfUser {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private tokenService = inject(TokenService);
+  private projectService = inject(ProjectService);
 
   projectsCount=0;
 
@@ -36,6 +40,10 @@ export class ShowProjectsOfUser {
   }
 
   ngOnInit(){
+    this.loadUserWithProjects();
+  }
+
+  loadUserWithProjects(){
     this.userService.getUserWithProjects(this.username).subscribe({
       next:(dado)=>{
         this.user.set(dado);
@@ -46,5 +54,21 @@ export class ShowProjectsOfUser {
         
       }
     })
+  }
+
+  fixedProjecById(id:number){
+    this.projectService.fixedProjectById(id).subscribe({
+      next:()=>{
+        this.router.navigate([this.user().username])
+      },
+      error: (erro)=>{
+        console.log(erro.error);
+        
+      }
+    })
+  }
+
+  thisUserIsUserLogged(user:UserWithProjects){
+    return user.username === this.tokenService.getUsernameLogged();
   }
 }
