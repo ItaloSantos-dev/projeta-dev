@@ -16,5 +16,6 @@ export interface Project {
   requestsCount:number;
   contibutors:string[];
   positions:string[];
+  fixed:boolean;
   usersWithRequests:string[];
 }

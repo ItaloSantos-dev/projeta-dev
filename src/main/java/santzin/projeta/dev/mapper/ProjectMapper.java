@@ -97,6 +97,7 @@ public class ProjectMapper {
                 requestCount,
                 users,
                 positions,
+                project.getFixedPosition() != null,
                 usersWithRequests
 
         );

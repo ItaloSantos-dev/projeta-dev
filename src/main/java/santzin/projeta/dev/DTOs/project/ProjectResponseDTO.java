@@ -25,6 +25,7 @@ public record ProjectResponseDTO(
         Integer requestsCount,
         List<String > contibutors,
         List<String> positions,
+        Boolean fixed,
         List<String> usersWithRequests
 ) {
 }
