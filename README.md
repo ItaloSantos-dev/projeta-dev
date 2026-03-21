@@ -92,6 +92,51 @@ ng serve
 
 O frontend estará rodando em `http://localhost:4200`
 
+## 🐳 Testando a Aplicação via Docker
+
+Para testar a aplicação utilizando Docker, siga os passos abaixo. Isso permite executar toda a stack (backend, frontend e banco de dados) em containers isolados.
+
+### Pré-requisitos
+- **Docker** e **Docker Compose** instalados em sua máquina.
+
+### Passos
+
+1. **Clone o repositório** (se ainda não fez):
+   ```bash
+   git clone https://github.com/seu-usuario/projeta.dev.git
+   cd projeta.dev
+   ```
+
+2. **Configure as variáveis de ambiente no docker-compose.yml**:
+   
+   No arquivo `docker-compose.yml`, descomente e configure as variáveis de ambiente para o serviço `back`:
+   ```yaml
+   environment:
+     SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/projection_dev
+     DATABASE_USERNAME: #Seu user postgres
+     DATABASE_PASSWORD: #sua senha postgres
+     JWT_SECRET_USER: u+qgVg7APPXDVGVadCCFzMAiHiF7/Gr0Lhsxn4GC0Ys=
+   ```
+
+3. **Execute o Docker Compose**:
+   ```bash
+   docker-compose up
+   ```
+
+   Isso irá baixar as imagens e iniciar os containers para o banco de dados (PostgreSQL), backend (Spring Boot) e frontend (Angular).
+
+4. **Acesse a aplicação**:
+   - Frontend: `http://localhost:4200`
+   - Backend: `http://localhost:8080` (para APIs)
+   - Banco de dados: `localhost:5432` (se precisar conectar externamente)
+
+5. **Para parar os containers**:
+   ```bash
+   docker-compose down
+   ```
+
+Essa configuração utiliza as imagens Docker pré-construídas do projeto, facilitando o teste sem necessidade de instalar todas as dependências localmente.
+
 ## 🏗️ Estrutura do Projeto
 
 ```
