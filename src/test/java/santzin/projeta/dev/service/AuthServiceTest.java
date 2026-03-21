@@ -101,7 +101,7 @@ class AuthServiceTest {
         Mockito.when(this.userRepository.save(Mockito.any()))
                 .thenReturn(userModel);
 
-        Mockito.when(this.userMapper.modelToResponse(Mockito.any()))
+        Mockito.when(this.userMapper.modelToResponse(Mockito.any(), Mockito.any()))
                 .thenReturn(result);
 
         assertEquals(this.authService.register(request), result);

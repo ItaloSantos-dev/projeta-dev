@@ -6,6 +6,8 @@ import santzin.projeta.dev.model.UserModel;
 import santzin.projeta.dev.model.enums.UserExperienceLevel;
 import santzin.projeta.dev.model.enums.UserRole;
 
+import java.util.List;
+
 public class  UserFactory {
 
     public static class UserFactoryBuilder {
@@ -24,11 +26,31 @@ public class  UserFactory {
         }
 
         public static RegisterRequestDTO registerRequestDTO(){
-            return  new RegisterRequestDTO("italo", "italo@gmail", "1515", "99981587631", UserExperienceLevel.JUNIOR, "Java, Spring");
+            return  new RegisterRequestDTO("italo", "it", "italo@gmail", "1515", "99981587631", UserExperienceLevel.JUNIOR, "Java, Spring");
         }
 
         public static UserResponseDTO userResponseDTO(){
-            return new UserResponseDTO("italo", "italo@gmail", UserExperienceLevel.JUNIOR, "99981587631", "Java, Spring");
+            return new UserResponseDTO(
+                    1L,
+                    "italo",
+                    "it",
+                    UserExperienceLevel.JUNIOR,
+                    "Java, Spring",
+                    List.of(),
+                    "Nada",
+                    "nada",
+                    "nada",
+                    "nada",
+                    "nada",
+                    "nada",
+                    "nada",
+                    "nada",
+                    List.of(),
+                    0,
+                    List.of(),
+                    List.of()
+
+                    );
         }
     }
 }
