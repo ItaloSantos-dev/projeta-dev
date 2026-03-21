@@ -1,0 +1,46 @@
+services:
+  back:
+    depends_on:
+      - db
+    image: italosantosdev/projeta.dev-back:0.0.4-RELEASE
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/projection_dev
+      DATABASE_USERNAME: #Seu user postgres
+      DATABASE_PASSWORD: #sua senha postgres
+      JWT_SECRET_USER: u+qgVg7APPXDVGVadCCFzMAiHiF7/Gr0Lhsxn4GC0Ys=
+    networks:
+      - public_network
+      - private_network
+
+
+
+  front:
+    image: italosantosdev/projeta.dev-front:0.0.2-RELEASE
+    networks:
+      - public_network
+    ports:
+      - "4200:4200"
+    depends_on:
+      - back
+
+  db:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    networks:
+      - private_network
+    environment:
+      POSTGRES_DB: projection_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1131
+
+
+
+
+networks:
+  public_network:
+    driver: bridge
+  private_network:
+    driver: bridge
