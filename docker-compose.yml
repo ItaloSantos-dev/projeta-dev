@@ -2,13 +2,15 @@ services:
   back:
     depends_on:
       - db
-    image: italosantosdev/projeta.dev-back:0.0.4-RELEASE
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/projection_dev
-      DATABASE_USERNAME: #Seu user postgres
-      DATABASE_PASSWORD: #sua senha postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: 1131
       JWT_SECRET_USER: u+qgVg7APPXDVGVadCCFzMAiHiF7/Gr0Lhsxn4GC0Ys=
     networks:
       - public_network
@@ -17,7 +19,9 @@ services:
 
 
   front:
-    image: italosantosdev/projeta.dev-front:0.0.2-RELEASE
+    build:
+      context: ./frontend/projeta_dev
+      dockerfile: Dockerfile
     networks:
       - public_network
     ports:
