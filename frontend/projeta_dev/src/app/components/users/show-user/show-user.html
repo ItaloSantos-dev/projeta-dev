@@ -240,10 +240,11 @@
         </div>
     </div>
 <!-- " -->
-    <app-create-hability
-        *ngIf="shorFormCreateHability()"
+    @if (isShorFormCreateHability()) {
+        <app-create-hability
         class="absolute"
         (closeForm)="closeFormCreateHability()"
-    >
-    </app-create-hability>
+        >
+        </app-create-hability>
+    }
 </div>

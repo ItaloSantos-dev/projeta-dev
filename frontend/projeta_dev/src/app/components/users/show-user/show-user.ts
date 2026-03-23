@@ -23,12 +23,14 @@ export class ShowUser {
   private habilityService = inject(HabilityService);
   private projectService = inject(ProjectService);
 
-  shorFormCreateHability = signal(false);
+  isShorFormCreateHability = signal(false);
 
   showFormCreateHability(){
     console.log("abbb");
     
-    this.shorFormCreateHability.set(true);
+    this.isShorFormCreateHability.set(true);
+    console.log(this.isShorFormCreateHability());
+    
   }
 
   user = signal(<User> ({} as User));
@@ -62,7 +64,7 @@ export class ShowUser {
   closeFormCreateHability(){
     console.log("fechando");
     
-    this.shorFormCreateHability.set(false);
+    this.isShorFormCreateHability.set(false);
     this.loadUser();
   }
 
